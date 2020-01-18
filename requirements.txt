@@ -1,0 +1,6 @@
+Flask==1.1.1
+gunicorn == 19.9.0
+python-dotenv == 0.10.3
+google-cloud-datastore==1.10.0
+google-api-python-client == 1.7.11
+flask-restful==0.3.7

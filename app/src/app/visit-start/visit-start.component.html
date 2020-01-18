@@ -1,0 +1,21 @@
+<div *ngIf="isOverview === true">
+    <p>Overview explanation here</p>
+    <button (click)="onNextButtonClicked()">Create visit</button>
+</div>
+<div *ngIf="isOverview === false">
+    <p>Create visit explanation here...</p>
+</div>
+
+<div>
+    <form>
+    <input placeholder="場所" type="text" id="name" name="name" minlength="4" required [(ngModel)]="model.name">
+
+    <igx-navbar [title]="title" actionButtonIcon="menu" (onAction)="onClickMenu()"></igx-navbar>
+    <h1>{{title}}</h1>
+
+
+
+    <input placeholder="コメント" type="text" id="name" name="name" minlength="4" required [(ngModel)]="model.name"> 
+    <button type="submit">Submit</button>
+    </form>
+</div>

@@ -6,16 +6,47 @@
     <p>Create visit explanation here...</p>
 </div>
 
-<div>
-    <form>
-    <input placeholder="場所" type="text" id="name" name="name" minlength="4" required [(ngModel)]="model.name">
+<form class="form-horizontal" (ngSubmit)="onSubmit()" #form1="ngForm">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Place</label>
+    <div class="col-sm-5">
+      <input type="text" name="name" required class="form-control" [(ngModel)]="visit.place" #name="ngModel">
+        <div
+          class="alert alert-danger"
+          [hidden]="name.valid || name.untouched">
+          <span class="glyphicon glyphicon-exclamation-sign"></span> Place is required
+        </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Start</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" name="start date" required [(ngModel)]="visit.start" #start="ngModel">
+      <div class="alert alert-danger" [hidden]="start.valid || start.untouched">
+        <span class="glyphicon glyphicon-exclamation-sign"></span> Start time is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">End</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" name="end date" required [(ngModel)]="visit.end" #end="ngModel">
+      <div class="alert alert-danger" [hidden]="end.valid || end.untouched">
+        <span class="glyphicon glyphicon-exclamation-sign"></span> End time is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Comment</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" name="nickname" [(ngModel)]="visit.comment" #comment>
+    </div>
+  </div>
 
-    <igx-navbar [title]="title" actionButtonIcon="menu" (onAction)="onClickMenu()"></igx-navbar>
-    <h1>{{title}}</h1>
-
-
-
-    <input placeholder="コメント" type="text" id="name" name="name" minlength="4" required [(ngModel)]="model.name"> 
-    <button type="submit">Submit</button>
-    </form>
-</div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!form1.form.valid">Submit</button>
+    </div>
+  </div>
+</form>

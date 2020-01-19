@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { IgxCalendarModule, IgxNavbarModule } from 'igniteui-angular';
 
@@ -12,6 +13,8 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'ang
 import { LandingComponent } from './landing/landing.component';
 import { VisitStartComponent } from './visit-start/visit-start.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatIconModule, MatButtonModule, MatCardModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
@@ -40,12 +43,14 @@ export function provideConfig() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     SocialLoginModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    IgxNavbarModule
+    IgxNavbarModule,
+    NgbModule
   ],
   providers: [
     {

@@ -45,6 +45,27 @@ export class ApiService {
 
     }
 
+    getVisitData(body: object): Observable<string> {
+        console.log('createUserData');
+        return this.http.get<string>(Constants.url_visits, body)
+        .pipe(
+            tap(heroes => console.log('fetched users')),
+            catchError(this.handleError<string>('getVisitData', 'Error'))
+            );
+
+    }
+
+    createVisitData(body: object): Observable<string> {
+        console.log('createVisitData');
+        return this.http.post<string>(Constants.url_visits, body)
+        .pipe(
+            tap(heroes => console.log('fetched users')),
+            catchError(this.handleError<string>('createVisitData', 'Error'))
+            );
+
+    }
+
+
     private handleError<T> (operation = 'operation', result?: T) {
         // console.error('Error ocurred');
         return (error: any): Observable<T> => {

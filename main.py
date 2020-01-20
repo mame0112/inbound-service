@@ -51,17 +51,44 @@ class User(Resource):
         return dataManager.update_user(user)
 
 
+class Visit(Resource):
+
+    def get(self):
+        log.debug('get')
+        return
+
+    def post(self):
+        log.debug('post')
+        visit_data = request.json
+
+        dataManager = DatastoreManager()
+        return dataManager.create_visit(visit_data)
+
+
+class Host(Resource):
+
+    def get(self):
+        log.debug('get')
+        return
+
+    def post(self):
+        log.debug('get')
+        return
+
+
 class Conversation(Resource):
 
     def get(self):
         log.debug('get')
         return
 
-# @app.route('/users/<int:userid>', methods=['GET'])
-# def get_user(userid=None):
-#     dataManager = DatastoreManager()
-#     return dataManager.get_user(userid)
-    # return app.send_static_file('index.html')
+    def post(self):
+        log.debug('get')
+        return
+
+    def put(self):
+        log.debug('get')
+        return
 
 
 @app.route('/callback/<input>')
@@ -79,6 +106,9 @@ def angular():
 
 
 api.add_resource(User, '/users')
+api.add_resource(Host, '/hosts')
+api.add_resource(Visit, '/visits')
+api.add_resource(Conversation, '/conversations')
 
 
 if __name__ == '__main__':

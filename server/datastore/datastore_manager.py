@@ -1,5 +1,6 @@
 import json
 import threading
+import time
 
 from server.util.logger import Logger
 
@@ -12,8 +13,6 @@ from google.cloud import datastore
 class DatastoreManager:
 
     log = Logger("DatastoreManager")
-
-    result = Result()
 
     _instance = None
     _lock = threading.Lock()
@@ -30,6 +29,7 @@ class DatastoreManager:
     # USser
     def get_user(self, user_id):
         self.log.debug('get_user')
+        result = Result()
 
         if user_id == Consts.NO_USER:
             raise ValueError('User ID cannot be -1')
@@ -55,6 +55,7 @@ class DatastoreManager:
 
     def create_user(self, userJson):
         self.log.debug('create_user')
+        result = Result()
 
         try:
             client = datastore.Client()
@@ -82,6 +83,7 @@ class DatastoreManager:
 
     def update_user(self, userJson):
         self.log.debug('update_user')
+        result = Result()
 
         client = datastore.Client()
         key = client.key(USER.KEY_USER_ID, user_id)
@@ -121,8 +123,40 @@ class DatastoreManager:
         self.log.debug('get_visit')
         return
 
-    def create_visit(self):
+    def create_visit(self, visit_json):
         self.log.debug('create_visit')
+        result = Result()
+
+        try:
+            ut = int(time.time())
+
+            client = datastore.Client()
+            key = client.key(Visit.KIND_NAME, ut)
+
+            entity = datastore.Entity(key=key)
+            # entity[Visit.KEY_VISIT_ID] = visit_json[Visit.KEY_VISIT_ID]
+            entity[Visit.KEY_VISIT_ID] = ut
+            entity[Visit.KEY_USER_ID] = visit_json[Visit.KEY_USER_ID]
+            entity[Visit.KEY_USER_NAME] = visit_json[Visit.KEY_USER_NAME]
+            entity[Visit.KEY_THUMB_URL] = visit_json[Visit.KEY_THUMB_URL]
+            entity[Visit.KEY_PLACE] = visit_json[Visit.KEY_PLACE]
+            entity[Visit.KEY_START] = visit_json[Visit.KEY_START]
+            entity[Visit.KEY_END] = visit_json[Visit.KEY_END]
+            entity[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]
+
+            client.put(entity)
+
+            return result.get_result_json()
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result.get_result_json()
+
+    def generate_visit_id(self):
+        self.log.debug('generate_visit_id')
         return
 
     def get_conversation(self, conv_id):

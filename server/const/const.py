@@ -36,10 +36,14 @@ class Host:
 
 class Visit:
     KIND_NAME = "visit"
+    KEY_VISIT_ID = "visit_id"
     KEY_USER_ID = "user_id"
     KEY_USER_NAME = "user_name"
     KEY_THUMB_URL = "thumb_url"
-    KEY_PLAN = "plan"
+    KEY_PLACE = "place"
+    KEY_START = "start"
+    KEY_END = "end"
+    KEY_COMMENT = "comment"
 
 
 class HttpResponseCode:

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ApiService} from '../api.service';
+
 import { Visit } from '../visit';
+import { VisitDataBuider } from '../data-builder/visit-data-builder';
 
 @Component({
   selector: 'app-visit-start',
@@ -12,9 +15,9 @@ export class VisitStartComponent implements OnInit {
     isOverview = true;
     title = 'Test title';
 
-    visit = new Visit("Tokyo", "2020/01/20", "2020/01/22", "I would like to go to xxxx")
+    visit = new Visit();
 
-    constructor() { }
+    constructor(private apiService: ApiService) { }
 
     ngOnInit() {
     }
@@ -29,6 +32,14 @@ export class VisitStartComponent implements OnInit {
     }
 
     onSubmit(){
+        this.createVisitJson(this.visit)
         console.log('Submitted:' + JSON.stringify(this.visit));
+        this.apiService.createVisitData(this.visit).subscribe(params => console.log(params));
+    }
+
+    createVisitJson(visit: Visit): void {
+        this.visit.setUserId(1);
+        this.visit.setThumbUrl('https://xxxx');
+        this.visit.setUserName("Test user name");
     }
 }

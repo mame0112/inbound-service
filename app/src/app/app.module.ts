@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule, MatButtonModule, MatCardModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { HostStartComponent } from './host-start/host-start.component';
 
 const config = new AuthServiceConfig([
 {
@@ -37,7 +38,8 @@ export function provideConfig() {
     LandingComponent,
     VisitStartComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HostStartComponent
   ],
   imports: [
     BrowserModule,

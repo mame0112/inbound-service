@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { flatMap } from 'rxjs/operators';
+
 import { ApiService} from '../api.service';
 
 import { Visit } from '../visit';
@@ -34,7 +36,22 @@ export class VisitStartComponent implements OnInit {
     onSubmit(){
         this.createVisitJson(this.visit)
         console.log('Submitted:' + JSON.stringify(this.visit));
-        this.apiService.createVisitData(this.visit).subscribe(params => console.log(params));
+        // this.apiService.createVisitData(this.visit).subscribe(params => console.log(params));
+        // this.apiService.createVisitData(this.visit).pipe(
+        //     flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
+
+        this.apiService.createVisitData(this.visit).pipe(
+            flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
+
+        //     this.apiService.getHostData(params2 => console.log(params2));
+
+        //     const obj = JSON.parse(params);
+        //     if(obj.responseCode == 200){
+        //         this.apiService.getHostData(params => console.log(params));
+        //     } else {
+        //         console.log('ResponseCode is not 200')
+        //     }
+        // });
     }
 
     createVisitJson(visit: Visit): void {

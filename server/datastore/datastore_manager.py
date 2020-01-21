@@ -7,6 +7,8 @@ from server.util.logger import Logger
 from server.const.const import User, Conversation, Host, Visit, HttpResponseCode
 from server.result.result import Result
 
+from server.datastore.data_processor.host_dataformat_processor import HostDataFormatProcessor
+
 from google.cloud import datastore
 
 
@@ -113,7 +115,18 @@ class DatastoreManager:
 
     def get_host(self):
         self.log.debug('get_host')
-        return
+
+        client = datastore.Client()
+        query = client.query(kind=Host.KEY_NAME)
+        entities = list(query.fetch())
+
+        jsonobj = {"contents": []}
+        processor = HostDataFormatProcessor()
+
+        for entity in entities:
+            content = processor.entityToJson(entity)
+            jsonobj.append(content)
+        return json.dumps(jsonobj)
 
     def create_host(self):
         self.log.debug('create_host')
@@ -156,6 +169,7 @@ class DatastoreManager:
         return result.get_result_json()
 
     def generate_visit_id(self):
+        # TODO Implement visi id generation
         self.log.debug('generate_visit_id')
         return
 

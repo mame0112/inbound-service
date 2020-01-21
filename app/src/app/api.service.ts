@@ -65,6 +65,16 @@ export class ApiService {
 
     }
 
+    getHostData(): Observable<string> {
+        console.log('getHostData');
+        return this.http.get<string>(Constants.url_hosts)
+        .pipe(
+            tap(heroes => console.log('fetched users')),
+            catchError(this.handleError<string>('getHostData', 'Error'))
+            );
+
+    }
+
 
     private handleError<T> (operation = 'operation', result?: T) {
         // console.error('Error ocurred');

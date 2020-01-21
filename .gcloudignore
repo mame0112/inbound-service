@@ -20,3 +20,4 @@ __pycache__/
 
 lib/
 app/node_modules/
+node_modules/

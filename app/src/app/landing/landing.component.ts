@@ -33,19 +33,6 @@ export class LandingComponent implements OnInit {
       }
     });
 
-
-
-        // this.apiService.createUserData(this.createJsonUserData(this.user));
-
-
-    // const myObserver = {
-    //   next: x => console.log('Observer got a next value: ' + x),
-    //   error: err => console.error('Observer got an error: ' + err),
-    //   complete: () => console.log('Observer got a complete notification'),
-    // };
-
-    // this.authService.authState.subscribe(myObserver);
-
   }
 
   signInWithFB(): void {

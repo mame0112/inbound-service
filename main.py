@@ -69,7 +69,9 @@ class Host(Resource):
 
     def get(self):
         log.debug('get')
-        return
+        host_data = request.json
+        dataManager = DatastoreManager()
+        return dataManager.get_host()
 
     def post(self):
         log.debug('get')

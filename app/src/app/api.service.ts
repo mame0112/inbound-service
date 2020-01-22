@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClientModule }    from '@angular/common/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -45,9 +45,13 @@ export class ApiService {
 
     }
 
-    getVisitData(body: object): Observable<string> {
+    getVisitData(visit_id: number): Observable<string> {
         console.log('createUserData');
-        return this.http.get<string>(Constants.url_visits, body)
+        console.log(visit_id);
+        const params = new HttpParams().set('visit_id', String(visit_id));
+        return this.http.get<string>(Constants.url_visits, {params})
+        // params: new HttpParams().set('visit_id', '${visit_id}')
+
         .pipe(
             tap(heroes => console.log('fetched users')),
             catchError(this.handleError<string>('getVisitData', 'Error'))

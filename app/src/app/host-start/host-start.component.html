@@ -1,1 +1,8 @@
 <p>host-start works!</p>
+<div *ngIf="isOverview === true">
+    <p>Overview explanation here</p>
+    <button (click)="onNextButtonClicked()">Create visit</button>
+</div>
+<div *ngIf="isOverview === false">
+    <p>マッチングを待っています。マッチングしたらFacebookのメッセージでお知らせします</p>
+</div>

@@ -2,7 +2,7 @@ import sys
 from flask import Flask, jsonify, request
 from flask_restful import reqparse, abort, Api, Resource
 
-from server.const.const import User, Conversation, Host, Visit
+from server.const.const import User, Conversation, Host, Visit, HttpResponseCode
 
 from server.util.logger import Logger
 
@@ -30,7 +30,7 @@ class User(Resource):
         dataManager = DatastoreManager()
         res = dataManager.get_user(user_id)
         result = res[0]
-        if result.get_http_response_code == HttpResponseCode.OK:
+        if result['responseCode'] == HttpResponseCode.OK:
             return res[1]
         else:
             return result
@@ -55,7 +55,16 @@ class Visit(Resource):
 
     def get(self):
         log.debug('get')
-        return
+        visit_id = request.args['visit_id']
+        log.debug(visit_id)
+        # log.debug(visit_id)
+        dataManager = DatastoreManager()
+        res = dataManager.get_visit(visit_id)
+        result = res[0]
+        if result['responseCode'] == HttpResponseCode.OK:
+            return res[1]
+        else:
+            return result
 
     def post(self):
         log.debug('post')

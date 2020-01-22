@@ -13,10 +13,10 @@ class Result:
         self.log.debug('Initialize')
 
     def set_http_response_code(self, responseCode):
-        this.responseCode = responseCode
+        self.responseCode = responseCode
 
     def set_error_message(self, message):
-        this.message = message
+        self.message = message
 
     def is_successed(self):
         return True if this.responseCode == HttpResponseCode.OK else False

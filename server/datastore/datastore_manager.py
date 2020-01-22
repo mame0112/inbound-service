@@ -4,10 +4,11 @@ import time
 
 from server.util.logger import Logger
 
-from server.const.const import User, Conversation, Host, Visit, HttpResponseCode
+from server.const.const import Consts, User, Conversation, Host, Visit, HttpResponseCode
 from server.result.result import Result
 
 from server.datastore.data_processor.host_dataformat_processor import HostDataFormatProcessor
+from server.datastore.data_processor.visit_dataformat_processor import VisitDataFormatProcessor
 
 from google.cloud import datastore
 
@@ -38,7 +39,7 @@ class DatastoreManager:
 
         try:
             client = datastore.Client()
-            key = client.key(USER.KEY_USER_ID, user_id)
+            key = client.key(USER.KIND_NAME, user_id)
             entity = client.get(key)
 
             userJson = {
@@ -88,7 +89,7 @@ class DatastoreManager:
         result = Result()
 
         client = datastore.Client()
-        key = client.key(USER.KEY_USER_ID, user_id)
+        key = client.key(USER.KIND_NAME, user_id)
         entity = client.get(key)
 
         if userJson[User.KEY_USER_NAME] != None:
@@ -117,7 +118,7 @@ class DatastoreManager:
         self.log.debug('get_host')
 
         client = datastore.Client()
-        query = client.query(kind=Host.KEY_NAME)
+        query = client.query(Host.KEY_NAME)
         entities = list(query.fetch())
 
         jsonobj = {"contents": []}
@@ -132,9 +133,46 @@ class DatastoreManager:
         self.log.debug('create_host')
         return
 
-    def get_visit(self):
+    def get_visit(self, visit_id):
         self.log.debug('get_visit')
-        return
+        self.log.debug(visit_id)
+        result = Result()
+
+        client = datastore.Client()
+
+        if visit_id == Consts.ALL_VISITS or visit_id == None:
+            # Get latest 5 visits
+            try:
+                query = client.query(kind=Visit.KIND_NAME)
+                entities = list(query.fetch())
+                processor = VisitDataFormatProcessor()
+                visit_jsonobj = processor.entities_to_jsonarray(entities)
+                # self.log.debug(json.dumps(visit_jsonobj))
+                return result.get_result_json(), visit_jsonobj
+            except ValueError as error:
+                self.log.debug(error)
+                result.set_error_message(error)
+                result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+                return result.get_result_json()
+
+        else:
+            # Get certain visit
+            try:
+                key = client.key(Visit.KIND_NAME, visit_id)
+                entity = client.get(key)
+                processor = VisitDataFormatProcessor()
+                visit_json = processor.entityToJson(entity)
+
+                self.log.debug(json.dumps(visit_json))
+
+                return result.get_result_json(), visit_json
+
+            except ValueError as error:
+                self.log.debug(error)
+                result.set_error_message(error)
+                result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+                return result.get_result_json()
+        return result.get_result_json()
 
     def create_visit(self, visit_json):
         self.log.debug('create_visit')

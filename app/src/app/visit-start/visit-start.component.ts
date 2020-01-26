@@ -40,6 +40,8 @@ export class VisitStartComponent implements OnInit {
         // this.apiService.createVisitData(this.visit).pipe(
         //     flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
 
+        // let result = this.creteVisitData();
+
         this.apiService.createVisitData(this.visit).pipe(
             flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
 
@@ -53,6 +55,10 @@ export class VisitStartComponent implements OnInit {
         //     }
         // });
     }
+
+    // creteVisitData(): any{
+    //     this.apiService.createVisitData(this.visit).subscribe(params => {return params});
+    // }
 
     createVisitJson(visit: Visit): void {
         this.visit.setUserId(1);

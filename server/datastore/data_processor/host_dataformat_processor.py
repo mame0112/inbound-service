@@ -18,10 +18,6 @@ class HostDataFormatProcessor(AbstractDataFormatProcessor):
         self.log.debug('entityToJson')
         data = {}
         data[Host.KEY_NAME] = entity[Host.KEY_NAME]
-        data[Host.KEY_PLACE] = entity[Host.KEY_PLACE]
-        data[Host.KEY_START] = entity[Host.KEY_START]
-        data[Host.KEY_END] = entity[Host.KEY_END]
-        data[Host.KEY_COMMENT] = entity[Host.KEY_COMMENT]
         data[Host.KEY_USER_ID] = entity[Host.KEY_USER_ID]
         data[Host.KEY_USER_NAME] = entity[Host.KEY_USER_NAME]
         data[Host.KEY_THUMB_URL] = entity[Host.KEY_THUMB_URL]
@@ -32,5 +28,11 @@ class HostDataFormatProcessor(AbstractDataFormatProcessor):
 
         return data
 
-    def jsonToEntity(self, json):
+    def jsonToEntity(self, host_json, entity):
         self.log.debug('jsonToEntity')
+
+        entity[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
+        entity[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]
+        entity[Host.KEY_THUMB_URL] = host_json[Host.KEY_THUMB_URL]
+
+        return entity

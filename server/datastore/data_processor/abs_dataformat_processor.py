@@ -8,5 +8,5 @@ class AbstractDataFormatProcessor(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def jsonToEntity(self, json):
+    def jsonToEntity(self, json, entity):
         pass

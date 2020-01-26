@@ -129,9 +129,37 @@ class DatastoreManager:
             jsonobj.append(content)
         return json.dumps(jsonobj)
 
-    def create_host(self):
+    def create_host(self, host_json):
         self.log.debug('create_host')
-        return
+        self.log.debug(host_json)
+
+        result = Result()
+
+        try:
+            client = datastore.Client()
+
+            key = client.key(Host.KIND_NAME, host_json[Host.KEY_USER_ID])
+
+            # Check if this user already exists
+            if client.get(key) is not None:
+                self.log.debug('Content already exist')
+                # TODO Need to consider return value
+                return result.get_result_json()
+            else:
+                entity = datastore.Entity(key=key)
+                processor = HostDataFormatProcessor()
+                entity = processor.jsonToEntity(host_json, entity)
+
+                client.put(entity)
+
+                return result.get_result_json()
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result.get_result_json()
 
     def get_visit(self, visit_id):
         self.log.debug('get_visit')
@@ -160,12 +188,16 @@ class DatastoreManager:
             try:
                 key = client.key(Visit.KIND_NAME, visit_id)
                 entity = client.get(key)
-                processor = VisitDataFormatProcessor()
-                visit_json = processor.entityToJson(entity)
+                if entity != None:
+                    self.log.debug('entity is not none')
+                    processor = VisitDataFormatProcessor()
+                    visit_json = processor.entityToJson(entity)
 
-                self.log.debug(json.dumps(visit_json))
-
-                return result.get_result_json(), visit_json
+                    # self.log.debug(json.dumps(visit_json))
+                    return result.get_result_json(), visit_json
+                else:
+                    self.log.debug('entity is none')
+                    return result.get_result_json()
 
             except ValueError as error:
                 self.log.debug(error)

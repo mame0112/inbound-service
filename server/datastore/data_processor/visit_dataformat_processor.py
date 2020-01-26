@@ -53,5 +53,5 @@ class VisitDataFormatProcessor(AbstractDataFormatProcessor):
 
         return json.dumps(jsonobj)
 
-    def jsonToEntity(self, json):
+    def jsonToEntity(self, json, entity):
         self.log.debug('jsonToEntity')

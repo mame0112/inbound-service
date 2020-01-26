@@ -6,4 +6,6 @@ export class Constants {
 
     public static readonly ALL_VISITS = -1;
 
+    public static readonly RESPONSE_OK = 200;
+
 }

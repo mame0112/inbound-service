@@ -43,15 +43,5 @@ export class Visit {
         this.comment = comment;
     }
 
-
-    // constructor(
-    //     public visit_id: number,
-    //     public user_id: number,
-    //     public user_name: string,
-    //     public thumb_url: string,
-    //     public place: string,
-    //     public start: string,
-    //     public end: string,
-    //     public comment?: string){}
     
 }

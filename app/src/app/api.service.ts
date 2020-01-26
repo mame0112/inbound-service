@@ -45,17 +45,24 @@ export class ApiService {
 
     }
 
-    getVisitData(visit_id: number): Observable<string> {
-        console.log('createUserData');
-        console.log(visit_id);
-        const params = new HttpParams().set('visit_id', String(visit_id));
-        return this.http.get<string>(Constants.url_visits, {params})
-        // params: new HttpParams().set('visit_id', '${visit_id}')
+    // getVisitData(visit_id: number): Observable<string> {
+    //     console.log('getVisitData');
+    //     const params = new HttpParams().set('visit_id', String(visit_id));
+    //     return this.http.get<string>(Constants.url_visits, {params})
+    //     // params: new HttpParams().set('visit_id', '${visit_id}')
 
-        .pipe(
-            tap(heroes => console.log('fetched users')),
-            catchError(this.handleError<string>('getVisitData', 'Error'))
-            );
+    //     .pipe(
+    //         tap(heroes => console.log('fetched users')),
+    //         catchError(this.handleError<string>('getVisitData', 'Error'))
+    //         );
+
+    // }
+
+
+    getVisitData(visit_id: number): Observable<string> {
+        console.log('getVisitData');
+        const params = new HttpParams().set('visit_id', String(visit_id));
+        return this.http.get<string>(Constants.url_visits, {params});
 
     }
 
@@ -77,6 +84,22 @@ export class ApiService {
             catchError(this.handleError<string>('getHostData', 'Error'))
             );
 
+    }
+
+    // createHostData(json_string: string): Observable<string> {
+    //     console.log('createHostData');
+    //     console.log(json_string);
+    //     return this.http.post<string>(Constants.url_hosts, json_string)
+    //     .pipe(
+    //         tap(heroes => console.log('fetched users')),
+    //         catchError(this.handleError<string>('createHostData', 'Error'))
+    //         );
+    // }
+
+    createHostData(body: object): Observable<string> {
+        console.log('createHostData');
+        console.log(body);
+        return this.http.post<string>(Constants.url_hosts, body);
     }
 
 

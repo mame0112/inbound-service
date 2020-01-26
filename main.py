@@ -59,12 +59,21 @@ class Visit(Resource):
         log.debug(visit_id)
         # log.debug(visit_id)
         dataManager = DatastoreManager()
-        res = dataManager.get_visit(visit_id)
-        result = res[0]
-        if result['responseCode'] == HttpResponseCode.OK:
-            return res[1]
-        else:
-            return result
+        result = dataManager.get_visit(visit_id)
+        return result
+        # if isinstance(result, dict) == True:
+        #     log.debug('True')
+        #     log.debug(len(result))
+        #     log.debug(type(result[0]))
+        #     log.debug(type(result[1]))
+        # # result = res[0]
+        # # if result['responseCode'] == HttpResponseCode.OK:
+        # #     return result
+        # # else:
+        #     return result[1]
+        # else:
+        #     log.debug('False')
+        #     return result
 
     def post(self):
         log.debug('post')
@@ -83,8 +92,10 @@ class Host(Resource):
         return dataManager.get_host()
 
     def post(self):
-        log.debug('get')
-        return
+        log.debug('post')
+        host_data = request.json
+        dataManager = DatastoreManager()
+        return dataManager.create_host(host_data)
 
 
 class Conversation(Resource):

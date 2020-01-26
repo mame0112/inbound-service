@@ -29,11 +29,7 @@ class Conversation:
 
 
 class Host:
-    KEY_NAME = "host"
-    KEY_PLACE = "place"
-    KEY_START = "start"
-    KEY_END = "end"
-    KEY_COMMENT = "comment"
+    KIND_NAME = "host"
     KEY_USER_ID = "user_id"
     KEY_USER_NAME = "user_name"
     KEY_THUMB_URL = "thumb_url"

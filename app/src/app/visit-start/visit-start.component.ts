@@ -55,13 +55,19 @@ export class VisitStartComponent implements OnInit {
 
         this.apiService.createVisitData(this.visit).pipe(
             flatMap((params1) => this.apiService.getHostData())).subscribe(param2 => {
-                if(param2['responseCode'] == Constants.RESPONSE_OK){
-                    console.log('Matched with Host');
-                    this.state = VisitStartComponent.MatchedWithHost;
+                if(param2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+                    let content = param2[Constants.CONTENT];
+                    if(content !== null && content.length >= 1) {
+                        // Host is waiting
+                        console.log('Matched with Host');
+                        this.state = VisitStartComponent.MatchedWithHost;
+                    } else {
+                        console.log('Host is not waiting');
+                        console.log(param2);
+                        this.state = VisitStartComponent.WaitingForHost;
+                    }
                 } else {
-                    console.log('Host is not waiting');
-                    console.log(param2);
-                    this.state = VisitStartComponent.WaitingForHost;
+                    console.log('Error ocurred');
                 }
 
             });

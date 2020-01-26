@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatIconModule, MatButtonModule, MatCardModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HostStartComponent } from './host-start/host-start.component';
@@ -53,6 +55,7 @@ export function provideConfig() {
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatToolbarModule,
     IgxNavbarModule,
     NgbModule
   ],

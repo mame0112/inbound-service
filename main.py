@@ -56,19 +56,6 @@ class Visit(Resource):
         dataManager = DatastoreManager()
         result = dataManager.get_visit(visit_id)
         return result.get_result_json()
-        # if isinstance(result, dict) == True:
-        #     log.debug('True')
-        #     log.debug(len(result))
-        #     log.debug(type(result[0]))
-        #     log.debug(type(result[1]))
-        # # result = res[0]
-        # # if result['responseCode'] == HttpResponseCode.OK:
-        # #     return result
-        # # else:
-        #     return result[1]
-        # else:
-        #     log.debug('False')
-        #     return result
 
     def post(self):
         log.debug('post')

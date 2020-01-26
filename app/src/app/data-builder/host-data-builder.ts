@@ -1,6 +1,6 @@
 import { Host } from '../host';
 
-export class HostDataBuider {
+export class HostDataBuilder {
 
     host = new Host()
 
@@ -8,24 +8,23 @@ export class HostDataBuider {
         // Nothing to do
     }
 
-    setUserId(user_id: number): HostDataBuider {
+    setUserId(user_id: number): HostDataBuilder {
         this.host.setUserId(user_id);
         return this;
     }
 
-    setUserName(user_name: string): HostDataBuider {
+    setUserName(user_name: string): HostDataBuilder {
         this.host.setUserName(user_name);
         return this;
     }
 
-    setThumbUrl(thumb_url: string): HostDataBuider {
+    setThumbUrl(thumb_url: string): HostDataBuilder {
         this.host.setThumbUrl(thumb_url);
         return this;        
     }
 
-
     getResult(): Host{
-        return this.host
+        return this.host;
     }
 
 }

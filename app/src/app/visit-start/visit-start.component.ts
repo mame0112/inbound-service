@@ -5,8 +5,9 @@ import { flatMap } from 'rxjs/operators';
 import { ApiService} from '../api.service';
 import { Visit } from '../visit';
 
-import { Constants } from '../constants';
-import { VisitDataBuider } from '../data-builder/visit-data-builder';
+import { Constants, Host } from '../constants';
+import { VisitDataBuilder } from '../data-builder/visit-data-builder';
+import { HostDataBuilder } from '../data-builder/host-data-builder';
 
 @Component({
   selector: 'app-visit-start',
@@ -17,6 +18,7 @@ export class VisitStartComponent implements OnInit {
 
     isOverview = true;
     title = 'Test title';
+    host: Host;
 
     static readonly Start = 1;
     static readonly Creation = 2;
@@ -60,6 +62,13 @@ export class VisitStartComponent implements OnInit {
                     if(content !== null && content.length >= 1) {
                         // Host is waiting
                         console.log('Matched with Host');
+
+                        let first_host = content[0];
+                        console.log(first_host);
+
+                        let builder = new HostDataBuilder();
+                        this.host = builder.setUserId(first_host[Host.KEY_USER_ID]).setUserName(first_host[Host.KEY_USER_NAME]).setThumbUrl(first_host[Host.KEY_THUMB_URL]).getResult();
+
                         this.state = VisitStartComponent.MatchedWithHost;
                     } else {
                         console.log('Host is not waiting');
@@ -86,6 +95,10 @@ export class VisitStartComponent implements OnInit {
     // creteVisitData(): any{
     //     this.apiService.createVisitData(this.visit).subscribe(params => {return params});
     // }
+
+    startConversation(): void {
+        console.log('startConversation');
+    }
 
     createVisitJson(visit: Visit): void {
         this.visit.setUserId(1);

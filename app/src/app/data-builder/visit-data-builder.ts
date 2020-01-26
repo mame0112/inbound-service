@@ -1,6 +1,6 @@
 import { Visit } from '../visit';
 
-export class VisitDataBuider {
+export class VisitDataBuilder {
 
     visit = new Visit()
 
@@ -8,42 +8,42 @@ export class VisitDataBuider {
         // Nothing to do
     }
 
-    setVisitId(visit_id: number): VisitDataBuider {
+    setVisitId(visit_id: number): VisitDataBuilder {
         this.visit.setVisitId(visit_id);
         return this;
     }
 
-    setUserId(user_id: number): VisitDataBuider {
+    setUserId(user_id: number): VisitDataBuilder {
         this.visit.setUserId(user_id);
         return this;
     }
 
-    setUserName(user_name: string): VisitDataBuider {
+    setUserName(user_name: string): VisitDataBuilder {
         this.visit.setUserName(user_name);
         return this;
     }
 
-    setThumbUrl(thumb_url: string): VisitDataBuider {
+    setThumbUrl(thumb_url: string): VisitDataBuilder {
         this.visit.setThumbUrl(thumb_url);
         return this;        
     }
 
-    setPlace(place: string): VisitDataBuider {
+    setPlace(place: string): VisitDataBuilder {
         this.visit.setPlace(place);
         return this;
     }
 
-    setStart(start: string): VisitDataBuider {
+    setStart(start: string): VisitDataBuilder {
         this.visit.setStart(start);
         return this;
     }
 
-    setEnd(end: string): VisitDataBuider {
+    setEnd(end: string): VisitDataBuilder {
         this.visit.setEnd(end);
         return this;
     }
 
-    setComment(comment?: string): VisitDataBuider {
+    setComment(comment?: string): VisitDataBuilder {
         this.visit.setComment(comment);
         return this;
     }

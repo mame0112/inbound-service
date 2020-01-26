@@ -6,7 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { Constants } from '../constants';
 
-import { HostDataBuider } from '../data-builder/host-data-builder';
+import { HostDataBuilder } from '../data-builder/host-data-builder';
 
 @Component({
   selector: 'app-host-start',
@@ -16,7 +16,7 @@ import { HostDataBuider } from '../data-builder/host-data-builder';
 export class HostStartComponent implements OnInit {
 
     isOverview = true;
-    builder: HostDataBuider;
+    builder: HostDataBuilder;
     host_data = {};
 
     constructor(private apiService: ApiService) { }
@@ -37,7 +37,7 @@ export class HostStartComponent implements OnInit {
             if(data['responseCode'] == Constants.RESPONSE_OK) {
               console.log('RESPONSE_OK');
 
-              this.builder = new HostDataBuider();
+              this.builder = new HostDataBuilder();
               this.host_data = this.builder.setUserId(1).setUserName("Test user name").setThumbUrl("https://xxxx").getResult();
 
               // return this.apiService.createHostData(JSON.stringify(this.host_data)).subscribe(params2 => console.log(params2));

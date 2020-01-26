@@ -19,6 +19,18 @@ export class Host {
         this.thumb_url = thumb_url;        
     }
 
+    getUserId(): number {
+        return this.user_id;
+    }
+
+    getUserName(): string {
+        return this.user_name;
+    }
+
+    getThumbUrl(): string {
+        return this.thumb_url;
+    }
+
 
     
 }

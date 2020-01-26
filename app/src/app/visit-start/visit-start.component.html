@@ -51,4 +51,9 @@
 
 <div *ngIf="state === 4">
   Matched with host
+  {{host.user_name}}
+  {{host.thumb_url}}
+  <div class="col-sm-offset-2 col-sm-5"> 
+    <button type="button" (click)="startConversation()" mat-flat-button color="primary">Start conversation</button>
+  </div>
 </div>

@@ -16,10 +16,34 @@ export class Constants {
 
 }
 
-export class Host {
+export class VisitConsts {
+    public static readonly KEY_VISIT_ID = "visit_id"
+    public static readonly KEY_USER_ID = "user_id"
+    public static readonly KEY_USER_NAME = "user_name"
+    public static readonly KEY_THUMB_URL = "thumb_url"
+    public static readonly KEY_PLACE = "place"
+    public static readonly KEY_START = "start"
+    public static readonly KEY_END = "end"
+    public static readonly KEY_COMMENT = "comment"
+
+}
+
+export class HostConsts {
     // Host information
     public static readonly KEY_USER_ID = "user_id"
     public static readonly KEY_USER_NAME = "user_name"
     public static readonly KEY_THUMB_URL = "thumb_url"
 
+}
+
+export class ConversationConsts {
+
+    public static readonly KEY_CONVERSATION_ID = "conversation_id"
+    public static readonly KEY_HOST_ID = "host_id"
+    public static readonly KEY_HOST_NAME = "host_name"
+    public static readonly KEY_HOST_THUMB_URL = "host_thumb_url"
+    public static readonly KEY_VISITOR_ID = "visitor_id"
+    public static readonly KEY_VISITOR_NAME = "visitor_name"
+    public static readonly KEY_VISITOR_THUMB_URL = "visitor_thumb_url"
+    public static readonly KEY_MESSAGES = "messages"
 }

@@ -4,8 +4,9 @@ import { flatMap } from 'rxjs/operators';
 
 import { ApiService} from '../api.service';
 import { Visit } from '../visit';
+import { Host } from '../host';
 
-import { Constants, Host } from '../constants';
+import { Constants, HostConsts, VisitConsts, ConversationConsts } from '../constants';
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
 
@@ -26,8 +27,6 @@ export class VisitStartComponent implements OnInit {
     static readonly MatchedWithHost = 4;
 
     state = 1;
-
-    // place: typeof Sample = Sample;
 
     visit = new Visit();
 
@@ -67,7 +66,7 @@ export class VisitStartComponent implements OnInit {
                         console.log(first_host);
 
                         let builder = new HostDataBuilder();
-                        this.host = builder.setUserId(first_host[Host.KEY_USER_ID]).setUserName(first_host[Host.KEY_USER_NAME]).setThumbUrl(first_host[Host.KEY_THUMB_URL]).getResult();
+                        this.host = builder.setUserId(first_host[HostConsts.KEY_USER_ID]).setUserName(first_host[HostConsts.KEY_USER_NAME]).setThumbUrl(first_host[HostConsts.KEY_THUMB_URL]).getResult();
 
                         this.state = VisitStartComponent.MatchedWithHost;
                     } else {
@@ -98,11 +97,22 @@ export class VisitStartComponent implements OnInit {
 
     startConversation(): void {
         console.log('startConversation');
-        
+
     }
 
+    // createParameter(): any {
+    //     let param = {};
+    //     param[ConversationConsts.KEY_HOST_ID] = this.host.user_id;
+    //     param[ConversationConsts.KEY_VISITOR_ID] = this.visit.user_id;
+
+    //     console.log(JSON.stringify(param))
+
+    //     // return JSON.stringify(param);
+    //     return param;
+    // }
+
     createVisitJson(visit: Visit): void {
-        this.visit.setUserId(1);
+        this.visit.setUserId(2);
         this.visit.setThumbUrl('https://xxxx');
         this.visit.setUserName("Test user name");
     }

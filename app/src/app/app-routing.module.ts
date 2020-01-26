@@ -11,7 +11,7 @@ const routes: Routes = [
     { path: 'landing', component: LandingComponent },
     { path: 'visit-start', component: VisitStartComponent },
     { path: 'host-start', component: HostStartComponent },
-    { path: 'conversation', component: ConversationComponent }
+    { path: 'conversation/:host_id/:visitor_id', component: ConversationComponent }
 
 ];
 

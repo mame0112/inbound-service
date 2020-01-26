@@ -23,7 +23,8 @@ class User(Resource):
 
     def get(self):
         log.debug('get')
-        json_data = request.get_json(force=True)
+        user_id = request.args['user_id']
+        # json_data = request.get_json(force=True)
         # json_data = request.get_json(force=True)
         # username = json_data[User.KEY_USER_NAME]
         # thumb_url = json_data[User.KEY_THUMB_URL]

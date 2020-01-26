@@ -7,6 +7,7 @@ from server.util.logger import Logger
 from server.const.const import Consts, User, Conversation, Host, Visit, HttpResponseCode
 from server.result.result import Result
 
+from server.datastore.data_processor.user_dataformat_processor import UserDataFormatProcessor
 from server.datastore.data_processor.host_dataformat_processor import HostDataFormatProcessor
 from server.datastore.data_processor.visit_dataformat_processor import VisitDataFormatProcessor
 
@@ -39,24 +40,27 @@ class DatastoreManager:
 
         try:
             client = datastore.Client()
-            key = client.key(USER.KIND_NAME, user_id)
+            key = client.key(User.KIND_NAME, user_id)
             entity = client.get(key)
+            if entity is not None:
 
-            userJson = {
-                User.KEY_USER_ID: entity[User.KEY_USER_NAME],
-                User.KEY_USER_NAME: entity[User.KEY_USER_NAME],
-                User.KEY_THUMB_URL: entity[User.KEY_THUMB_URL],
-            }
+                processor = UserDataFormatProcessor()
+                userJson = processor.entityToJson(entity)
 
-            result.set_content(userJson)
+                self.log.debug(userJson)
 
-            return result
+                result.set_content(userJson)
+
+                return result
+            else:
+                self.log.debug("No entity found")
+                return result
 
         except ValueError as error:
             self.log.debug(error)
             result.set_error_message(error)
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
-        return self.result
+        return result
 
     def create_user(self, userJson):
         self.log.debug('create_user')
@@ -84,7 +88,7 @@ class DatastoreManager:
             result.set_error_message(error)
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
 
-        return self.result
+        return result
 
     def update_user(self, userJson):
         self.log.debug('update_user')
@@ -114,7 +118,7 @@ class DatastoreManager:
 
         client.put(entity)
 
-        return self.result
+        return result
 
     def get_host(self):
         self.log.debug('get_host')

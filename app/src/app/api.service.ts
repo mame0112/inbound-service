@@ -15,13 +15,14 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    getUserData(): Observable<string> {
+    getUserData(user_id: number): Observable<string> {
         console.log('getUserData');
-        return this.http.get<string>(Constants.url_users)
-        .pipe(
-            tap(heroes => console.log('fetched users')),
-            catchError(this.handleError<string>('getUserData', 'Error'))
-            );
+        const params = new HttpParams().set('user_id', String(user_id));
+        return this.http.get<string>(Constants.url_users, {params});
+        // .pipe(
+        //     tap(heroes => console.log('fetched users')),
+        //     catchError(this.handleError<string>('getUserData', 'Error'))
+        //     );
 
     }
 

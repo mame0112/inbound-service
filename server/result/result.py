@@ -8,6 +8,7 @@ class Result:
 
     responseCode = HttpResponseCode.OK
     message = None
+    content = {}
 
     def __init__(self):
         self.log.debug('Initialize')
@@ -18,6 +19,9 @@ class Result:
     def set_error_message(self, message):
         self.message = message
 
+    def set_content(self, content):
+        self.content = content
+
     def is_successed(self):
         return True if this.responseCode == HttpResponseCode.OK else False
 
@@ -27,8 +31,12 @@ class Result:
     def get_error_message(self):
         return self.message
 
+    def get_content(self):
+        return self.content
+
     def get_result_json(self):
         return {
             "responseCode": self.responseCode,
-            "message": self.message
+            "message": self.message,
+            "content": self.content
         }

@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { flatMap } from 'rxjs/operators';
 
 import { ApiService} from '../api.service';
-
 import { Visit } from '../visit';
+
+import { Constants } from '../constants';
 import { VisitDataBuider } from '../data-builder/visit-data-builder';
 
 @Component({
@@ -17,6 +18,15 @@ export class VisitStartComponent implements OnInit {
     isOverview = true;
     title = 'Test title';
 
+    static readonly Start = 1;
+    static readonly Creation = 2;
+    static readonly WaitingForHost = 3;
+    static readonly MatchedWithHost = 4;
+
+    state = 1;
+
+    // place: typeof Sample = Sample;
+
     visit = new Visit();
 
     constructor(private apiService: ApiService) { }
@@ -26,7 +36,8 @@ export class VisitStartComponent implements OnInit {
 
     onNextButtonClicked() {
         console.log('onNextButtonClicked');
-        this.isOverview = !this.isOverview;
+        // this.isOverview = !this.isOverview;
+        this.state = VisitStartComponent.Creation;
     }
 
     onClickMenu() {
@@ -36,14 +47,24 @@ export class VisitStartComponent implements OnInit {
     onSubmit(){
         this.createVisitJson(this.visit)
         console.log('Submitted:' + JSON.stringify(this.visit));
-        // this.apiService.createVisitData(this.visit).subscribe(params => console.log(params));
-        // this.apiService.createVisitData(this.visit).pipe(
-        //     flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
 
         // let result = this.creteVisitData();
 
+        // this.apiService.createVisitData(this.visit).pipe(
+        //     flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
+
         this.apiService.createVisitData(this.visit).pipe(
-            flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
+            flatMap((params1) => this.apiService.getHostData())).subscribe(param2 => {
+                if(param2['responseCode'] == Constants.RESPONSE_OK){
+                    console.log('Matched with Host');
+                    this.state = VisitStartComponent.MatchedWithHost;
+                } else {
+                    console.log('Host is not waiting');
+                    console.log(param2);
+                    this.state = VisitStartComponent.WaitingForHost;
+                }
+
+            });
 
         //     this.apiService.getHostData(params2 => console.log(params2));
 

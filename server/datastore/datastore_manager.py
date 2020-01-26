@@ -48,7 +48,9 @@ class DatastoreManager:
                 User.KEY_THUMB_URL: entity[User.KEY_THUMB_URL],
             }
 
-            return self.result, userJson
+            result.set_content(userJson)
+
+            return result
 
         except ValueError as error:
             self.log.debug(error)
@@ -116,18 +118,31 @@ class DatastoreManager:
 
     def get_host(self):
         self.log.debug('get_host')
+        result = Result()
 
-        client = datastore.Client()
-        query = client.query(Host.KEY_NAME)
-        entities = list(query.fetch())
+        try:
+            client = datastore.Client()
+            query = client.query(kind=Host.KIND_NAME)
+            entities = list(query.fetch())
 
-        jsonobj = {"contents": []}
-        processor = HostDataFormatProcessor()
+            jsonarray = []
 
-        for entity in entities:
-            content = processor.entityToJson(entity)
-            jsonobj.append(content)
-        return json.dumps(jsonobj)
+            processor = HostDataFormatProcessor()
+
+            for entity in entities:
+                content = processor.entityToJson(entity)
+                jsonarray.append(content)
+
+                result.set_content(jsonarray)
+
+            return result
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result
 
     def create_host(self, host_json):
         self.log.debug('create_host')
@@ -144,7 +159,7 @@ class DatastoreManager:
             if client.get(key) is not None:
                 self.log.debug('Content already exist')
                 # TODO Need to consider return value
-                return result.get_result_json()
+                return result
             else:
                 entity = datastore.Entity(key=key)
                 processor = HostDataFormatProcessor()
@@ -152,14 +167,14 @@ class DatastoreManager:
 
                 client.put(entity)
 
-                return result.get_result_json()
+                return result
 
         except ValueError as error:
             self.log.debug(error)
             result.set_error_message(error)
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
 
-        return result.get_result_json()
+        return result
 
     def get_visit(self, visit_id):
         self.log.debug('get_visit')
@@ -175,13 +190,15 @@ class DatastoreManager:
                 entities = list(query.fetch())
                 processor = VisitDataFormatProcessor()
                 visit_jsonobj = processor.entities_to_jsonarray(entities)
-                # self.log.debug(json.dumps(visit_jsonobj))
-                return result.get_result_json(), visit_jsonobj
+
+                result.set_content(visit_jsonobj)
+
+                return result
             except ValueError as error:
                 self.log.debug(error)
                 result.set_error_message(error)
                 result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
-                return result.get_result_json()
+                return result
 
         else:
             # Get certain visit
@@ -193,18 +210,22 @@ class DatastoreManager:
                     processor = VisitDataFormatProcessor()
                     visit_json = processor.entityToJson(entity)
 
+                    self.log.debug(visit_json)
+
+                    result.set_content(visit_json)
+
                     # self.log.debug(json.dumps(visit_json))
-                    return result.get_result_json(), visit_json
+                    return result
                 else:
                     self.log.debug('entity is none')
-                    return result.get_result_json()
+                    return result
 
             except ValueError as error:
                 self.log.debug(error)
                 result.set_error_message(error)
                 result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
-                return result.get_result_json()
-        return result.get_result_json()
+                return result
+        return result
 
     def create_visit(self, visit_json):
         self.log.debug('create_visit')
@@ -229,14 +250,14 @@ class DatastoreManager:
 
             client.put(entity)
 
-            return result.get_result_json()
+            return result
 
         except ValueError as error:
             self.log.debug(error)
             result.set_error_message(error)
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
 
-        return result.get_result_json()
+        return result
 
     def generate_visit_id(self):
         # TODO Implement visi id generation

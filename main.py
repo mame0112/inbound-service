@@ -28,12 +28,7 @@ class User(Resource):
         # username = json_data[User.KEY_USER_NAME]
         # thumb_url = json_data[User.KEY_THUMB_URL]
         dataManager = DatastoreManager()
-        res = dataManager.get_user(user_id)
-        result = res[0]
-        if result['responseCode'] == HttpResponseCode.OK:
-            return res[1]
-        else:
-            return result
+        return dataManager.get_user(user_id).get_result_json()
 
     def post(self):
         log.debug('post')
@@ -48,7 +43,7 @@ class User(Resource):
         user = request.json
 
         dataManager = DatastoreManager()
-        return dataManager.update_user(user)
+        return dataManager.update_user(user).get_result_json()
 
 
 class Visit(Resource):
@@ -60,7 +55,7 @@ class Visit(Resource):
         # log.debug(visit_id)
         dataManager = DatastoreManager()
         result = dataManager.get_visit(visit_id)
-        return result
+        return result.get_result_json()
         # if isinstance(result, dict) == True:
         #     log.debug('True')
         #     log.debug(len(result))
@@ -80,7 +75,7 @@ class Visit(Resource):
         visit_data = request.json
 
         dataManager = DatastoreManager()
-        return dataManager.create_visit(visit_data)
+        return dataManager.create_visit(visit_data).get_result_json()
 
 
 class Host(Resource):
@@ -89,13 +84,13 @@ class Host(Resource):
         log.debug('get')
         host_data = request.json
         dataManager = DatastoreManager()
-        return dataManager.get_host()
+        return dataManager.get_host().get_result_json()
 
     def post(self):
         log.debug('post')
         host_data = request.json
         dataManager = DatastoreManager()
-        return dataManager.create_host(host_data)
+        return dataManager.create_host(host_data).get_result_json()
 
 
 class Conversation(Resource):

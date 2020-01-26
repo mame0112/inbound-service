@@ -17,7 +17,6 @@ class HostDataFormatProcessor(AbstractDataFormatProcessor):
     def entityToJson(self, entity):
         self.log.debug('entityToJson')
         data = {}
-        data[Host.KEY_NAME] = entity[Host.KEY_NAME]
         data[Host.KEY_USER_ID] = entity[Host.KEY_USER_ID]
         data[Host.KEY_USER_NAME] = entity[Host.KEY_USER_NAME]
         data[Host.KEY_THUMB_URL] = entity[Host.KEY_THUMB_URL]

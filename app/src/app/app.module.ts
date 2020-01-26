@@ -20,6 +20,7 @@ import { MatIconModule, MatButtonModule, MatCardModule } from '@angular/material
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HostStartComponent } from './host-start/host-start.component';
+import { ConversationComponent } from './conversation/conversation.component';
 
 const config = new AuthServiceConfig([
 {
@@ -39,7 +40,8 @@ export function provideConfig() {
     VisitStartComponent,
     HeaderComponent,
     FooterComponent,
-    HostStartComponent
+    HostStartComponent,
+    ConversationComponent
   ],
   imports: [
     BrowserModule,

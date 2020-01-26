@@ -54,6 +54,8 @@
   {{host.user_name}}
   {{host.thumb_url}}
   <div class="col-sm-offset-2 col-sm-5"> 
-    <button type="button" (click)="startConversation()" mat-flat-button color="primary">Start conversation</button>
+    <a routerLink="/conversation">
+      <button type="button" mat-flat-button color="primary">Start conversation</button>
+    </a>
   </div>
 </div>

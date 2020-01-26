@@ -98,6 +98,7 @@ export class VisitStartComponent implements OnInit {
 
     startConversation(): void {
         console.log('startConversation');
+        
     }
 
     createVisitJson(visit: Visit): void {

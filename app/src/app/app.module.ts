@@ -21,6 +21,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HostStartComponent } from './host-start/host-start.component';

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { flatMap } from 'rxjs/operators';
 
-import { ApiService} from '../api.service';
+import { ApiService } from '../api.service';
+import { UserDataService } from '../user-data.service';
 import { Visit } from '../visit';
 import { Host } from '../host';
 
@@ -30,7 +31,9 @@ export class VisitStartComponent implements OnInit {
 
     visit = new Visit();
 
-    constructor(private apiService: ApiService) { }
+    constructor(
+        private apiService: ApiService,
+        private userDataService: UserDataService) { }
 
     ngOnInit() {
     }
@@ -48,11 +51,6 @@ export class VisitStartComponent implements OnInit {
     onSubmit(){
         this.createVisitJson(this.visit)
         console.log('Submitted:' + JSON.stringify(this.visit));
-
-        // let result = this.creteVisitData();
-
-        // this.apiService.createVisitData(this.visit).pipe(
-        //     flatMap((params1) => this.apiService.getHostData())).subscribe(params2 => console.log(params2));
 
         this.apiService.createVisitData(this.visit).pipe(
             flatMap((params1) => this.apiService.getHostData())).subscribe(param2 => {
@@ -91,29 +89,10 @@ export class VisitStartComponent implements OnInit {
         // });
     }
 
-    // creteVisitData(): any{
-    //     this.apiService.createVisitData(this.visit).subscribe(params => {return params});
-    // }
-
-    startConversation(): void {
-        console.log('startConversation');
-
-    }
-
-    // createParameter(): any {
-    //     let param = {};
-    //     param[ConversationConsts.KEY_HOST_ID] = this.host.user_id;
-    //     param[ConversationConsts.KEY_VISITOR_ID] = this.visit.user_id;
-
-    //     console.log(JSON.stringify(param))
-
-    //     // return JSON.stringify(param);
-    //     return param;
-    // }
 
     createVisitJson(visit: Visit): void {
-        this.visit.setUserId(2);
-        this.visit.setThumbUrl('https://xxxx');
-        this.visit.setUserName("Test user name");
+        this.visit.setUserId(this.userDataService.getUserId());
+        this.visit.setUserName(this.userDataService.getUserName());
+        this.visit.setThumbUrl(this.userDataService.getThumbUrl());
     }
 }

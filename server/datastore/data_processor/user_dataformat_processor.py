@@ -18,16 +18,38 @@ class UserDataFormatProcessor(AbstractDataFormatProcessor):
 
         data = {}
 
-        # Mandatory fields
-        data[User.KEY_USER_ID] = entity[User.KEY_USER_ID]
-        data[User.KEY_USER_NAME] = entity[User.KEY_USER_NAME]
-        data[User.KEY_THUMB_URL] = entity[User.KEY_THUMB_URL]
-        data[User.KEY_ACCESS_TOKEN] = entity[User.KEY_ACCESS_TOKEN]
+        try:
+            data[User.KEY_USER_ID] = entity[User.KEY_USER_ID]
+        except ValueError as error:
+            # Nothing to do
+            pass
 
-        # Optional fields
+        try:
+            data[User.KEY_USER_NAME] = entity[User.KEY_USER_NAME]
+        except ValueError as error:
+            # Nothing to do
+            pass
+
+        try:
+            data[User.KEY_THUMB_URL] = entity[User.KEY_THUMB_URL]
+        except ValueError as error:
+            # Nothing to do
+            pass
+
+        try:
+            data[User.KEY_ACCESS_TOKEN] = entity[User.KEY_ACCESS_TOKEN]
+        except ValueError as error:
+            # Nothing to do
+            pass
+
         try:
             data[User.KEY_CONVERSATIONS_HOST] = entity[
                 User.KEY_CONVERSATIONS_HOST]
+        except ValueError as error:
+            # Nothing to do
+            pass
+
+        try:
             data[User.KEY_CONVERSATIONS_GUEST] = entity[
                 User.KEY_CONVERSATIONS_GUEST]
         except ValueError as error:

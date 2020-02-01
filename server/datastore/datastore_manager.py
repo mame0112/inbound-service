@@ -80,6 +80,9 @@ class DatastoreManager:
                 entity[User.KEY_USER_NAME] = userJson[User.KEY_USER_NAME]
                 entity[User.KEY_THUMB_URL] = userJson[User.KEY_THUMB_URL]
                 entity[User.KEY_ACCESS_TOKEN] = userJson[User.KEY_ACCESS_TOKEN]
+                # Create empty Json array
+                entity[User.KEY_CONVERSATIONS_HOST] = []
+                entity[User.KEY_CONVERSATIONS_GUEST] = []
 
                 client.put(entity)
 
@@ -92,36 +95,127 @@ class DatastoreManager:
 
     def update_user(self, userJson):
         self.log.debug('update_user')
+
+        user_id = Consts.NO_USER
+        user_name = None
+        thumb_url = None
+        access_token = None
+        convs_host = None
+        convs_guest = None
+        user_properties = None
+        key_plans = None
+
+        # Mandatory
+        try:
+            if userJson[User.KEY_USER_ID] != None:
+                user_id = userJson[User.KEY_USER_ID]
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(
+                HttpResponseCode.BAD_REQUEST)
+
+        try:
+            if User.KEY_USER_NAME in userJson == True and userJson[User.KEY_USER_NAME] != None:
+                user_name = userJson[User.KEY_USER_NAME]
+        except ValueError as error:
+            pass
+
+        try:
+            if User.KEY_THUMB_URL in userJson == True and userJson[User.KEY_THUMB_URL] != None:
+                thumb_url = userJson[User.KEY_THUMB_URL]
+        except ValueError as error:
+            pass
+
+        try:
+            if User.KEY_ACCESS_TOKEN in userJson == True and userJson[User.KEY_ACCESS_TOKEN] != None:
+                access_token = userJson[User.KEY_ACCESS_TOKEN]
+        except ValueError as error:
+            pass
+
+        try:
+            if User.KEY_CONVERSATIONS_HOST in userJson == True and userJson[User.KEY_CONVERSATIONS_HOST] != None:
+                convs_host = userJson[User.KEY_CONVERSATIONS_HOST]
+        except ValueError as error:
+            pass
+
+        try:
+            if User.KEY_CONVERSATIONS_GUEST in userJson == True and userJson[User.KEY_CONVERSATIONS_GUEST] != None:
+                convs_guest = userJson[User.KEY_CONVERSATIONS_GUEST]
+        except ValueError as error:
+            pass
+
+        try:
+            if User.KEY_USER_PROPERTIES in userJson == True and userJson[User.KEY_USER_PROPERTIES] != None:
+                user_properties = userJson[User.KEY_USER_PROPERTIES]
+        except ValueError as error:
+            pass
+
+        try:
+            if User.KEY_PLANS in userJson == True and userJson[User.KEY_PLANS] != None:
+                key_plans = userJson[User.KEY_PLANS]
+        except ValueError as error:
+            pass
+
+        self.update_user_parameters(user_id, user_name, thumb_url, access_token,
+                                    convs_host, convs_guest, user_properties, key_plans)
+
+    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans):
+        self.log.debug('update_user isolate')
+        self.log.debug(user_id)
+        self.log.debug(user_name)
+        self.log.debug(thumb_url)
+        self.log.debug(access_token)
+        self.log.debug(convs_host)
+        self.log.debug(convs_guest)
+        self.log.debug(user_properties)
+        self.log.debug(key_plans)
+
         result = Result()
 
-        client = datastore.Client()
-        key = client.key(USER.KIND_NAME, user_id)
-        entity = client.get(key)
+        try:
 
-        if userJson[User.KEY_USER_NAME] != None:
-            entity[User.KEY_USER_NAME] = userJson[User.KEY_USER_NAME]
+            client = datastore.Client()
+            key = client.key(User.KIND_NAME, user_id)
+            entity = client.get(key)
 
-        if userJson[User.KEY_THUMB_URL] != None:
-            entity[User.KEY_THUMB_URL] = userJson[User.KEY_THUMB_URL]
+            if user_id != Consts.NO_USER:
+                entity[User.KEY_USER_ID] = user_id
 
-        if userJson[User.KEY_THUMB_URL] != None:
-            entity[User.KEY_THUMB_URL] = userJson[User.KEY_THUMB_URL]
+            if user_name != None:
+                entity[User.KEY_USER_NAME] = user_name
 
-        if userJson[User.KEY_ACCESS_TOKEN] != None:
-            entity[User.KEY_ACCESS_TOKEN] = userJson[User.KEY_ACCESS_TOKEN]
+            if thumb_url != None:
+                entity[User.KEY_THUMB_URL] = thumb_url
 
-        if userJson[User.KEY_CONVERSATIONS_HOST] != None:
-            entity[User.KEY_CONVERSATIONS_HOST] = userJson[
-                User.KEY_CONVERSATIONS_HOST]
+            if access_token != None:
+                entity[User.KEY_ACCESS_TOKEN] = access_token
 
-        if userJson[User.KEY_CONVERSATIONS_GUEST] != None:
-            entity[User.KEY_CONVERSATIONS_GUEST] = userJson[
-                User.KEY_CONVERSATIONS_GUEST]
+            if convs_host != None:
+                jsonHostArray = entity[
+                    User.KEY_CONVERSATIONS_HOST]
+                jsonHostArray.append(convs_host)
+                entity[User.KEY_CONVERSATIONS_HOST] = jsonArray
 
-        if userJson[User.KEY_PLANS] != None:
-            entity[User.KEY_PLANS] = userJson[User.KEY_PLANS]
+            if convs_guest != None:
+                jsonGuestArray = entity[User.KEY_CONVERSATIONS_GUEST]
+                jsonGuestArray.append(convs_guest)
+                entity[User.KEY_CONVERSATIONS_GUEST] = jsonGuestArray
 
-        client.put(entity)
+            if user_properties != None:
+                entity[User.KEY_USER_PROPERTIES] = user_properties
+
+            if key_plans != None:
+                entity[User.KEY_PLANS] = key_plans
+
+            client.put(entity)
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(
+                HttpResponseCode.INTERNAL_SERVER_ERROR)
+            return result
 
         return result
 
@@ -241,6 +335,7 @@ class DatastoreManager:
         result = Result()
 
         try:
+            # Create Visit data
             ut = int(time.time())
 
             client = datastore.Client()
@@ -258,6 +353,10 @@ class DatastoreManager:
             entity[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]
 
             client.put(entity)
+
+            # Update User info
+            self.update_user_parameters(visit_json[Visit.KEY_USER_ID], None, None, None,
+                                        None, ut, None, None)
 
             return result
 

@@ -26,14 +26,19 @@ export class ApiService {
 
     }
 
+    // createUserData(body: object): Observable<string> {
+    //     console.log('createUserData');
+    //     return this.http.post<string>(Constants.url_users, body)
+    //     .pipe(
+    //         tap(heroes => console.log('fetched users')),
+    //         catchError(this.handleError<string>('createUserData', 'Error'))
+    //         );
+
+    // }
+
     createUserData(body: object): Observable<string> {
         console.log('createUserData');
-        return this.http.post<string>(Constants.url_users, body)
-        .pipe(
-            tap(heroes => console.log('fetched users')),
-            catchError(this.handleError<string>('createUserData', 'Error'))
-            );
-
+        return this.http.post<string>(Constants.url_users, body);
     }
 
     updateUserData(body: object): Observable<string> {
@@ -45,19 +50,6 @@ export class ApiService {
             );
 
     }
-
-    // getVisitData(visit_id: number): Observable<string> {
-    //     console.log('getVisitData');
-    //     const params = new HttpParams().set('visit_id', String(visit_id));
-    //     return this.http.get<string>(Constants.url_visits, {params})
-    //     // params: new HttpParams().set('visit_id', '${visit_id}')
-
-    //     .pipe(
-    //         tap(heroes => console.log('fetched users')),
-    //         catchError(this.handleError<string>('getVisitData', 'Error'))
-    //         );
-
-    // }
 
 
     getVisitData(visit_id: number): Observable<string> {
@@ -104,7 +96,7 @@ export class ApiService {
     }
 
 
-    private handleError<T> (operation = 'operation', result?: T) {
+    public handleError<T> (operation = 'operation', result?: T) {
         // console.error('Error ocurred');
         return (error: any): Observable<T> => {
 

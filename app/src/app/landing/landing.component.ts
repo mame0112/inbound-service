@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+import { catchError, map, tap } from 'rxjs/operators';
 
-import { ApiService} from '../api.service';
+import { ApiService } from '../api.service';
+import { UserDataService } from '../user-data.service';
+
+import { User } from '../user';
+
+import { UserDataBuilder } from '../data-builder/user-data-builder';
 
 @Component({
   selector: 'app-landing',
@@ -12,12 +18,21 @@ import { ApiService} from '../api.service';
 export class LandingComponent implements OnInit {
 
   user: SocialUser;
+  userObj: User;
   loggedIn: boolean;
 
-  constructor(private apiService: ApiService, private authService: AuthService) { }
+  @Output() userInfo = new EventEmitter<User>();
+
+  constructor(private apiService: ApiService,
+   private authService: AuthService,
+   private userDataService: UserDataService ) { }
 
   ngOnInit() {
     console.log('LandingComponent onInit');
+
+    this.userDataService.signin();
+
+
     // apiService.getUserData().subscribe(params => this.contents = this.dataProcessorServie.parseJson2ContentsData(params));
     // this.apiService.getUserData().subscribe(param => console.log('Data fetched'));
 
@@ -28,8 +43,16 @@ export class LandingComponent implements OnInit {
 
       if (user !=null) {
         console.log('User available')
-        let obj = this.createJsonUserData(user)
-        this.apiService.createUserData(obj).subscribe(params => console.log(params));
+        // let obj = this.createJsonUserData(user)
+        let builder = new UserDataBuilder();
+        this.userObj = builder.setUserId(Number(user.id)).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
+
+        // this.apiService.createUserData(obj).subscribe(params => console.log(params));
+        this.apiService.createUserData(this.userObj)
+        .pipe(
+            tap(heroes => console.log('fetched users')),
+            catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+          ).subscribe(params => console.log(params));
       }
     });
 
@@ -44,17 +67,21 @@ export class LandingComponent implements OnInit {
     this.authService.signOut();
   }
 
-  createJsonUserData(input : SocialUser): object {
-
-    console.log('createJsonUserData');
-
-    return {
-      user_id : input.id,
-      user_name : input.name,
-      thumb_url : input.photoUrl,
-      access_token : input.authToken
-    };
-    // return JSON.stringify(output);
+  broadcastFBUserInfo() {
+    this.userInfo.emit(this.userObj);
   }
+
+  // createJsonUserData(input : SocialUser): object {
+
+  //   console.log('createJsonUserData');
+
+  //   return {
+  //     user_id : input.id,
+  //     user_name : input.name,
+  //     thumb_url : input.photoUrl,
+  //     access_token : input.authToken
+  //   };
+  //   // return JSON.stringify(output);
+  // }
 
 }

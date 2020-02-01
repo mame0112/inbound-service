@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 
+import { Constants } from '../constants';
 import { User } from '../user';
 
 import { UserDataBuilder } from '../data-builder/user-data-builder';
@@ -30,8 +31,6 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     console.log('LandingComponent onInit');
 
-    this.userDataService.signin();
-
 
     // apiService.getUserData().subscribe(params => this.contents = this.dataProcessorServie.parseJson2ContentsData(params));
     // this.apiService.getUserData().subscribe(param => console.log('Data fetched'));
@@ -52,7 +51,15 @@ export class LandingComponent implements OnInit {
         .pipe(
             tap(heroes => console.log('fetched users')),
             catchError(this.apiService.handleError<string>('createUserData', 'Error'))
-          ).subscribe(params => console.log(params));
+          ).subscribe(params => {
+            if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
+              console.log('Create user response OK');
+              this.userDataService.signin(this.userObj);
+            } else {
+              console.log('Error happens');
+              // TODO Show error message
+            }
+          });
       }
     });
 

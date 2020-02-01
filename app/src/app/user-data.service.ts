@@ -5,14 +5,12 @@ import { Injectable, Output, EventEmitter } from '@angular/core'
 })
 export class UserDataService {
 
-    isOpen = false;
-
-    @Output() change: EventEmitter<boolean> = new EventEmitter();
+    @Output() change: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
-    signin() {
+    signin(userData: any) {
         console.log('UserDataService signin');
-        this.change.emit(this.isOpen);
+        this.change.emit(userData);
     }
 }

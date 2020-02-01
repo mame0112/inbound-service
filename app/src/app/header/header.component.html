@@ -19,8 +19,15 @@
       <a mat-button routerLink="" class="header-button">Sign out</a>
     </span>
     <span class="example-fill-remaining-space"></span>
-    <span>
-      <a mat-button routerLink="" class="header-button" (voted)="onVoted($event)">Name</a>
+    <span *ngIf="userData != null">
+      <a mat-button routerLink="" class="header-button">{{userData.user_name}}</a>
+    </span>
+<!--     <span *ngIf="userData != null">
+      <a mat-button routerLink="" class="header-button">
+        <img mat-card-image [src]="userData.thumb_url" alt="My Facebook Photo"></a>
+    </span> -->
+    <span *ngIf="userData == null">
+      <a mat-button routerLink="" class="header-button">Sign in</a>
     </span>
   </mat-toolbar-row>
 </mat-toolbar>

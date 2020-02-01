@@ -39,5 +39,34 @@ export class User {
         this.plans = plans;
     }
 
+
+    getUserId(): number {
+        return this.user_id;
+    }
+
+    getUserName(): string {
+        return this.user_name;
+    }
+
+    getThumbUrl(): string {
+        return this.thumb_url;
+    }
+
+    getAccessToken(): string {
+        return this.access_token;
+    }
+
+    getConversations(): string {
+        return this.conversations;
+    }
+
+    getUserProperties(): string {
+        return this.user_properties;
+    }
+
+    getPlans(): string {
+        return this.plans;
+    }
+
     
 }

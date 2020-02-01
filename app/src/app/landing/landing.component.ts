@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -24,7 +25,8 @@ export class LandingComponent implements OnInit {
 
   @Output() userInfo = new EventEmitter<User>();
 
-  constructor(private apiService: ApiService,
+  constructor(private router: Router,
+    private apiService: ApiService,
    private authService: AuthService,
    private userDataService: UserDataService ) { }
 
@@ -55,6 +57,10 @@ export class LandingComponent implements OnInit {
             if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
               console.log('Create user response OK');
               this.userDataService.signin(this.userObj);
+
+              // Go to next page
+              this.router.navigate(['/choose']);
+
             } else {
               console.log('Error happens');
               // TODO Show error message
@@ -77,18 +83,5 @@ export class LandingComponent implements OnInit {
   broadcastFBUserInfo() {
     this.userInfo.emit(this.userObj);
   }
-
-  // createJsonUserData(input : SocialUser): object {
-
-  //   console.log('createJsonUserData');
-
-  //   return {
-  //     user_id : input.id,
-  //     user_name : input.name,
-  //     thumb_url : input.photoUrl,
-  //     access_token : input.authToken
-  //   };
-  //   // return JSON.stringify(output);
-  // }
 
 }

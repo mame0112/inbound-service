@@ -23,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HostStartComponent } from './host-start/host-start.component';
 import { ConversationComponent } from './conversation/conversation.component';
+import { ChooseComponent } from './choose/choose.component';
 
 const config = new AuthServiceConfig([
 {
@@ -43,7 +44,8 @@ export function provideConfig() {
     HeaderComponent,
     FooterComponent,
     HostStartComponent,
-    ConversationComponent
+    ConversationComponent,
+    ChooseComponent
   ],
   imports: [
     BrowserModule,

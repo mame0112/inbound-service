@@ -1,36 +1,40 @@
 <p>Choose your type</p>
-<mat-card class="choose-card">
-  <mat-card-header>
-    <div mat-card-avatar class="choose-header-image"></div>
-    <mat-card-title>For Visitors</mat-card-title>
-    <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
-  </mat-card-header>
-  <a routerLink="/visit-start">
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p>
-            This is for visitors. You can ask questions to Japanese.
-        </p>
-      </mat-card-content>
-  </a>
-<!--   <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions> -->
-</mat-card>
-
-<mat-card class="choose-card">
-  <mat-card-header>
-    <div mat-card-avatar class="choose-header-image"></div>
-    <mat-card-title>For Japanese</mat-card-title>
-    <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
-  </mat-card-header>
-  <a routerLink="/host-start">
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p>
-            This is mainly for for Japanese. You can give som advices, hints & tips for visitors.
-        </p>
-      </mat-card-content>
-  </a>
-</mat-card>
+<div fxLayout="row">
+  <div fxFlex>
+    <mat-card class="choose-card">
+      <mat-card-header>
+        <div mat-card-avatar class="choose-header-image"></div>
+        <mat-card-title>For Visitors</mat-card-title>
+        <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
+      </mat-card-header>
+      <a routerLink="/visit-start">
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+                This is for visitors. You can ask questions to Japanese.
+            </p>
+          </mat-card-content>
+      </a>
+    <!--   <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions> -->
+    </mat-card>
+  </div>
+  <div fxFlex>
+    <mat-card class="choose-card">
+      <mat-card-header>
+        <div mat-card-avatar class="choose-header-image"></div>
+        <mat-card-title>For Japanese</mat-card-title>
+        <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
+      </mat-card-header>
+      <a routerLink="/host-start">
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+                This is mainly for for Japanese. You can give som advices, hints & tips for visitors.
+            </p>
+          </mat-card-content>
+      </a>
+    </mat-card>
+  </div>

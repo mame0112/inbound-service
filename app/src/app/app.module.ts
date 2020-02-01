@@ -67,6 +67,7 @@ export function provideConfig() {
     MatCardModule,
     MatToolbarModule,
     MatDatepickerModule,
+    FlexLayoutModule,
     IgxNavbarModule,
     NgbModule
   ],

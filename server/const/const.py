@@ -11,7 +11,8 @@ class User:
     KEY_USER_NAME = "user_name"
     KEY_THUMB_URL = "thumb_url"
     KEY_ACCESS_TOKEN = "access_token"
-    KEY_CONVERSATIONS = "conversations"
+    KEY_CONVERSATIONS_HOST = "convs_host"
+    KEY_CONVERSATIONS_GUEST = "convs_guest"
     KEY_USER_PROPERTIES = "user_properties"
     KEY_PLANS = "key_plans"
 

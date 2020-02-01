@@ -26,7 +26,10 @@ class UserDataFormatProcessor(AbstractDataFormatProcessor):
 
         # Optional fields
         try:
-            data[User.KEY_CONVERSATIONS] = entity[User.KEY_CONVERSATIONS]
+            data[User.KEY_CONVERSATIONS_HOST] = entity[
+                User.KEY_CONVERSATIONS_HOST]
+            data[User.KEY_CONVERSATIONS_GUEST] = entity[
+                User.KEY_CONVERSATIONS_GUEST]
         except ValueError as error:
             # Nothing to do
             pass

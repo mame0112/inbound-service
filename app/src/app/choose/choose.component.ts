@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserDataService } from '../user-data.service';
+
 @Component({
   selector: 'app-choose',
   templateUrl: './choose.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChooseComponent implements OnInit {
 
-  constructor() { }
+    user_name: string;
 
-  ngOnInit() {
-  }
+    constructor(private userDataService: UserDataService) { }
+
+    ngOnInit() {
+        this.user_name = this.userDataService.getUserName();
+    }
 
 }

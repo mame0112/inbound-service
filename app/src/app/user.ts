@@ -4,7 +4,8 @@ export class User {
     user_name: string;
     thumb_url: string;
     access_token: string;
-    conversations: string;
+    host_conversations: string;
+    guest_conversations: string;
     user_properties: string;
     plans: string;
 
@@ -27,8 +28,12 @@ export class User {
         this.access_token = access_token;
     }
 
-    setConversations(conversations?: string): void {
-        this.conversations = conversations;
+    setHostConversations(conversations?: string): void {
+        this.host_conversations = conversations;
+    }
+
+    setGuestConversations(conversations?: string): void {
+        this.guest_conversations = conversations;
     }
 
     setUserProperties(user_properties?: string): void {
@@ -56,8 +61,12 @@ export class User {
         return this.access_token;
     }
 
-    getConversations(): string {
-        return this.conversations;
+    getHostConversations(): string {
+        return this.host_conversations;
+    }
+
+    getGuestConversations(): string {
+        return this.guest_conversations;
     }
 
     getUserProperties(): string {

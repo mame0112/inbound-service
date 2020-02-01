@@ -21,7 +21,8 @@ export class UserConsts {
     public static readonly KEY_USER_NAME = "user_name"
     public static readonly KEY_THUMB_URL = "thumb_url"
     public static readonly KEY_ACCESS_TOKEN = "access_token"
-    public static readonly KEY_CONVERSATIONS = "conversations"
+    public static readonly KEY_CONVERSATIONS_HOST = "convs_host"
+    public static readonly KEY_CONVERSATIONS_GUEST = "convs_guest"
     public static readonly KEY_USER_PROPERTIES = "user_properties"
     public static readonly KEY_PLANS = "key_plans"
 

@@ -29,8 +29,13 @@ export class UserDataBuilder {
         return this;
     }
 
-    setConversations(conversations?: string): UserDataBuilder {
-        this.user.setConversations(conversations);
+    setHostConversations(conversations?: string): UserDataBuilder {
+        this.user.setHostConversations(conversations);
+        return this;
+    }
+
+    setGuestConversations(conversations?: string): UserDataBuilder {
+        this.user.setGuestConversations(conversations);
         return this;
     }
 

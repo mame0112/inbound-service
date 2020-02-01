@@ -110,8 +110,13 @@ class DatastoreManager:
         if userJson[User.KEY_ACCESS_TOKEN] != None:
             entity[User.KEY_ACCESS_TOKEN] = userJson[User.KEY_ACCESS_TOKEN]
 
-        if userJson[User.KEY_CONVERSATIONS] != None:
-            entity[User.KEY_CONVERSATIONS] = userJson[User.KEY_CONVERSATIONS]
+        if userJson[User.KEY_CONVERSATIONS_HOST] != None:
+            entity[User.KEY_CONVERSATIONS_HOST] = userJson[
+                User.KEY_CONVERSATIONS_HOST]
+
+        if userJson[User.KEY_CONVERSATIONS_GUEST] != None:
+            entity[User.KEY_CONVERSATIONS_GUEST] = userJson[
+                User.KEY_CONVERSATIONS_GUEST]
 
         if userJson[User.KEY_PLANS] != None:
             entity[User.KEY_PLANS] = userJson[User.KEY_PLANS]

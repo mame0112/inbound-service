@@ -14,22 +14,19 @@
           </div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Start</label>
-      <div class="col-sm-5">
-        <input type="text" class="form-control" name="start date" required [(ngModel)]="visit.start" #start="ngModel">
-        <div class="alert alert-danger" [hidden]="start.valid || start.untouched">
-          <span class="glyphicon glyphicon-exclamation-sign"></span> Start time is required</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">End</label>
-      <div class="col-sm-5">
-        <input type="text" class="form-control" name="end date" required [(ngModel)]="visit.end" #end="ngModel">
-        <div class="alert alert-danger" [hidden]="end.valid || end.untouched">
-          <span class="glyphicon glyphicon-exclamation-sign"></span> End time is required</div>
-      </div>
-    </div>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker_start" placeholder="Choose a date" name="start date" required [(ngModel)]="visit.start" #start="ngModel">
+      <mat-datepicker-toggle matSuffix [for]="picker_start"></mat-datepicker-toggle>
+      <mat-datepicker #picker_start></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker_end" placeholder="Choose a date" name="end date" required [(ngModel)]="visit.end" #end="ngModel">
+      <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
+      <mat-datepicker #picker_end></mat-datepicker>
+    </mat-form-field>
+
     <div class="form-group">
       <label class="col-sm-2 control-label">Comment</label>
       <div class="col-sm-5">

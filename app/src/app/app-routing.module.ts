@@ -6,6 +6,7 @@ import { ChooseComponent } from './choose/choose.component';
 import { VisitStartComponent } from './visit-start/visit-start.component';
 import { HostStartComponent } from './host-start/host-start.component';
 import { ConversationComponent } from './conversation/conversation.component';
+import { MyPageComponent } from './my-page/my-page.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
@@ -13,7 +14,8 @@ const routes: Routes = [
     { path: 'choose', component: ChooseComponent },
     { path: 'visit-start', component: VisitStartComponent },
     { path: 'host-start', component: HostStartComponent },
-    { path: 'conversation/:host_id/:visitor_id', component: ConversationComponent }
+    { path: 'conversation/:host_id/:visitor_id', component: ConversationComponent },
+    { path: 'my-page', component: MyPageComponent }
 
 ];
 

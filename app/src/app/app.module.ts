@@ -17,9 +17,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -29,6 +31,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HostStartComponent } from './host-start/host-start.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { ChooseComponent } from './choose/choose.component';
+import { MyPageComponent } from './my-page/my-page.component';
 
 const config = new AuthServiceConfig([
 {
@@ -50,7 +53,8 @@ export function provideConfig() {
     FooterComponent,
     HostStartComponent,
     ConversationComponent,
-    ChooseComponent
+    ChooseComponent,
+    MyPageComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,7 @@ export function provideConfig() {
     SocialLoginModule,
     BrowserAnimationsModule,
     MatNativeDateModule,
+    MatListModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

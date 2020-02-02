@@ -5,6 +5,8 @@ import { Location } from '@angular/common';
 
 import { forkJoin, Observable, of } from 'rxjs';
 
+import { FormControl, Validators } from '@angular/forms';
+
 import { ApiService } from '../api.service';
 
 @Component({
@@ -16,6 +18,8 @@ export class ConversationComponent implements OnInit {
 
     host_id: number;
     visitor_id: number;
+
+    comment: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -42,6 +46,11 @@ export class ConversationComponent implements OnInit {
               console.log(res[1]);
           });
 
+    }
+
+    sendComment(): void {
+      console.log('sendComment');
+      console.log(this.comment);
     }
 
 }

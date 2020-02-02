@@ -4,7 +4,7 @@ import time
 
 from server.util.logger import Logger
 
-from server.const.const import Consts, User, Conversation, Host, Visit, HttpResponseCode
+from server.const.const import Consts, User, Conversation, Host, Visit, State, HttpResponseCode
 from server.result.result import Result
 
 from server.datastore.data_processor.user_dataformat_processor import UserDataFormatProcessor
@@ -367,6 +367,9 @@ class DatastoreManager:
             self.update_user_parameters(visit_json[Visit.KEY_USER_ID], None, None, None,
                                         None, ut, None, None)
 
+            # Update state
+            self.register_waiting_visitor_to_state(ut)
+
             return result
 
         except ValueError as error:
@@ -375,11 +378,6 @@ class DatastoreManager:
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
 
         return result
-
-    def generate_visit_id(self):
-        # TODO Implement visi id generation
-        self.log.debug('generate_visit_id')
-        return
 
     def get_conversation(self, conv_id):
         self.log.debug('get_conversation')
@@ -391,11 +389,79 @@ class DatastoreManager:
 
     def update_conversation(self):
         self.log.debug('update_conversation')
+
+        # TODO Update pointer kind
         return
 
     def create_conversation(self):
         self.log.debug('create_conversation')
+
+        # TODO Update pointer kind
         return
 
     def is_num(self, s):
         return s.replace(',', '').replace('.', '').replace('-', '').isnumeric()
+
+    def register_new_host_to_state(self, host_id):
+        self.log.debug('register_new_host_to_state')
+        client = datastore.Client()
+        key = client.key(State.KIND_NAME, State.KEY)
+        entity = client.get(key)
+
+        if entity is not None:
+            array = entity[State.KEY_HOST_WAIT]
+            array.append(host_id)
+            entity[State.KEY_HOST_WAIT] = array
+            client.put(entity)
+        else:
+            entity = datastore.Entity(key=key)
+            array = []
+            array.append(host_id)
+            entity[State.KEY_HOST_WAIT] = array
+            entity[State.KEY_VISIT_DONE] = []
+            entity[State.KEY_VISIT_WAIT] = []
+
+            client.put(entity)
+
+    def register_waiting_visitor_to_state(self, visit_id):
+        self.log.debug('register_waiting_visitor_to_state')
+        client = datastore.Client()
+        key = client.key(State.KIND_NAME, State.KEY)
+        entity = client.get(key)
+
+        if entity is not None:
+            array = entity[State.KEY_VISIT_WAIT]
+            array.append(visit_id)
+            entity[State.KEY_VISIT_WAIT] = array
+            client.put(entity)
+        else:
+            entity = datastore.Entity(key=key)
+            entity[State.KEY_HOST_WAIT] = []
+            entity[State.KEY_VISIT_DONE] = []
+            array = []
+            array.append(visit_id)
+            entity[State.KEY_VISIT_WAIT] = array
+
+            client.put(entity)
+
+    def update_visitor_state(self, visit_id):
+        # TODO
+        self.log.debug('update_visitor_state')
+        # client = datastore.Client()
+        # key = client.key(Pointer.KIND_NAME, Pointer.KEY)
+        # entity = client.get(key)
+
+        # if entity is not None:
+        #     array = entity[State.KEY_VISIT_WAIT]
+        #     array.append(visit_id)
+        #     entity[State.KEY_VISIT_WAIT] = array
+        #     client.put(entity)
+        # else:
+        #     entity = datastore.Entity(key=key)
+        #     entity[State.KEY_HOST_WAIT] = []
+        #     entity[State.KEY_VISIT_DONE] = []
+        #     array = []
+        #     array.append(visit_id)
+        #     entity[State.KEY_VISIT_WAIT] = array
+
+        #     client.put(entity)

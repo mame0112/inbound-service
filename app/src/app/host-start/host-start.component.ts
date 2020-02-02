@@ -101,4 +101,11 @@ export class HostStartComponent implements OnInit {
         });
     }
 
+    startConversation(): void {
+      console.log('startConversation');
+
+      //TODO Start conversation (Move visit / host pointer?)
+
+    }
+
 }

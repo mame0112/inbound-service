@@ -14,7 +14,7 @@
     <p>{{matched_visit.start}}</p>
     <p>{{matched_visit.end}}</p>
     <p>{{matched_visit.comment}}</p>
-
+    <button mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
 </div>
 <!-- No visitor waiting -->
 <div *ngIf="state === 3">

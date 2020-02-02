@@ -48,6 +48,16 @@ class Visit:
     KEY_COMMENT = "comment"
 
 
+# This kind is for check which visitor / host has already been done. And
+# this should not be visible from client side.
+class State:
+    KIND_NAME = "state"
+    KEY = "key"
+    KEY_VISIT_DONE = "visit_done"
+    KEY_VISIT_WAIT = "visit_wait"
+    KEY_HOST_WAIT = "host_wait"
+
+
 class HttpResponseCode:
     OK = 200
     NO_CONTENT = 204

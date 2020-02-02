@@ -94,7 +94,7 @@ export class HostStartComponent implements OnInit {
         ).subscribe(params2 => {
           if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
             // Successfully registered to waiting queue
-            this.isOverview = !this.isOverview;
+            this.state = HostStartComponent.WAITING_FOR_VISITOR;
           } else {
             console.log('createHostData response error');
           }

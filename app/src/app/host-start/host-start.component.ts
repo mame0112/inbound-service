@@ -28,8 +28,6 @@ export class HostStartComponent implements OnInit {
 
     matched_visit: Visit;
 
-
-    isOverview = true;
     builder: HostDataBuilder;
     host_data = {};
 
@@ -66,8 +64,6 @@ export class HostStartComponent implements OnInit {
             }
           })
 
-
-        this.isOverview = !this.isOverview;
     }
 
     matchingWithVisitor(contents: any): void {

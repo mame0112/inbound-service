@@ -228,15 +228,21 @@ class DatastoreManager:
             query = client.query(kind=Host.KIND_NAME)
             entities = list(query.fetch())
 
-            jsonarray = []
+            # If more than 1 hosts are waiting
+            if entities != None and len(entities) != 0:
+                jsonarray = []
 
-            processor = HostDataFormatProcessor()
+                processor = HostDataFormatProcessor()
 
-            for entity in entities:
-                content = processor.entityToJson(entity)
-                jsonarray.append(content)
+                for entity in entities:
+                    content = processor.entityToJson(entity)
+                    jsonarray.append(content)
 
                 result.set_content(jsonarray)
+
+            else:
+                # If no hosts are waiting
+                result.set_content(None)
 
             return result
 
@@ -260,8 +266,9 @@ class DatastoreManager:
 
             # Check if this user already exists
             if client.get(key) is not None:
-                self.log.debug('Content already exist')
-                # TODO Need to consider return value
+                self.log.debug('Target usr already exist')
+                # TODO Need to consider return value (Because users have to
+                # understand what happends)
                 return result
             else:
                 entity = datastore.Entity(key=key)

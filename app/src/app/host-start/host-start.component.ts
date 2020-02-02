@@ -53,7 +53,7 @@ export class HostStartComponent implements OnInit {
               let contents = param[Constants.CONTENT];
               console.log(contents);
               // Check if content array is more than 1 (Means some visitor is waiting for you)
-              if(contents.length >= 1){
+              if(contents != null && contents.length >= 1){
                 this.matchingWithVisitor(contents);
               } else {
                 //If no visitor is waiting

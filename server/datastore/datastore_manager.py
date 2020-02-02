@@ -270,6 +270,9 @@ class DatastoreManager:
 
                 client.put(entity)
 
+                # Register host to state
+                self.register_new_host_to_state(host_json[Host.KEY_USER_ID])
+
                 return result
 
         except ValueError as error:
@@ -300,10 +303,12 @@ class DatastoreManager:
             try:
                 query = client.query(kind=Visit.KIND_NAME)
                 entities = list(query.fetch())
-                processor = VisitDataFormatProcessor()
-                visit_jsonobj = processor.entities_to_jsonarray(entities)
-
-                result.set_content(visit_jsonobj)
+                if entities != None and len(entities) != 0:
+                    processor = VisitDataFormatProcessor()
+                    visit_jsonobj = processor.entities_to_jsonarray(entities)
+                    result.set_content(visit_jsonobj)
+                else:
+                    result.set_content(None)
 
                 return result
             except ValueError as error:
@@ -447,21 +452,29 @@ class DatastoreManager:
     def update_visitor_state(self, visit_id):
         # TODO
         self.log.debug('update_visitor_state')
-        # client = datastore.Client()
-        # key = client.key(Pointer.KIND_NAME, Pointer.KEY)
-        # entity = client.get(key)
 
-        # if entity is not None:
-        #     array = entity[State.KEY_VISIT_WAIT]
-        #     array.append(visit_id)
-        #     entity[State.KEY_VISIT_WAIT] = array
-        #     client.put(entity)
-        # else:
-        #     entity = datastore.Entity(key=key)
-        #     entity[State.KEY_HOST_WAIT] = []
-        #     entity[State.KEY_VISIT_DONE] = []
-        #     array = []
-        #     array.append(visit_id)
-        #     entity[State.KEY_VISIT_WAIT] = array
+        client = datastore.Client()
+        key = client.key(State.KIND_NAME, State.KEY)
+        entity = client.get(key)
 
-        #     client.put(entity)
+        if entity is not None:
+            # Remove from wait
+            wait_array = entity[State.KEY_VISIT_WAIT]
+            wait_array.remove(visit_id)
+            entity[State.KEY_VISIT_WAIT] = wait_array
+
+            # Add to done
+            done_array = entity[State.KEY_VISIT_DONE]
+            done_array.append(visit_id)
+            entity[State.KEY_VISIT_DONE] = done_array
+
+            client.put(entity)
+        else:
+            entity = datastore.Entity(key=key)
+            entity[State.KEY_HOST_WAIT] = []
+            entity[State.KEY_VISIT_DONE] = []
+            array = []
+            array.append(visit_id)
+            entity[State.KEY_VISIT_WAIT] = array
+
+            client.put(entity)

@@ -282,11 +282,20 @@ class DatastoreManager:
     def get_visit(self, visit_id):
         self.log.debug('get_visit')
         self.log.debug(visit_id)
+
         result = Result()
+
+        if visit_id is None or self.is_num(visit_id) == False:
+            self.log.debug('visit_is is none or not number')
+            result.set_error_message('visit_is is none or not number')
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+            return result
+
+        visit_id_int = int(visit_id)
 
         client = datastore.Client()
 
-        if visit_id == Consts.ALL_VISITS or visit_id == None:
+        if visit_id_int == Consts.ALL_VISITS or visit_id_int == None:
             # Get latest 5 visits
             try:
                 query = client.query(kind=Visit.KIND_NAME)
@@ -306,7 +315,7 @@ class DatastoreManager:
         else:
             # Get certain visit
             try:
-                key = client.key(Visit.KIND_NAME, visit_id)
+                key = client.key(Visit.KIND_NAME, visit_id_int)
                 entity = client.get(key)
                 if entity != None:
                     self.log.debug('entity is not none')
@@ -387,3 +396,6 @@ class DatastoreManager:
     def create_conversation(self):
         self.log.debug('create_conversation')
         return
+
+    def is_num(self, s):
+        return s.replace(',', '').replace('.', '').replace('-', '').isnumeric()

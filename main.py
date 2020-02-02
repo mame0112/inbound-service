@@ -53,7 +53,6 @@ class Visit(Resource):
         log.debug('get')
         visit_id = request.args['visit_id']
         log.debug(visit_id)
-        # log.debug(visit_id)
         dataManager = DatastoreManager()
         result = dataManager.get_visit(visit_id)
         return result.get_result_json()

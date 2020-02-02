@@ -34,14 +34,22 @@ class DatastoreManager:
     def get_user(self, user_id):
         self.log.debug('get_user')
         result = Result()
+        self.log.debug(type(user_id))
 
-        if user_id == Consts.NO_USER:
-            raise ValueError('User ID cannot be -1')
+        if user_id is None or self.is_num(user_id) == False:
+            self.log.debug('user is none or not number')
+            result.set_error_message('user_id is none or not number')
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+            return result
+
+        user_id_int = int(user_id)
 
         try:
             client = datastore.Client()
-            key = client.key(User.KIND_NAME, user_id)
+            key = client.key(User.KIND_NAME, user_id_int)
+            self.log.debug(key)
             entity = client.get(key)
+            self.log.debug(entity)
             if entity is not None:
 
                 processor = UserDataFormatProcessor()
@@ -66,6 +74,7 @@ class DatastoreManager:
         self.log.debug('create_user')
         result = Result()
 
+        self.log.debug(type(userJson[User.KEY_USER_ID]))
         try:
             client = datastore.Client()
 

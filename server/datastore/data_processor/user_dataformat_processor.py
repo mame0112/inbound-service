@@ -59,12 +59,16 @@ class UserDataFormatProcessor(AbstractDataFormatProcessor):
         try:
             data[User.KEY_USER_PROPERTIES] = entity[User.KEY_USER_PROPERTIES]
         except ValueError as error:
+            pass
+        except KeyError as error:
             # Nothing to do
             pass
 
         try:
             data[User.KEY_PLANS] = entity[User.KEY_PLANS]
         except ValueError as error:
+            pass
+        except KeyError as error:
             # Nothing to do
             pass
 

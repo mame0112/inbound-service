@@ -39,8 +39,8 @@ export class ConversationComponent implements OnInit {
       console.log(this.visitor_id);
 
       forkJoin(
-          this.apiService.getUserData(this.host_id),
-          this.apiService.getUserData(this.visitor_id)
+          this.apiService.getUserData(Number(this.host_id)),
+          this.apiService.getUserData(Number(this.visitor_id))
           ).subscribe((res)=> {
               console.log(res[0]);
               console.log(res[1]);

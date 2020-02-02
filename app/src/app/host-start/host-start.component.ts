@@ -6,8 +6,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 
-import { Constants } from '../constants';
+import { Constants, VisitConsts } from '../constants';
 
+import { Visit } from '../visit';
+
+import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
 
 @Component({
@@ -16,6 +19,15 @@ import { HostDataBuilder } from '../data-builder/host-data-builder';
   styleUrls: ['./host-start.component.css']
 })
 export class HostStartComponent implements OnInit {
+
+    static readonly Start = 1;
+    static readonly MATCH_WITH_VISITOR = 2;
+    static readonly WAITING_FOR_VISITOR = 3;
+
+    state = HostStartComponent.Start;
+
+    matched_visit: Visit;
+
 
     isOverview = true;
     builder: HostDataBuilder;
@@ -27,6 +39,7 @@ export class HostStartComponent implements OnInit {
       ) { }
 
     ngOnInit() {
+      this.state = HostStartComponent.Start;
     }
 
     onNextButtonClicked() {
@@ -37,11 +50,11 @@ export class HostStartComponent implements OnInit {
           catchError(this.apiService.handleError<string>('createUserData', 'Error'))
           ).subscribe(param => {
             if (param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
-              let content = param[Constants.CONTENT];
-              console.log(content);
+              let contents = param[Constants.CONTENT];
+              console.log(contents);
               // Check if content array is more than 1 (Means some visitor is waiting for you)
-              if(content.length >= 1){
-                this.matchingWithVisitor();
+              if(contents.length >= 1){
+                this.matchingWithVisitor(contents);
               } else {
                 //If no visitor is waiting
                 this.registerToVisitorWaitingQueue();
@@ -57,55 +70,35 @@ export class HostStartComponent implements OnInit {
         this.isOverview = !this.isOverview;
     }
 
-    matchingWithVisitor(): void {
+    matchingWithVisitor(contents: any): void {
+      console.log('matchingWithVisitor');
+      let array = JSON.parse(contents);
+      let obj = array[0];
+      console.log(obj);
+
+      let builder = new VisitDataBuilder();
+      this.matched_visit = builder.setVisitId(obj[VisitConsts.KEY_VISIT_ID]).setUserId(obj[VisitConsts.KEY_USER_ID]).setUserName(obj[VisitConsts.KEY_USER_NAME]).setThumbUrl(obj[VisitConsts.KEY_THUMB_URL]).setPlace(obj[VisitConsts.KEY_PLACE]).setStart(obj[VisitConsts.KEY_START]).setEnd(obj[VisitConsts.KEY_END]).setComment(obj[VisitConsts.KEY_COMMENT]).getResult();
+
+      this.state = HostStartComponent.MATCH_WITH_VISITOR;
 
     }
 
     registerToVisitorWaitingQueue(): void {
-        this.builder = new HostDataBuilder();
-        this.host_data = this.builder.setUserId(this.userDataService.getUserId()).setUserName(this.userDataService.getUserName()).setThumbUrl(this.userDataService.getThumbUrl()).getResult();
+      console.log('registerToVisitorWaitingQueue');
+      this.builder = new HostDataBuilder();
+      this.host_data = this.builder.setUserId(this.userDataService.getUserId()).setUserName(this.userDataService.getUserName()).setThumbUrl(this.userDataService.getThumbUrl()).getResult();
 
-        this.apiService.createHostData(this.host_data).pipe(
-          tap(data => console.log(data)),
-          catchError(this.apiService.handleError<string>('createUserData', 'Error'))
-          ).subscribe(params2 => {
-            if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
-              // Successfully registered to waiting queue
-              this.isOverview = !this.isOverview;
-            } else {
-              console.log('createHostData response error');
-            }
-          });
+      this.apiService.createHostData(this.host_data).pipe(
+        tap(data => console.log(data)),
+        catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+        ).subscribe(params2 => {
+          if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
+            // Successfully registered to waiting queue
+            this.isOverview = !this.isOverview;
+          } else {
+            console.log('createHostData response error');
+          }
+        });
     }
-
-    // onNextButtonClicked() {
-    //     console.log('onNextButtonClicked');
-
-    //     this.apiService.getVisitData(Constants.ALL_VISITS).pipe(
-    //       tap(data => console.log(data)),
-    //       mergeMap(data => {
-    //         if(data['responseCode'] == Constants.RESPONSE_OK) {
-    //           console.log('RESPONSE_OK');
-
-    //           this.builder = new HostDataBuilder();
-    //           this.host_data = this.builder.setUserId(this.userDataService.getUserId()).setUserName(this.userDataService.getUserName()).setThumbUrl(this.userDataService.getThumbUrl()).getResult();
-
-    //           // return this.apiService.createHostData(JSON.stringify(this.host_data)).subscribe(params2 => console.log(params2));
-
-    //           return Promise.resolve(this.apiService.createHostData(this.host_data).subscribe(params2 => console.log(params2)));
-    //           // return "True"
-    //         } else {
-    //           console.log('responseCode:');
-    //           console.log(data['responseCode']);
-    //           return;
-    //         }
-    //       })
-    //       ).subscribe(res => {
-    //         console.log('subscribe');
-    //         console.log(res);
-    //       })
-
-
-    // }
 
 }

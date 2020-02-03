@@ -1,5 +1,23 @@
 <p>conversation works!</p>
 
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <div *cdkVirtualFor="let c of comments" class="example-item">
+        <div *ngIf="c.user_id%2 == 0" class=item1>
+        {{ c.user_id }}<br>
+        {{ c.user_name }}
+        </div>
+        <div *ngIf="c.user_id%2 == 1" class=item2>
+        {{ c.user_id }}<br>
+        {{ c.user_name }}
+        </div>
+    </div>
+</cdk-virtual-scroll-viewport>
+
+<!-- <mat-list>
+ <mat-list-item> Pepper </mat-list-item>
+ <mat-list-item> Salt </mat-list-item>
+ <mat-list-item> Paprika </mat-list-item>
+</mat-list> -->
 <form class="form-horizontal" (ngSubmit)="sendComment()" #form2="ngForm">
     <div class="form-group">
         <div class="col-sm-5">

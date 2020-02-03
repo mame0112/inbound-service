@@ -19,22 +19,9 @@ export class ApiService {
         console.log('getUserData');
         const params = new HttpParams().set('user_id', String(user_id));
         return this.http.get<string>(Constants.url_users, {params});
-        // .pipe(
-        //     tap(heroes => console.log('fetched users')),
-        //     catchError(this.handleError<string>('getUserData', 'Error'))
-        //     );
 
     }
 
-    // createUserData(body: object): Observable<string> {
-    //     console.log('createUserData');
-    //     return this.http.post<string>(Constants.url_users, body)
-    //     .pipe(
-    //         tap(heroes => console.log('fetched users')),
-    //         catchError(this.handleError<string>('createUserData', 'Error'))
-    //         );
-
-    // }
 
     createUserData(body: object): Observable<string> {
         console.log('createUserData');
@@ -79,20 +66,16 @@ export class ApiService {
 
     }
 
-    // createHostData(json_string: string): Observable<string> {
-    //     console.log('createHostData');
-    //     console.log(json_string);
-    //     return this.http.post<string>(Constants.url_hosts, json_string)
-    //     .pipe(
-    //         tap(heroes => console.log('fetched users')),
-    //         catchError(this.handleError<string>('createHostData', 'Error'))
-    //         );
-    // }
-
     createHostData(body: object): Observable<string> {
         console.log('createHostData');
         console.log(body);
         return this.http.post<string>(Constants.url_hosts, body);
+    }
+
+    createConversationData(body: object): Observable<string> {
+        console.log('createConversationData');
+        return this.http.post<string>(Constants.url_conversations, body);
+
     }
 
 

@@ -25,6 +25,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -74,7 +75,8 @@ export function provideConfig() {
     MatDatepickerModule,
     FlexLayoutModule,
     IgxNavbarModule,
-    NgbModule
+    NgbModule,
+    ScrollingModule
   ],
   providers: [
     {

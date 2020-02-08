@@ -404,10 +404,24 @@ class DatastoreManager:
     def get_conversation(self, conv_id):
         self.log.debug('get_conversation')
 
-        client = datastore.Client()
-        key = client.key(Conversation.Conversation, conv_id)
-        entity = client.get(key)
-        return
+        try:
+            result = Result()
+
+            client = datastore.Client()
+            key = client.key(Conversation.Conversation, conv_id)
+            entity = client.get(key)
+
+            processor = ConversationDataFormatProcessor()
+            data = processor.entityToJson(entity)
+
+            result.set_content(data)
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result
 
     def update_conversation(self):
         self.log.debug('update_conversation')
@@ -430,6 +444,8 @@ class DatastoreManager:
             processor.jsonToEntity(conv_data, entity)
 
             entity[Conversation.KEY_CONVERSATION_ID] = ut
+
+            client.put(entity)
 
             conv_id = {}
             conv_id[Conversation.KEY_CONVERSATION_ID] = ut

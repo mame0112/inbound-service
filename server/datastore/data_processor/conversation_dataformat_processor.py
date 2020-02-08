@@ -17,6 +17,23 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
     def entityToJson(self, entity):
         self.log.debug('entityToJson')
 
+        data[Conversation.KEY_HOST_ID] = entity[Conversation.KEY_HOST_ID]
+        data[Conversation.KEY_HOST_NAME] = entity[Conversation.KEY_HOST_NAME]
+        data[Conversation.KEY_HOST_THUMB_URL] = entity[
+            Conversation.KEY_HOST_THUMB_URL]
+
+        data[Conversation.KEY_VISITOR_ID] = entity[Conversation.KEY_VISITOR_ID]
+        data[Conversation.KEY_VISITOR_NAME] = entity[
+            Conversation.KEY_VISITOR_NAME]
+
+        data[Conversation.KEY_VISITOR_THUMB_URL] = entity[
+            Conversation.KEY_VISITOR_THUMB_URL]
+        data[Conversation.KEY_MESSAGES] = entity[Conversation.KEY_MESSAGES]
+
+        self.log.debug(json.dumps(data))
+
+        return data
+
     def entities_to_jsonarray(self, entities):
         self.log.debug('entities_to_jsonarray')
 

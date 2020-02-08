@@ -84,7 +84,9 @@ class Conversation(Resource):
 
     def get(self):
         log.debug('get')
-        return
+        conversation_id = request.args['conversation_id']
+        dataManager = DatastoreManager()
+        return dataManager.get_conversation(conversation_id).get_result_json()
 
     def post(self):
         log.debug('post')

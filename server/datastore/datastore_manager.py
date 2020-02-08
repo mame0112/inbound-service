@@ -388,6 +388,7 @@ class DatastoreManager:
             # Update user data
             user_visit = {}
             user_visit[Visit.KEY_VISIT_ID] = ut
+            user_visit[Visit.KEY_PLACE] = visit_json[Visit.KEY_PLACE]
             user_visit[Visit.KEY_START] = visit_json[Visit.KEY_START]
             user_visit[Visit.KEY_END] = visit_json[Visit.KEY_END]
             user_visit[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]

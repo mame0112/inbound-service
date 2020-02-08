@@ -16,6 +16,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class MyPageComponent implements OnInit {
 
+  visits: []
+
   constructor(
       private apiService: ApiService,
       private userDataService: UserDataService
@@ -29,11 +31,11 @@ export class MyPageComponent implements OnInit {
               console.log(params);
             if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
                 let content = params[Constants.CONTENT];
-                let conv_host = content[UserConsts.KEY_CONVERSATIONS_HOST];
-                let conv_guest = content[UserConsts.KEY_CONVERSATIONS_GUEST];
+                let hosts = content[UserConsts.KEY_CONVERSATIONS_HOST];
+                this.visits = content[UserConsts.KEY_CONVERSATIONS_GUEST];
                 let plan = content[UserConsts.KEY_PLANS];
-                console.log(conv_host);
-                console.log(conv_guest);
+                console.log(hosts);
+                console.log(this.visits);
                 console.log(plan);
             } else {
                 console.log('Error ocurred');

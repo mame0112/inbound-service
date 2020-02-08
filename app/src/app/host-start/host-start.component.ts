@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 
-import { Constants, VisitConsts } from '../constants';
+import { Constants, VisitConsts, ConversationConsts } from '../constants';
 
 import { Visit } from '../visit';
 
@@ -111,13 +111,13 @@ export class HostStartComponent implements OnInit {
         tap(heroes => console.log('fetched users')),
         catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
       ).subscribe(param => {
-        //TODO
-        console.log(param);
-
-        let conv_id = 1
-        console.log(param);
-        this.router.navigate(['/conversation', conv_id]);
-
+        if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+          console.log(param);
+          let content = param[Constants.CONTENT];
+          let conv_id = content[ConversationConsts.KEY_CONVERSATION_ID];
+          console.log(conv_id);
+          this.router.navigate(['/conversation', conv_id]);
+        }
       });
 
     }

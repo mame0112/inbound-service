@@ -83,19 +83,20 @@ class Host(Resource):
 class Conversation(Resource):
 
     def get(self):
-        log.debug('get')
+        log.debug('Conversation get')
         conversation_id = request.args['conversation_id']
+        log.debug(conversation_id)
         dataManager = DatastoreManager()
         return dataManager.get_conversation(conversation_id).get_result_json()
 
     def post(self):
-        log.debug('post')
+        log.debug('Conversation post')
         conversation_data = request.json
         dataManager = DatastoreManager()
         return dataManager.create_conversation(conversation_data).get_result_json()
 
     def put(self):
-        log.debug('put')
+        log.debug('Conversation put')
         return
 
 

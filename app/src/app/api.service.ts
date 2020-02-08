@@ -73,8 +73,7 @@ export class ApiService {
     }
 
     getConversationData(conv_id: number): Observable<string> {
-        console.log('getConversationData');
-        const params = new HttpParams().set('conv_id', String(conv_id));
+        const params = new HttpParams().set('conversation_id', String(conv_id));
         return this.http.get<string>(Constants.url_conversations, {params});
     }
 

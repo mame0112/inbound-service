@@ -403,18 +403,25 @@ class DatastoreManager:
 
     def get_conversation(self, conv_id):
         self.log.debug('get_conversation')
+        self.log.debug(conv_id)
 
         try:
             result = Result()
 
+            conv_id_int = int(conv_id)
+
             client = datastore.Client()
-            key = client.key(Conversation.Conversation, conv_id)
+            key = client.key(Conversation.KIND_NAME, conv_id_int)
             entity = client.get(key)
 
-            processor = ConversationDataFormatProcessor()
-            data = processor.entityToJson(entity)
-
-            result.set_content(data)
+            if entity is not None:
+                processor = ConversationDataFormatProcessor()
+                data = processor.entityToJson(entity)
+                result.set_content(data)
+            else:
+                self.log.debug('Entity is None')
+                result.set_error_message('Entity is None')
+                result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
 
         except ValueError as error:
             self.log.debug(error)

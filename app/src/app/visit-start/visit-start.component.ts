@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { flatMap } from 'rxjs/operators';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
@@ -96,10 +96,11 @@ export class VisitStartComponent implements OnInit {
         catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
       ).subscribe(param => {
           if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
-            let conv_id = param[ConversationConsts.KEY_CONVERSATION_ID];
+            console.log(param);
+            let content = param[Constants.CONTENT];
+            let conv_id = content[ConversationConsts.KEY_CONVERSATION_ID];
             console.log(conv_id);
-            this.router.navigate(['/conversation', {'conv_id': conv_id}]);
-            // this.router.navigate(['/conversation', conv_id], { relativeTo: this.router });
+            this.router.navigate(['/conversation', conv_id]);
           }
       });
 

@@ -51,8 +51,6 @@
   {{host.user_name}}
   {{host.thumb_url}}
   <div class="col-sm-offset-2 col-sm-5"> 
-    <a routerLink="/conversation/{{host.user_id}}/{{visit.user_id}}/">
-      <button type="button" mat-flat-button color="primary">Start conversation</button>
-    </a>
+      <button type="button" mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
   </div>
 </div>

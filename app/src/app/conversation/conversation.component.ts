@@ -9,9 +9,13 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 
 import { ApiService } from '../api.service';
+import { UserDataService } from '../user-data.service';
 
 import { User } from '../user';
-import { Constants, UserConsts } from '../constants';
+import { Conversation } from '../conversation';
+import { Constants, UserConsts, ConversationConsts } from '../constants';
+
+import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 @Component({
   selector: 'app-conversation',
@@ -20,8 +24,7 @@ import { Constants, UserConsts } from '../constants';
 })
 export class ConversationComponent implements OnInit {
 
-    host_id: number;
-    visitor_id: number;
+    conv_id: number;
 
     host: User;
     visitor: User;
@@ -30,17 +33,37 @@ export class ConversationComponent implements OnInit {
 
     comments = []
 
+    user_id: number;
+    user_name: string;
+    thumb_url: string;
+
+    is_visitor = false;
+
+    conversation: Conversation;
+
+
     // items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
 
     constructor(
         private route: ActivatedRoute,
         private location: Location,
-        private apiService: ApiService) { }
+        private apiService: ApiService,
+        private userDataService: UserDataService) { }
 
     ngOnInit() {
       console.log('ConversationComponent onInit');
-      this.getIds();
+
+      this.conv_id = +this.route.snapshot.paramMap.get('conv_id');      
+
+      this.user_id = this.userDataService.getUserId();
+      this.user_name = this.userDataService.getUserName();
+      this.thumb_url = this.userDataService.getThumbUrl();
+
+      this.getConversationData();
+
+      // this.getIds();
       this.createDummyData();
+
     }
 
     createDummyData(): void {
@@ -79,50 +102,95 @@ export class ConversationComponent implements OnInit {
       this.comments.push(user5);
     }
 
-    getIds(): void {
-      this.host_id = +this.route.snapshot.paramMap.get('host_id');
-      this.visitor_id = +this.route.snapshot.paramMap.get('visitor_id');
 
-      console.log(this.host_id);
-      console.log(this.visitor_id);
+    getConversationData(): void {
+      console.log('getConversationData');
 
-      forkJoin(
-          this.apiService.getUserData(Number(this.host_id)),
-          this.apiService.getUserData(Number(this.visitor_id))
-          ).subscribe((res)=> {
+      this.apiService.getConversationData(this.conv_id).pipe(
+            tap(heroes => console.log('fetched users')),
+            catchError(this.apiService.handleError<string>('getConversationData', 'Error'))
+            ).subscribe(param => {
+              console.log(param);
+              if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+                let builder = new ConversationDataBuilder();
+                this.conversation = builder.setConversationId(param[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(param[ConversationConsts.KEY_HOST_ID]).setHostUserName(param[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(param[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(param[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(param[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(param[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(param[ConversationConsts.KEY_MESSAGES]).getResult();
 
-            if(res[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
-                console.log(res[0]);
-                console.log(res[1]);
-
-                this.host = this.createUserData(res[0]);
-                this.visitor = this.createUserData(res[1]);
-                //TOOD In case of success
-
-                this.apiService.createConversationData({"test": "test"}).pipe(
-                      tap(heroes => console.log('fetched users')),
-                      catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
-                      ).subscribe(param => param);
+                if(this.user_id == this.conversation.getVisitorUserId()){
+                  console.log('This is Visitor');
+                  this.is_visitor = true;
+                } else {
+                  console.log('This is host');
+                  this.is_visitor = false;
+                }
               } else {
-
+              // TODO Error handling
               }
-          });
+            });
 
     }
+
+    // getIds(): void {
+    //   // this.conv_id = +this.route.snapshot.paramMap.get('conv_id');
+    //   // this.host_id = +this.route.snapshot.paramMap.get('host_id');
+    //   // this.visitor_id = +this.route.snapshot.paramMap.get('visitor_id');
+
+    //   console.log(this.host_id);
+    //   console.log(this.visitor_id);
+
+    //   forkJoin(
+    //       this.apiService.getUserData(Number(this.host_id)),
+    //       this.apiService.getUserData(Number(this.visitor_id))
+    //       ).subscribe((res)=> {
+
+    //         if(res[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+    //             console.log(res[0]);
+    //             console.log(res[1]);
+
+    //             this.host = this.createUserData(res[0]);
+    //             this.visitor = this.createUserData(res[1]);
+    //             //TOOD In case of success
+
+    //             this.apiService.createConversationData({"test": "test"}).pipe(
+    //                   tap(heroes => console.log('fetched users')),
+    //                   catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
+    //                   ).subscribe(param => param);
+    //           } else {
+
+    //           }
+    //       });
+
+    // }
 
     sendComment(): void {
       console.log('sendComment');
       console.log(this.comment);
 
+      let message = {}
+      message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = this.user_id;
+      message[ConversationConsts.KEY_MESSAGES_SENDER_NAME] = this.user_name;
+      message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = this.thumb_url;
+      message[ConversationConsts.KEY_MESSAGES_CONTENT] = this.comment;
+
+
+      this.conversation.addMessage(message);
+
+      // TODO This should not be whole update of conversation. It should be only for message part.
+      this.apiService.updateConversationData(this.conversation).pipe(
+          tap(data => console.log(data)),
+          catchError(this.apiService.handleError<string>('updateConversationData', 'Error'))
+          ).subscribe(param => {
+            console.log(param);
+            // TODO
+          });
 
     }
 
-    createUserData(data: any): User {
-      let user = new User();
-      user.setUserId(data[UserConsts.KEY_USER_ID]);
-      user.setUserName(data[UserConsts.KEY_USER_NAME]);
-      user.setThumbUrl(data[UserConsts.KEY_THUMB_URL]);
-      return user;
-    }
+    // createUserData(data: any): User {
+    //   let user = new User();
+    //   user.setUserId(data[UserConsts.KEY_USER_ID]);
+    //   user.setUserName(data[UserConsts.KEY_USER_NAME]);
+    //   user.setThumbUrl(data[UserConsts.KEY_THUMB_URL]);
+    //   return user;
+    // }
 
 }

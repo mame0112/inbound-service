@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'choose', component: ChooseComponent },
     { path: 'visit-start', component: VisitStartComponent },
     { path: 'host-start', component: HostStartComponent },
-    { path: 'conversation/:host_id/:visitor_id', component: ConversationComponent },
+    { path: 'conversation/:conv_id', component: ConversationComponent },
     { path: 'my-page', component: MyPageComponent }
 
 ];

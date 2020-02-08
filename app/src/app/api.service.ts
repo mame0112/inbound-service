@@ -72,9 +72,21 @@ export class ApiService {
         return this.http.post<string>(Constants.url_hosts, body);
     }
 
+    getConversationData(conv_id: number): Observable<string> {
+        console.log('getConversationData');
+        const params = new HttpParams().set('conv_id', String(conv_id));
+        return this.http.get<string>(Constants.url_conversations, {params});
+    }
+
     createConversationData(body: object): Observable<string> {
         console.log('createConversationData');
         return this.http.post<string>(Constants.url_conversations, body);
+
+    }
+
+    updateConversationData(body: object): Observable<string> {
+        console.log('createUserData');
+        return this.http.put<string>(Constants.url_conversations, body);
 
     }
 

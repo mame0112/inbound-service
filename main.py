@@ -87,11 +87,13 @@ class Conversation(Resource):
         return
 
     def post(self):
-        log.debug('get')
-        return
+        log.debug('post')
+        conversation_data = request.json
+        dataManager = DatastoreManager()
+        return dataManager.create_conversation(conversation_data).get_result_json()
 
     def put(self):
-        log.debug('get')
+        log.debug('put')
         return
 
 

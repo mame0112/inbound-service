@@ -58,4 +58,10 @@ export class ConversationConsts {
     public static readonly KEY_VISITOR_NAME = "visitor_name"
     public static readonly KEY_VISITOR_THUMB_URL = "visitor_thumb_url"
     public static readonly KEY_MESSAGES = "messages"
+    public static readonly KEY_MESSAGES_SENDER_ID = "msg_sender_id"
+    public static readonly KEY_MESSAGES_SENDER_NAME = "msg_sender_name"
+    public static readonly KEY_MESSAGES_SENDER_THUMB_URL = "msg_sender_tu"
+    public static readonly KEY_MESSAGES_SEND_TIME = "msg_sende_time"
+    public static readonly KEY_MESSAGES_CONTENT = "msg_content"
+
 }

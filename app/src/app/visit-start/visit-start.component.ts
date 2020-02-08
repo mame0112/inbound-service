@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { catchError, map, tap } from 'rxjs/operators';
 import { flatMap } from 'rxjs/operators';
+
+import { Router } from '@angular/router';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
@@ -10,6 +13,7 @@ import { Host } from '../host';
 import { Constants, HostConsts, VisitConsts, ConversationConsts } from '../constants';
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
+import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 @Component({
   selector: 'app-visit-start',
@@ -33,9 +37,11 @@ export class VisitStartComponent implements OnInit {
 
     constructor(
         private apiService: ApiService,
-        private userDataService: UserDataService) { }
+        private userDataService: UserDataService,
+        private router: Router) { }
 
     ngOnInit() {
+        this.createVisitJson();
     }
 
     onNextButtonClicked() {
@@ -49,7 +55,6 @@ export class VisitStartComponent implements OnInit {
     }
 
     onSubmit(){
-        this.createVisitJson(this.visit)
         console.log('Submitted:' + JSON.stringify(this.visit));
 
         this.apiService.createVisitData(this.visit).pipe(
@@ -78,19 +83,31 @@ export class VisitStartComponent implements OnInit {
 
             });
 
-        //     this.apiService.getHostData(params2 => console.log(params2));
+    }
 
-        //     const obj = JSON.parse(params);
-        //     if(obj.responseCode == 200){
-        //         this.apiService.getHostData(params => console.log(params));
-        //     } else {
-        //         console.log('ResponseCode is not 200')
-        //     }
-        // });
+    startConversation(): void {
+      console.log('startConversation');
+
+      let builder = new ConversationDataBuilder();
+      let conversation = builder.setHostUserId(this.host.getUserId()).setHostUserName(this.host.getUserName()).setHostThumbUrl(this.host.getThumbUrl()).setVisitorUserId(this.visit.getUserId()).setVisitorUserName(this.visit.getUserName()).setVisitorThumbUrl(this.visit.getThumbUrl()).setMessages([]).getResult();
+
+      this.apiService.createConversationData(conversation).pipe(
+        tap(heroes => console.log('fetched users')),
+        catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
+      ).subscribe(param => {
+          if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+            let conv_id = param[ConversationConsts.KEY_CONVERSATION_ID];
+            console.log(conv_id);
+            this.router.navigate(['/conversation', {'conv_id': conv_id}]);
+            // this.router.navigate(['/conversation', conv_id], { relativeTo: this.router });
+          }
+      });
+
     }
 
 
-    createVisitJson(visit: Visit): void {
+    createVisitJson(): void {
+        //TODO Need to put Start / End / Comment and other information
         this.visit.setUserId(this.userDataService.getUserId());
         this.visit.setUserName(this.userDataService.getUserName());
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());

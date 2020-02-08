@@ -43,5 +43,39 @@ export class Visit {
         this.comment = comment;
     }
 
+
+    getVisitId(): number {
+        return this.visit_id;
+    }
+
+    getUserId(): number {
+        return this.user_id;
+    }
+
+    getUserName(): string {
+        return this.user_name;
+    }
+
+    getThumbUrl(): string {
+        return this.thumb_url;
+    }
+
+    getPlace(): string {
+        return this.place;
+    }
+
+    getStart(): string {
+        return this.start;
+    }
+
+    getEnd(): string {
+        return this.end;
+    }
+
+    getComment(): string {
+        return this.comment;
+    }
+
+
     
 }

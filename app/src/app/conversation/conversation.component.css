@@ -8,10 +8,10 @@
   height: 50px;
 }
 
-.item1 {
+.item-right {
     background-color: #ff0000
 }
 
-.item2 {
+.item-left {
     background-color: #00ff00
 }

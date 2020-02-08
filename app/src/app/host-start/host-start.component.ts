@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { flatMap, mergeMap, concatMap } from 'rxjs/operators';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { Router } from '@angular/router';
+
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 
@@ -12,6 +14,7 @@ import { Visit } from '../visit';
 
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
+import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 @Component({
   selector: 'app-host-start',
@@ -33,7 +36,8 @@ export class HostStartComponent implements OnInit {
 
     constructor(
       private apiService: ApiService,
-      private userDataService: UserDataService
+      private userDataService: UserDataService,
+      private router: Router
       ) { }
 
     ngOnInit() {
@@ -45,7 +49,7 @@ export class HostStartComponent implements OnInit {
 
         this.apiService.getVisitData(Constants.ALL_VISITS).pipe(
           tap(data => console.log(data)),
-          catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+          catchError(this.apiService.handleError<string>('getVisitData', 'Error'))
           ).subscribe(param => {
             if (param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
               let contents = param[Constants.CONTENT];
@@ -100,7 +104,21 @@ export class HostStartComponent implements OnInit {
     startConversation(): void {
       console.log('startConversation');
 
-      //TODO Start conversation (Move visit / host pointer?)
+      let builder = new ConversationDataBuilder();
+      let conversation = builder.setHostUserId(this.userDataService.getUserId()).setHostUserName(this.userDataService.getUserName()).setHostThumbUrl(this.userDataService.getThumbUrl()).setVisitorUserId(this.matched_visit.getUserId()).setVisitorUserName(this.matched_visit.getUserName()).setVisitorThumbUrl(this.matched_visit.getThumbUrl()).setMessages([]).getResult();
+
+      this.apiService.createConversationData(conversation).pipe(
+        tap(heroes => console.log('fetched users')),
+        catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
+      ).subscribe(param => {
+        //TODO
+        console.log(param);
+
+        let conv_id = 1
+        console.log(param);
+        this.router.navigate(['/conversation', conv_id]);
+
+      });
 
     }
 

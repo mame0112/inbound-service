@@ -10,6 +10,7 @@ from server.result.result import Result
 from server.datastore.data_processor.user_dataformat_processor import UserDataFormatProcessor
 from server.datastore.data_processor.host_dataformat_processor import HostDataFormatProcessor
 from server.datastore.data_processor.visit_dataformat_processor import VisitDataFormatProcessor
+from server.datastore.data_processor.conversation_dataformat_processor import ConversationDataFormatProcessor
 
 from google.cloud import datastore
 
@@ -414,11 +415,35 @@ class DatastoreManager:
         # TODO Update pointer kind
         return
 
-    def create_conversation(self):
+    def create_conversation(self, conv_data):
         self.log.debug('create_conversation')
+        result = Result()
 
-        # TODO Update pointer kind
-        return
+        try:
+            ut = int(time.time())
+
+            client = datastore.Client()
+            key = client.key(Conversation.KIND_NAME, ut)
+
+            entity = datastore.Entity(key=key)
+            processor = ConversationDataFormatProcessor()
+            processor.jsonToEntity(conv_data, entity)
+
+            entity[Conversation.KEY_CONVERSATION_ID] = ut
+
+            conv_id = {}
+            conv_id[Conversation.KEY_CONVERSATION_ID] = ut
+
+            result.set_content(conv_id)
+
+            self.log.debug(conv_id)
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result
 
     def is_num(self, s):
         return s.replace(',', '').replace('.', '').replace('-', '').isnumeric()

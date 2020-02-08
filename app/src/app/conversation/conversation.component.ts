@@ -112,8 +112,10 @@ export class ConversationComponent implements OnInit {
             ).subscribe(param => {
               console.log(param);
               if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+                let content = param[Constants.CONTENT]
                 let builder = new ConversationDataBuilder();
-                this.conversation = builder.setConversationId(param[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(param[ConversationConsts.KEY_HOST_ID]).setHostUserName(param[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(param[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(param[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(param[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(param[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(param[ConversationConsts.KEY_MESSAGES]).getResult();
+                this.conversation = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).getResult();
+                console.log(this.conversation.getMessages());
 
                 if(this.user_id == this.conversation.getVisitorUserId()){
                   console.log('This is Visitor');
@@ -171,6 +173,7 @@ export class ConversationComponent implements OnInit {
       message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = this.thumb_url;
       message[ConversationConsts.KEY_MESSAGES_CONTENT] = this.comment;
 
+      console.log(message)
 
       this.conversation.addMessage(message);
 

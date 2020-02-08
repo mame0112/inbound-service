@@ -172,14 +172,14 @@ class DatastoreManager:
 
     def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans):
         self.log.debug('update_user isolate')
-        self.log.debug(user_id)
-        self.log.debug(user_name)
-        self.log.debug(thumb_url)
-        self.log.debug(access_token)
-        self.log.debug(convs_host)
-        self.log.debug(convs_guest)
-        self.log.debug(user_properties)
-        self.log.debug(key_plans)
+        # self.log.debug(user_id)
+        # self.log.debug(user_name)
+        # self.log.debug(thumb_url)
+        # self.log.debug(access_token)
+        # self.log.debug(convs_host)
+        # self.log.debug(convs_guest)
+        # self.log.debug(user_properties)
+        # self.log.debug(key_plans)
 
         result = Result()
 
@@ -403,10 +403,10 @@ class DatastoreManager:
 
     def get_conversation(self, conv_id):
         self.log.debug('get_conversation')
-        self.log.debug(conv_id)
+
+        result = Result()
 
         try:
-            result = Result()
 
             conv_id_int = int(conv_id)
 
@@ -430,11 +430,29 @@ class DatastoreManager:
 
         return result
 
-    def update_conversation(self):
+    def update_conversation(self, conv_json):
         self.log.debug('update_conversation')
 
-        # TODO Update pointer kind
-        return
+        result = Result()
+
+        try:
+            client = datastore.Client()
+
+            conversation_id = conv_json[Conversation.KEY_CONVERSATION_ID]
+            key = client.key(Conversation.KIND_NAME, conversation_id)
+            entity = client.get(key)
+
+            processor = ConversationDataFormatProcessor()
+            entity = processor.jsonToEntity(conv_json, entity)
+
+            client.put(entity)
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result
 
     def create_conversation(self, conv_data):
         self.log.debug('create_conversation')

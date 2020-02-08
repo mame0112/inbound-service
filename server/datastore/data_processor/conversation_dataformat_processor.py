@@ -19,6 +19,8 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
 
         data = {}
 
+        data[Conversation.KEY_CONVERSATION_ID] = entity[
+            Conversation.KEY_CONVERSATION_ID]
         data[Conversation.KEY_HOST_ID] = entity[Conversation.KEY_HOST_ID]
         data[Conversation.KEY_HOST_NAME] = entity[Conversation.KEY_HOST_NAME]
         data[Conversation.KEY_HOST_THUMB_URL] = entity[
@@ -41,6 +43,12 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
 
     def jsonToEntity(self, conv_json, entity):
         self.log.debug('jsonToEntity')
+
+        try:
+            entity[Conversation.KEY_CONVERSATION_ID] = conv_json[
+                Conversation.KEY_CONVERSATION_ID]
+        except KeyError as error:
+            pass
 
         entity[Conversation.KEY_HOST_ID] = conv_json[Conversation.KEY_HOST_ID]
         entity[Conversation.KEY_HOST_NAME] = conv_json[

@@ -97,7 +97,9 @@ class Conversation(Resource):
 
     def put(self):
         log.debug('Conversation put')
-        return
+        conversation_data = request.json
+        dataManager = DatastoreManager()
+        return dataManager.update_conversation(conversation_data).get_result_json()
 
 
 @app.route('/callback/<input>')

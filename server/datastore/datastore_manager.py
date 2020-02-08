@@ -385,9 +385,18 @@ class DatastoreManager:
 
             client.put(entity)
 
+            # Update user data
+            user_visit = {}
+            user_visit[Visit.KEY_VISIT_ID] = ut
+            user_visit[Visit.KEY_START] = visit_json[Visit.KEY_START]
+            user_visit[Visit.KEY_END] = visit_json[Visit.KEY_END]
+            user_visit[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]
+
             # Update User info
+            # user_id, user_name, thumb_url, access_token,
+            #                         convs_host, convs_guest, user_properties, key_plans
             self.update_user_parameters(visit_json[Visit.KEY_USER_ID], None, None, None,
-                                        None, ut, None, None)
+                                        None, user_visit, None, None)
 
             # Update state
             self.register_waiting_visitor_to_state(ut)

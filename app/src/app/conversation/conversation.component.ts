@@ -115,7 +115,6 @@ export class ConversationComponent implements OnInit {
                 let content = param[Constants.CONTENT]
                 let builder = new ConversationDataBuilder();
                 this.conversation = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).getResult();
-                console.log(this.conversation.getMessages());
 
                 if(this.user_id == this.conversation.getVisitorUserId()){
                   console.log('This is Visitor');
@@ -128,40 +127,8 @@ export class ConversationComponent implements OnInit {
               // TODO Error handling
               }
             });
-
     }
 
-    // getIds(): void {
-    //   // this.conv_id = +this.route.snapshot.paramMap.get('conv_id');
-    //   // this.host_id = +this.route.snapshot.paramMap.get('host_id');
-    //   // this.visitor_id = +this.route.snapshot.paramMap.get('visitor_id');
-
-    //   console.log(this.host_id);
-    //   console.log(this.visitor_id);
-
-    //   forkJoin(
-    //       this.apiService.getUserData(Number(this.host_id)),
-    //       this.apiService.getUserData(Number(this.visitor_id))
-    //       ).subscribe((res)=> {
-
-    //         if(res[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
-    //             console.log(res[0]);
-    //             console.log(res[1]);
-
-    //             this.host = this.createUserData(res[0]);
-    //             this.visitor = this.createUserData(res[1]);
-    //             //TOOD In case of success
-
-    //             this.apiService.createConversationData({"test": "test"}).pipe(
-    //                   tap(heroes => console.log('fetched users')),
-    //                   catchError(this.apiService.handleError<string>('createConversationData', 'Error'))
-    //                   ).subscribe(param => param);
-    //           } else {
-
-    //           }
-    //       });
-
-    // }
 
     sendComment(): void {
       console.log('sendComment');

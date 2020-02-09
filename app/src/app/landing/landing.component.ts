@@ -33,6 +33,12 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     console.log('LandingComponent onInit');
 
+    this.userObj = this.userDataService.initialize();
+    if(this.userObj != null){
+      this.router.navigate(['/my-page']);
+    }
+
+
 
     // apiService.getUserData().subscribe(params => this.contents = this.dataProcessorServie.parseJson2ContentsData(params));
     // this.apiService.getUserData().subscribe(param => console.log('Data fetched'));

@@ -1,6 +1,9 @@
 <mat-card>Host data
     <mat-list>
-        <mat-list-item *ngFor="let host of hosts"> {{host.visitor_name}} / {{host.visitor_thumb_url}} </mat-list-item>
+        <mat-list-item *ngFor="let host of hosts">
+            <img [src]="host.visitor_thumb_url">
+            {{host.visitor_name}}    
+        </mat-list-item>
     </mat-list>
 </mat-card>
 

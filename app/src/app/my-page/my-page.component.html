@@ -1,8 +1,6 @@
 <mat-card>Host data
     <mat-list>
-        <mat-list-item> Pepper </mat-list-item>
-        <mat-list-item> Salt </mat-list-item>
-        <mat-list-item> Paprika </mat-list-item>
+        <mat-list-item *ngFor="let host of hosts"> {{host.visitor_name}} / {{host.visitor_thumb_url}} </mat-list-item>
     </mat-list>
 </mat-card>
 

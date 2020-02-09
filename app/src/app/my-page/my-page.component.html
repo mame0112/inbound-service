@@ -1,8 +1,10 @@
 <mat-card>Host data
     <mat-list>
         <mat-list-item *ngFor="let host of hosts">
-            <img [src]="host.visitor_thumb_url">
-            {{host.visitor_name}}    
+            <a [routerLink]="['/conversation', host.conversation_id]">
+                <img [src]="host.visitor_thumb_url">
+                {{host.visitor_name}}
+            </a>
         </mat-list-item>
     </mat-list>
 </mat-card>

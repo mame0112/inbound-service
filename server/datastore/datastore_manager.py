@@ -510,6 +510,7 @@ class DatastoreManager:
                 Conversation.KEY_VISITOR_NAME]
             convs_host[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
                 Conversation.KEY_VISITOR_THUMB_URL]
+            convs_host[Conversation.KEY_CONVERSATION_ID] = ut
 
             host_user_id = conv_data[Conversation.KEY_HOST_ID]
 
@@ -525,6 +526,7 @@ class DatastoreManager:
                 Conversation.KEY_HOST_NAME]
             convs_guest[Conversation.KEY_HOST_THUMB_URL] = conv_data[
                 Conversation.KEY_HOST_THUMB_URL]
+            convs_guest[Conversation.KEY_CONVERSATION_ID] = ut
 
             visitor_user_id = conv_data[Conversation.KEY_VISITOR_ID]
 

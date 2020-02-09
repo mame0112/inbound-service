@@ -181,6 +181,9 @@ class DatastoreManager:
         # self.log.debug(user_properties)
         # self.log.debug(key_plans)
 
+        if user_id is None:
+            raise ValueError("User id cannot be null")
+
         result = Result()
 
         try:
@@ -290,6 +293,17 @@ class DatastoreManager:
                 # Register host to state
                 self.register_new_host_to_state(host_json[Host.KEY_USER_ID])
 
+                # Update user data
+                user_host = {}
+                user_host[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
+                user_host[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]
+                user_host[Host.KEY_THUMB_URL] = host_json[Host.KEY_THUMB_URL]
+
+                # user_id, user_name, thumb_url, access_token,
+                #                         convs_host, convs_guest, user_properties, key_plans
+                self.update_user_parameters(host_json[Host.KEY_USER_ID], None, None, None,
+                                            user_host, None, None, None)
+
                 return result
 
         except ValueError as error:
@@ -394,8 +408,6 @@ class DatastoreManager:
             user_visit[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]
 
             # Update User info
-            # user_id, user_name, thumb_url, access_token,
-            #                         convs_host, convs_guest, user_properties, key_plans
             self.update_user_parameters(visit_json[Visit.KEY_USER_ID], None, None, None,
                                         None, user_visit, None, None)
 

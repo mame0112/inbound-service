@@ -14,6 +14,10 @@ export class Constants {
     public static readonly CONTENT = 'content';
     public static readonly RESPONSE_OK = 200;
 
+    // For Cookie
+    public static readonly COOKIE_USER_ID = 'user_id';
+    public static readonly COOKIE_USER_NAME = 'user_name';
+    public static readonly COOKIE_THUMB_URL = 'thumb_url';
 }
 
 export class UserConsts {

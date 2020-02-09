@@ -22,10 +22,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
+
+import { CookieService } from 'ngx-cookie-service';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -82,7 +83,8 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

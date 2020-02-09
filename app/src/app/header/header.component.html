@@ -16,7 +16,7 @@
       <a mat-button routerLink="" class="header-button">Terms</a>
     </span>
     <span>
-      <a mat-button routerLink="" class="header-button">Sign out</a>
+      <a mat-button routerLink="" class="header-button" (click)="ClearUserData()">Sign out</a>
     </span>
     <span class="example-fill-remaining-space"></span>
     <span *ngIf="userData != null">

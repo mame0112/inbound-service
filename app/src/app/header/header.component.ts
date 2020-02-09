@@ -20,11 +20,22 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         console.log('HeaderComponent OnInit');
-        this.userDataService.change.subscribe(param => {
-            if (param !== null){
-                this.userData = new UserDataBuilder().setUserId(param[UserConsts.KEY_USER_ID]).setUserName(param[UserConsts.KEY_USER_NAME]).setThumbUrl(param[UserConsts.KEY_THUMB_URL]).getResult();
-            }
-        });
+
+        this.userData = this.userDataService.initialize();
+
+        if(this.userData == null){
+          this.userDataService.change.subscribe(param => {
+              if (param !== null){
+                  this.userData = new UserDataBuilder().setUserId(param[UserConsts.KEY_USER_ID]).setUserName(param[UserConsts.KEY_USER_NAME]).setThumbUrl(param[UserConsts.KEY_THUMB_URL]).getResult();
+              }
+          });
+        }
+
+    }
+
+    ClearUserData(): void{
+      console.log('RemodeUserData');
+      this.userDataService.deleteUserData();
     }
 
 }

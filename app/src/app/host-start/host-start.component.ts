@@ -11,6 +11,8 @@ import { UserDataService } from '../user-data.service';
 import { Constants, VisitConsts, ConversationConsts } from '../constants';
 
 import { Visit } from '../visit';
+import { Host } from '../host';
+import { User } from '../user';
 
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
@@ -70,6 +72,17 @@ export class HostStartComponent implements OnInit {
 
     }
 
+    createHostData(): Host {
+      this.builder = new HostDataBuilder();
+      return this.builder.setUserId(this.userDataService.getUserId()).setUserName(this.userDataService.getUserName()).setThumbUrl(this.userDataService.getThumbUrl()).getResult();
+    }
+
+    // createUserData(): void {
+    //   let user = new User();
+    //   user.setUserId(this.userDataService.getUserId());
+
+    // }
+
     matchingWithVisitor(contents: any): void {
       console.log('matchingWithVisitor');
       let array = JSON.parse(contents);
@@ -85,16 +98,32 @@ export class HostStartComponent implements OnInit {
 
     registerToVisitorWaitingQueue(): void {
       console.log('registerToVisitorWaitingQueue');
-      this.builder = new HostDataBuilder();
-      this.host_data = this.builder.setUserId(this.userDataService.getUserId()).setUserName(this.userDataService.getUserName()).setThumbUrl(this.userDataService.getThumbUrl()).getResult();
+
+      this.host_data = this.createHostData();
 
       this.apiService.createHostData(this.host_data).pipe(
         tap(data => console.log(data)),
-        catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+        catchError(this.apiService.handleError<string>('createHostData', 'Error'))
         ).subscribe(params2 => {
           if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
             // Successfully registered to waiting queue
             this.state = HostStartComponent.WAITING_FOR_VISITOR;
+
+
+            // let user = User();
+            // user.setUserId(this.userDataService.getUserId());
+            // user.setHostUserId
+
+            // // Change User DB's host data to "Registered"
+            // this.apiService.updateUserData(a).pipe(
+            //   tap(data => console.log(data)),
+            //   catchError(this.apiService.handleError<string>('updateUserData', 'Error'))
+            //   ).subscribe(params2 => {
+            //     if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
+            //     }
+            // });
+
+
           } else {
             console.log('createHostData response error');
           }

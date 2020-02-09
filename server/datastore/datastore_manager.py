@@ -205,10 +205,18 @@ class DatastoreManager:
                 entity[User.KEY_ACCESS_TOKEN] = access_token
 
             if convs_host != None:
-                jsonHostArray = entity[
-                    User.KEY_CONVERSATIONS_HOST]
+                jsonHostArray = entity[User.KEY_CONVERSATIONS_HOST]
+
+                if len(jsonHostArray) == 1:
+                    self.log.debug('length 1')
+                    if 'visitor_id' not in jsonHostArray[0]:
+                        self.log.debug('Visitor does not exist')
+                        # This is temporal id. Then remove it.
+                        jsonHostArray.clear()
+
                 jsonHostArray.append(convs_host)
-                entity[User.KEY_CONVERSATIONS_HOST] = jsonArray
+
+                entity[User.KEY_CONVERSATIONS_HOST] = jsonHostArray
 
             if convs_guest != None:
                 jsonGuestArray = entity[User.KEY_CONVERSATIONS_GUEST]
@@ -295,9 +303,7 @@ class DatastoreManager:
 
                 # Update user data
                 user_host = {}
-                user_host[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
-                user_host[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]
-                user_host[Host.KEY_THUMB_URL] = host_json[Host.KEY_THUMB_URL]
+                user_host[Host.KEY_USER_ID] = Consts.NO_USER
 
                 # user_id, user_name, thumb_url, access_token,
                 #                         convs_host, convs_guest, user_properties, key_plans
@@ -484,6 +490,8 @@ class DatastoreManager:
             ut = int(time.time())
 
             client = datastore.Client()
+
+            # Store conversation data to conversation kind
             key = client.key(Conversation.KIND_NAME, ut)
 
             entity = datastore.Entity(key=key)
@@ -494,6 +502,36 @@ class DatastoreManager:
 
             client.put(entity)
 
+            # Update user db (For Host)
+            convs_host = {}
+            convs_host[Conversation.KEY_VISITOR_ID] = conv_data[
+                Conversation.KEY_VISITOR_ID]
+            convs_host[Conversation.KEY_VISITOR_NAME] = conv_data[
+                Conversation.KEY_VISITOR_NAME]
+            convs_host[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
+                Conversation.KEY_VISITOR_THUMB_URL]
+
+            host_user_id = conv_data[Conversation.KEY_HOST_ID]
+
+            # user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans
+            self.update_user_parameters(host_user_id, None, None, None,
+                                        convs_host, None, None, None)
+
+            # Update user db (For Guest)
+            convs_guest = {}
+            convs_guest[Conversation.KEY_HOST_ID] = conv_data[
+                Conversation.KEY_HOST_ID]
+            convs_guest[Conversation.KEY_HOST_NAME] = conv_data[
+                Conversation.KEY_HOST_NAME]
+            convs_guest[Conversation.KEY_HOST_THUMB_URL] = conv_data[
+                Conversation.KEY_HOST_THUMB_URL]
+
+            visitor_user_id = conv_data[Conversation.KEY_VISITOR_ID]
+
+            self.update_user_parameters(visitor_user_id, None, None, None,
+                                        None, convs_guest, None, None)
+
+            # Create result
             conv_id = {}
             conv_id[Conversation.KEY_CONVERSATION_ID] = ut
 

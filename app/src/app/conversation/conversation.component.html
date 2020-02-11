@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
     <div *cdkVirtualFor="let msg of messages" class="example-item">
         <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
         {{ msg.msg_sender_name }}<br>
@@ -10,6 +10,19 @@
         </div>
     </div>
 </cdk-virtual-scroll-viewport>
+ -->
+<ul>
+    <li *ngFor="let msg of messages">
+        <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
+        {{ msg.msg_sender_name }}<br>
+        {{ msg.msg_content }}<br>
+        </div>
+        <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
+        {{ msg.msg_sender_name }}<br>
+        {{ msg.msg_content }}<br>
+        </div>
+    </li>
+</ul>
 
 <form class="form-horizontal" (ngSubmit)="sendComment()" #form2="ngForm">
     <div class="form-group">

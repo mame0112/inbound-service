@@ -168,32 +168,11 @@ export class ConversationComponent implements OnInit {
               let updated_comments = param[Constants.CONTENT];
               for (var i in updated_comments) {
                 console.log(updated_comments[i].msg_content);
+                this.conversations.messages.push(updated_comments[i]);
               }
-
-              this.conversations.messages = updated_comments;
-
             }
           });
 
-      // this.apiService.updateConversationData(this.conversations).pipe(
-      //     tap(data => console.log(data)),
-      //     catchError(this.apiService.handleError<string>('updateConversationData', 'Error'))
-      //     ).subscribe(param => {
-      //       console.log(param);
-      //       if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
-      //         let content = param[Constants.CONTENT];
-
-      //       }
-      //     });
-
     }
-
-    // createUserData(data: any): User {
-    //   let user = new User();
-    //   user.setUserId(data[UserConsts.KEY_USER_ID]);
-    //   user.setUserName(data[UserConsts.KEY_USER_NAME]);
-    //   user.setThumbUrl(data[UserConsts.KEY_THUMB_URL]);
-    //   return user;
-    // }
 
 }

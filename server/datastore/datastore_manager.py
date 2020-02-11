@@ -622,10 +622,10 @@ class DatastoreManager:
                 msg_obj = json.loads(msg)
                 timestamp = msg_obj[Conversation.KEY_MESSAGES_TIMESTAMP]
                 if timestamp > latest_message_in_client:
-                    self.log.debug('Bigger than client')
+                    # self.log.debug('Bigger than client')
                     output.append(json.loads(msg))
-                else:
-                    self.log.debug('Smaller than client')
+                # else:
+                    # self.log.debug('Smaller than client')
 
             result.set_content(output)
 

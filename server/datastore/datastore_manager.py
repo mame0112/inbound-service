@@ -470,8 +470,26 @@ class DatastoreManager:
             key = client.key(Conversation.KIND_NAME, conversation_id)
             entity = client.get(key)
 
-            processor = ConversationDataFormatProcessor()
-            entity = processor.jsonToEntity(conv_json, entity)
+            # processor = ConversationDataFormatProcessor()
+            # entity = processor.update_entity(entity, conv_json)
+            entity[Conversation.KEY_HOST_ID] = conv_json[
+                Conversation.KEY_HOST_ID]
+            entity[Conversation.KEY_HOST_NAME] = conv_json[
+                Conversation.KEY_HOST_NAME]
+            entity[Conversation.KEY_HOST_THUMB_URL] = conv_json[
+                Conversation.KEY_HOST_THUMB_URL]
+            entity[Conversation.KEY_VISITOR_ID] = conv_json[
+                Conversation.KEY_VISITOR_ID]
+            entity[Conversation.KEY_VISITOR_NAME] = conv_json[
+                Conversation.KEY_VISITOR_NAME]
+            entity[Conversation.KEY_VISITOR_THUMB_URL] = conv_json[
+                Conversation.KEY_VISITOR_THUMB_URL]
+
+            messages = entity[Conversation.KEY_MESSAGES]
+            # json.loads(
+
+            messages.append(json.dumps(conv_json[Conversation.KEY_MESSAGES]))
+            entity[Conversation.KEY_MESSAGES] = messages
 
             client.put(entity)
 
@@ -495,8 +513,26 @@ class DatastoreManager:
             key = client.key(Conversation.KIND_NAME, ut)
 
             entity = datastore.Entity(key=key)
-            processor = ConversationDataFormatProcessor()
-            processor.jsonToEntity(conv_data, entity)
+            # processor = ConversationDataFormatProcessor()
+            # processor.jsonToEntity(conv_data, entity)
+
+            entity[Conversation.KEY_HOST_ID] = conv_data[
+                Conversation.KEY_HOST_ID]
+            entity[Conversation.KEY_HOST_NAME] = conv_data[
+                Conversation.KEY_HOST_NAME]
+            entity[Conversation.KEY_HOST_THUMB_URL] = conv_data[
+                Conversation.KEY_HOST_THUMB_URL]
+            entity[Conversation.KEY_VISITOR_ID] = conv_data[
+                Conversation.KEY_VISITOR_ID]
+            entity[Conversation.KEY_VISITOR_NAME] = conv_data[
+                Conversation.KEY_VISITOR_NAME]
+            entity[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
+                Conversation.KEY_VISITOR_THUMB_URL]
+            # entity[Conversation.KEY_MESSAGES] = json.dumps(conv_json[
+            #     Conversation.KEY_MESSAGES])
+            messages = []
+            messages.append(json.dumps(conv_data[Conversation.KEY_MESSAGES]))
+            entity[Conversation.KEY_MESSAGES] = messages
 
             entity[Conversation.KEY_CONVERSATION_ID] = ut
 

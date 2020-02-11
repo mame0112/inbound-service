@@ -132,7 +132,6 @@ export class ConversationComponent implements OnInit {
 
     sendComment(): void {
       console.log('sendComment');
-      console.log(this.comment);
 
       let message = {}
       message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = this.user_id;
@@ -140,9 +139,9 @@ export class ConversationComponent implements OnInit {
       message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = this.thumb_url;
       message[ConversationConsts.KEY_MESSAGES_CONTENT] = this.comment;
 
-      console.log(message)
-
       this.conversation.addMessage(message);
+
+      console.log(this.conversation);
 
       // TODO This should not be whole update of conversation. It should be only for message part.
       this.apiService.updateConversationData(this.conversation).pipe(
@@ -150,7 +149,10 @@ export class ConversationComponent implements OnInit {
           catchError(this.apiService.handleError<string>('updateConversationData', 'Error'))
           ).subscribe(param => {
             console.log(param);
-            // TODO
+            if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+              let content = param[Constants.CONTENT];
+
+            }
           });
 
     }

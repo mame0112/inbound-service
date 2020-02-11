@@ -84,7 +84,7 @@ export class ApiService {
     }
 
     updateConversationData(body: object): Observable<string> {
-        console.log('createUserData');
+        console.log('updateConversationData');
         return this.http.put<string>(Constants.url_conversations, body);
 
     }

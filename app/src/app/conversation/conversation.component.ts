@@ -40,6 +40,7 @@ export class ConversationComponent implements OnInit {
     is_visitor = false;
 
     conversations: Conversation;
+    messages = undefined;
 
 
     // items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
@@ -113,8 +114,11 @@ export class ConversationComponent implements OnInit {
               console.log(param);
               if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
                 let content = param[Constants.CONTENT]
+                console.log(content);
+
                 let builder = new ConversationDataBuilder();
                 this.conversations = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).getResult();
+                this.messages = this.conversations.getMessages();
 
                 if(this.user_id == this.conversations.getVisitorUserId()){
                   console.log('This is Visitor');
@@ -158,6 +162,8 @@ export class ConversationComponent implements OnInit {
               for (var i in updated_comments) {
                 console.log(updated_comments[i].msg_content);
               }
+
+              this.conversations.messages = updated_comments;
 
             }
           });

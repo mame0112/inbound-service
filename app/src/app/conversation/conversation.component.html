@@ -1,6 +1,6 @@
 <p>conversation works!</p>
 
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
     <div *cdkVirtualFor="let c of comments" class="example-item">
         <div *ngIf="c.user_id%2 == 0" class=item-right>
         {{ c.user_id }}<br>
@@ -11,13 +11,11 @@
         {{ c.user_name }}
         </div>
     </div>
-</cdk-virtual-scroll-viewport>
-
+</cdk-virtual-scroll-viewport> -->
 <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-    <div *cdkVirtualFor="let converstaion of conversations" class="example-item">
-        <div>{{ converstaion.msg_sender_name }}</div>
-        <div>{{ converstaion.msg_sender_tu }}</div>
-        <div>{{ converstaion.msg_sender_tu }}</div>
+    <div *cdkVirtualFor="let msg of messages" class="example-item">
+        {{ msg.msg_sender_name }}<br>
+        {{ msg.msg_content }}<br>
     </div>
 </cdk-virtual-scroll-viewport>
 

@@ -32,7 +32,16 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
 
         data[Conversation.KEY_VISITOR_THUMB_URL] = entity[
             Conversation.KEY_VISITOR_THUMB_URL]
-        data[Conversation.KEY_MESSAGES] = entity[Conversation.KEY_MESSAGES]
+
+        messages = entity[Conversation.KEY_MESSAGES]
+        output = []
+        if messages is None:
+            messages = []
+
+        for msg in messages:
+            output.append(json.loads(msg))
+
+        data[Conversation.KEY_MESSAGES] = output
 
         self.log.debug(json.dumps(data))
 

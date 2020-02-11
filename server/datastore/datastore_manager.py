@@ -599,6 +599,11 @@ class DatastoreManager:
                 messages = []
             # messages.append(json.dumps(
             #     comment_data[Conversation.KEY_MESSAGES]))
+
+            ut = int(time.time())
+            # TODO
+            # comment_data[]
+
             messages.append(json.dumps(
                 comment_data[Conversation.KEY_MESSAGES]))
             entity[Conversation.KEY_MESSAGES] = messages

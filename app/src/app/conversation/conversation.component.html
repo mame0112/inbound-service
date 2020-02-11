@@ -1,18 +1,3 @@
-<p>conversation works!</p>
-
-<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-    <div *cdkVirtualFor="let c of comments" class="example-item">
-        <div *ngIf="c.user_id%2 == 0" class=item-right>
-        {{ c.user_id }}<br>
-        {{ c.user_name }}
-        </div>
-        <div *ngIf="c.user_id%2 == 1" class=item-left>
-        {{ c.user_id }}<br>
-        {{ c.user_name }}
-        </div>
-    </div>
-</cdk-virtual-scroll-viewport> -->
-{{user_id}}
 <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
     <div *cdkVirtualFor="let msg of messages" class="example-item">
         <div *ngIf="msg.msg_sender_id == user_id" class=item-right>

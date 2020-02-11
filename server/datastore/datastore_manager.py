@@ -600,9 +600,9 @@ class DatastoreManager:
             # messages.append(json.dumps(
             #     comment_data[Conversation.KEY_MESSAGES]))
 
-            ut = int(time.time())
-            # TODO
-            # comment_data[]
+            current_time = int(time.time())
+            comment_data[Conversation.KEY_MESSAGES][
+                Conversation.KEY_MESSAGES_TIMESTAMP] = current_time
 
             messages.append(json.dumps(
                 comment_data[Conversation.KEY_MESSAGES]))

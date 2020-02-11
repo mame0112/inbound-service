@@ -11,7 +11,7 @@
     </div>
 </cdk-virtual-scroll-viewport>
  -->
-<ul>
+<!-- <ul>
     <li *ngFor="let msg of messages">
         <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
         {{ msg.msg_sender_name }}<br>
@@ -23,6 +23,19 @@
         </div>
     </li>
 </ul>
+ -->
+<mat-list>
+    <mat-list-item *ngFor="let msg of messages">
+        <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
+        {{ msg.msg_sender_name }}<br>
+        {{ msg.msg_content }}<br>
+        </div>
+        <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
+        {{ msg.msg_sender_name }}<br>
+        {{ msg.msg_content }}<br>
+        </div>
+    </mat-list-item>
+</mat-list>
 
 <form class="form-horizontal" (ngSubmit)="sendComment()" #form2="ngForm">
     <div class="form-group">

@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -77,7 +78,8 @@ export function provideConfig() {
     FlexLayoutModule,
     IgxNavbarModule,
     NgbModule,
-    ScrollingModule
+    ScrollingModule,
+    MatSidenavModule
   ],
   providers: [
     {

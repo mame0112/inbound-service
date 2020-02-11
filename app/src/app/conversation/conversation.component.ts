@@ -62,47 +62,7 @@ export class ConversationComponent implements OnInit {
 
       this.getConversationData();
 
-      // this.getIds();
-      this.createDummyData();
-
     }
-
-    createDummyData(): void {
-      let user = new User();
-      user.setUserId(1);
-      user.setUserName("user name 1");
-      user.setThumbUrl("https://xxxx.com");
-
-      this.comments.push(user);
-
-      let user2 = new User();
-      user2.setUserId(2);
-      user2.setUserName("user name 2");
-      user2.setThumbUrl("https://xxxx.com");
-
-      this.comments.push(user2);
-
-      let user3 = new User();
-      user3.setUserId(3);
-      user3.setUserName("user name 3");
-      user3.setThumbUrl("https://xxxx.com");
-
-      this.comments.push(user3);
-
-      let user4 = new User();
-      user4.setUserId(4);
-      user4.setUserName("user name 4");
-      user4.setThumbUrl("https://xxxx.com");
-      this.comments.push(user4);      
-
-      let user5 = new User();
-      user5.setUserId(5);
-      user5.setUserName("user name 5");
-      user5.setThumbUrl("https://xxxx.com");
-
-      this.comments.push(user5);
-    }
-
 
     getConversationData(): void {
       console.log('getConversationData');

@@ -102,6 +102,23 @@ class Conversation(Resource):
         return dataManager.update_conversation(conversation_data).get_result_json()
 
 
+class Comment(Resource):
+
+    def get(self):
+        log.debug('Comment get')
+        return
+
+    def post(self):
+        log.debug('Comment post')
+        return
+
+    def put(self):
+        log.debug('Comment put')
+        comment_data = request.json
+        dataManager = DatastoreManager()
+        return dataManager.update_comment(comment_data).get_result_json()
+
+
 @app.route('/callback/<input>')
 def callback(input):
     log.debug('callback')
@@ -120,7 +137,7 @@ api.add_resource(User, '/users')
 api.add_resource(Host, '/hosts')
 api.add_resource(Visit, '/visits')
 api.add_resource(Conversation, '/conversations')
-
+api.add_resource(Comment, '/comments')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

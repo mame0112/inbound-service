@@ -13,6 +13,14 @@
     </div>
 </cdk-virtual-scroll-viewport>
 
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <div *cdkVirtualFor="let converstaion of conversations" class="example-item">
+        <div>{{ converstaion.msg_sender_name }}</div>
+        <div>{{ converstaion.msg_sender_tu }}</div>
+        <div>{{ converstaion.msg_sender_tu }}</div>
+    </div>
+</cdk-virtual-scroll-viewport>
+
 <form class="form-horizontal" (ngSubmit)="sendComment()" #form2="ngForm">
     <div class="form-group">
         <div class="col-sm-5">

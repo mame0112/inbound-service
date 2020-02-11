@@ -3,6 +3,7 @@ export class Constants {
     public static readonly  url_hosts = 'hosts';
     public static readonly  url_visits = 'visits';
     public static readonly  url_conversations = 'conversations';
+    public static readonly  url_comments = 'comments';
 
     public static readonly NO_USER = -1;
 
@@ -71,5 +72,6 @@ export class ConversationConsts {
     public static readonly KEY_MESSAGES_SENDER_THUMB_URL = "msg_sender_tu"
     public static readonly KEY_MESSAGES_SEND_TIME = "msg_sende_time"
     public static readonly KEY_MESSAGES_CONTENT = "msg_content"
+    public static readonly KEY_MESSAGES_TIMESTAMP = "msg_time"
 
 }

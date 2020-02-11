@@ -27,6 +27,12 @@ class Conversation:
     KEY_VISITOR_NAME = "visitor_name"
     KEY_VISITOR_THUMB_URL = "visitor_thumb_url"
     KEY_MESSAGES = "messages"
+    KEY_MESSAGES_SENDER_ID = "msg_sender_id"
+    KEY_MESSAGES_SENDER_NAME = "msg_sender_name"
+    KEY_MESSAGES_SENDER_THUMB_URL = "msg_sender_tu"
+    KEY_MESSAGES_SEND_TIME = "msg_sende_time"
+    KEY_MESSAGES_CONTENT = "msg_content"
+    KEY_MESSAGES_TIMESTAMP = "msg_time"
 
 
 class Host:

@@ -530,9 +530,9 @@ class DatastoreManager:
                 Conversation.KEY_VISITOR_THUMB_URL]
             # entity[Conversation.KEY_MESSAGES] = json.dumps(conv_json[
             #     Conversation.KEY_MESSAGES])
-            messages = []
-            messages.append(json.dumps(conv_data[Conversation.KEY_MESSAGES]))
-            entity[Conversation.KEY_MESSAGES] = messages
+            # messages = []
+            # messages.append(json.dumps(conv_data[Conversation.KEY_MESSAGES]))
+            entity[Conversation.KEY_MESSAGES] = None
 
             entity[Conversation.KEY_CONVERSATION_ID] = ut
 
@@ -576,6 +576,41 @@ class DatastoreManager:
             result.set_content(conv_id)
 
             self.log.debug(conv_id)
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+
+        return result
+
+    def update_comment(self, comment_data):
+        self.log.debug('update_comment')
+        result = Result()
+
+        try:
+            client = datastore.Client()
+            conversation_id = comment_data[Conversation.KEY_CONVERSATION_ID]
+            key = client.key(Conversation.KIND_NAME, conversation_id)
+            entity = client.get(key)
+
+            messages = entity[Conversation.KEY_MESSAGES]
+            if messages is None:
+                messages = []
+            # messages.append(json.dumps(
+            #     comment_data[Conversation.KEY_MESSAGES]))
+            messages.append(json.dumps(
+                comment_data[Conversation.KEY_MESSAGES]))
+            entity[Conversation.KEY_MESSAGES] = messages
+
+            client.put(entity)
+
+            output = []
+
+            for msg in messages:
+                output.append(json.loads(msg))
+
+            result.set_content(output)
 
         except ValueError as error:
             self.log.debug(error)

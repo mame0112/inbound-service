@@ -39,7 +39,7 @@ export class ConversationComponent implements OnInit {
 
     is_visitor = false;
 
-    conversation: Conversation;
+    conversations: Conversation;
 
 
     // items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
@@ -114,9 +114,9 @@ export class ConversationComponent implements OnInit {
               if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
                 let content = param[Constants.CONTENT]
                 let builder = new ConversationDataBuilder();
-                this.conversation = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).getResult();
+                this.conversations = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).getResult();
 
-                if(this.user_id == this.conversation.getVisitorUserId()){
+                if(this.user_id == this.conversations.getVisitorUserId()){
                   console.log('This is Visitor');
                   this.is_visitor = true;
                 } else {
@@ -133,27 +133,45 @@ export class ConversationComponent implements OnInit {
     sendComment(): void {
       console.log('sendComment');
 
+      let obj = {}
+      obj[ConversationConsts.KEY_CONVERSATION_ID] = this.conversations.conversation_id;
+
       let message = {}
       message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = this.user_id;
       message[ConversationConsts.KEY_MESSAGES_SENDER_NAME] = this.user_name;
       message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = this.thumb_url;
       message[ConversationConsts.KEY_MESSAGES_CONTENT] = this.comment;
 
-      this.conversation.addMessage(message);
+      obj[ConversationConsts.KEY_MESSAGES] = message;
 
-      console.log(this.conversation);
+      // this.conversations.addMessage(message);
 
-      // TODO This should not be whole update of conversation. It should be only for message part.
-      this.apiService.updateConversationData(this.conversation).pipe(
+      // console.log(this.conversations);
+
+      this.apiService.updateCommentData(obj).pipe(
           tap(data => console.log(data)),
-          catchError(this.apiService.handleError<string>('updateConversationData', 'Error'))
+          catchError(this.apiService.handleError<string>('updateCommentData', 'Error'))
           ).subscribe(param => {
             console.log(param);
             if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
-              let content = param[Constants.CONTENT];
+              let updated_comments = param[Constants.CONTENT];
+              for (var i in updated_comments) {
+                console.log(updated_comments[i].msg_content);
+              }
 
             }
           });
+
+      // this.apiService.updateConversationData(this.conversations).pipe(
+      //     tap(data => console.log(data)),
+      //     catchError(this.apiService.handleError<string>('updateConversationData', 'Error'))
+      //     ).subscribe(param => {
+      //       console.log(param);
+      //       if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+      //         let content = param[Constants.CONTENT];
+
+      //       }
+      //     });
 
     }
 

@@ -89,6 +89,12 @@ export class ApiService {
 
     }
 
+    updateCommentData(body: object): Observable<string> {
+        console.log('updateCommentData');
+        return this.http.put<string>(Constants.url_comments, body);
+
+    }
+
 
     public handleError<T> (operation = 'operation', result?: T) {
         // console.error('Error ocurred');

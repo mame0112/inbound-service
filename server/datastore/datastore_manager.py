@@ -597,9 +597,11 @@ class DatastoreManager:
             messages = entity[Conversation.KEY_MESSAGES]
             if messages is None:
                 messages = []
-            # messages.append(json.dumps(
-            #     comment_data[Conversation.KEY_MESSAGES]))
 
+            latest_message_in_client = comment_data[
+                Conversation.KEY_MESSAGES_LATEST_TIMESTAMP]
+
+            # Store data to datastore
             current_time = int(time.time())
             comment_data[Conversation.KEY_MESSAGES][
                 Conversation.KEY_MESSAGES_TIMESTAMP] = current_time
@@ -610,10 +612,20 @@ class DatastoreManager:
 
             client.put(entity)
 
+            # Create output data
             output = []
 
+            self.log.debug('latest_message_in_client')
+            self.log.debug(latest_message_in_client)
+
             for msg in messages:
-                output.append(json.loads(msg))
+                msg_obj = json.loads(msg)
+                timestamp = msg_obj[Conversation.KEY_MESSAGES_TIMESTAMP]
+                if timestamp > latest_message_in_client:
+                    self.log.debug('Bigger than client')
+                    output.append(json.loads(msg))
+                else:
+                    self.log.debug('Smaller than client')
 
             result.set_content(output)
 

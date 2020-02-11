@@ -140,6 +140,13 @@ export class ConversationComponent implements OnInit {
       let obj = {}
       obj[ConversationConsts.KEY_CONVERSATION_ID] = this.conversations.conversation_id;
 
+      if(this.messages.length != 0){
+        let latest_message = this.messages[this.messages.length-1]
+        obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = latest_message[ConversationConsts.KEY_MESSAGES_TIMESTAMP];
+      } else {
+        obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = 0;
+      }
+
       let message = {}
       message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = this.user_id;
       message[ConversationConsts.KEY_MESSAGES_SENDER_NAME] = this.user_name;

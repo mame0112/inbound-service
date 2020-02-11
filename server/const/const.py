@@ -33,6 +33,7 @@ class Conversation:
     KEY_MESSAGES_SEND_TIME = "msg_sende_time"
     KEY_MESSAGES_CONTENT = "msg_content"
     KEY_MESSAGES_TIMESTAMP = "msg_time"
+    KEY_MESSAGES_LATEST_TIMESTAMP = "msg_latest_time"
 
 
 class Host:

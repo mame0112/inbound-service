@@ -12,10 +12,17 @@
         </div>
     </div>
 </cdk-virtual-scroll-viewport> -->
+{{user_id}}
 <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
     <div *cdkVirtualFor="let msg of messages" class="example-item">
+        <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
         {{ msg.msg_sender_name }}<br>
         {{ msg.msg_content }}<br>
+        </div>
+        <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
+        {{ msg.msg_sender_name }}<br>
+        {{ msg.msg_content }}<br>
+        </div>
     </div>
 </cdk-virtual-scroll-viewport>
 

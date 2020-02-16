@@ -19,6 +19,10 @@ export class Constants {
     public static readonly COOKIE_USER_ID = 'user_id';
     public static readonly COOKIE_USER_NAME = 'user_name';
     public static readonly COOKIE_THUMB_URL = 'thumb_url';
+
+    //For Dialog option
+    public static readonly DIALOG_OPTION_POSITIVE = 1;
+    public static readonly DIALOG_OPTION_NEGATIVE = 2;
 }
 
 export class UserConsts {

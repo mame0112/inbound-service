@@ -40,9 +40,10 @@ export class HostStartComponent implements OnInit {
     builder: HostDataBuilder;
     host_data = {};
 
-    dialog_description: string;
-    dialog_positive: string;
-    dialog_negative: string;
+    id: number;
+    description: string;
+    positive: string;
+    negative: string;
 
     constructor(
       private apiService: ApiService,
@@ -76,6 +77,7 @@ export class HostStartComponent implements OnInit {
 
             } else {
               console.log('getVisitData response error');
+              this.openDialog(1, 'Something went wrong. Please try again later', 'OK', null);
             }
           })
 
@@ -117,25 +119,9 @@ export class HostStartComponent implements OnInit {
           if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
             // Successfully registered to waiting queue
             this.state = HostStartComponent.WAITING_FOR_VISITOR;
-
-
-            // let user = User();
-            // user.setUserId(this.userDataService.getUserId());
-            // user.setHostUserId
-
-            // // Change User DB's host data to "Registered"
-            // this.apiService.updateUserData(a).pipe(
-            //   tap(data => console.log(data)),
-            //   catchError(this.apiService.handleError<string>('updateUserData', 'Error'))
-            //   ).subscribe(params2 => {
-            //     if (params2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
-            //     }
-            // });
-
-
           } else {
             console.log('createHostData response error');
-
+            this.openDialog(2, 'Something went wrong. Please try again later', 'OK', null);
           }
         });
     }
@@ -156,42 +142,40 @@ export class HostStartComponent implements OnInit {
           let conv_id = content[ConversationConsts.KEY_CONVERSATION_ID];
           console.log(conv_id);
           this.router.navigate(['/conversation', conv_id]);
+        } else {
+            console.log('createHostData response error');
+            this.openDialog(3, 'Something went wrong. Please try again later', 'OK', null);
         }
       });
 
     }
 
 
-    openDialog(description: string, positive_button: string, negative_button: string): void {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        width: '250px',
-        data: {dialog_description: description, dialog_positive: positive_button, dialog_negative: negative_button}
-      });
+  openDialog(id: number, description: string, positive_button: string, negative_button: string): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+        // width: '250px',
+      data: {id: id, description: description, positive: positive_button, negative: negative_button}
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log(result);
-        // this.description = result;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      // this.description = result;
     });
   }
 
-
-    openDialogTest(): void {
-
-      this.dialog_description = "Somethng went wrong. Please sign in again";
-      this.dialog_positive = "Sign in";
-      this.dialog_negative = "Cancel";
-
-      const dialogRef = this.dialog.open(DialogComponent, {
-        // width: '250px',
-        data: {dialog_description: this.dialog_description, dialog_positive: this.dialog_positive, dialog_negative: this.dialog_negative}
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log(result);
-        // this.description = result;
-    });
+  handleError(id: number, option: number): void {
+    if(option == Constants.DIALOG_OPTION_POSITIVE){
+      switch(id) {
+        case 1:
+        case 2:
+        case 3:
+        // Nothing to do for now.
+         break;
+      }
+    } else {
+      console.log('Option negative');
+    }
   }
 
 }

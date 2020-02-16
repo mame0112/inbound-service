@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>NOTICE</h1>
 
 <div mat-dialog-content>
-    <p>{{data.dialog_description}}</p>
+    <p>{{data.description}}</p>
 </div>
 
 <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="data.dialog_negative" (click)="onNegativeClick()">{{data.dialog_negative}}</button>
-    <button mat-button [mat-dialog-close]="data.dialog_positive" (click)="onPositiveClick()">{{data.dialog_positive}}</button>
+    <button *ngIf="data.negative !== null" mat-button [mat-dialog-close]="data.negative" (click)="onNegativeClick()">{{data.negative}}</button>
+    <button mat-button [mat-dialog-close]="data.positive" (click)="onPositiveClick()">{{data.positive}}</button>
 </div>

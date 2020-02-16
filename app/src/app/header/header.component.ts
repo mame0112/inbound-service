@@ -27,8 +27,13 @@ export class HeaderComponent implements OnInit {
           this.userDataService.change.subscribe(param => {
               if (param !== null){
                   this.userData = new UserDataBuilder().setUserId(param[UserConsts.KEY_USER_ID]).setUserName(param[UserConsts.KEY_USER_NAME]).setThumbUrl(param[UserConsts.KEY_THUMB_URL]).getResult();
+              } else {
+                // No param in returned value
+
               }
           });
+        } else {
+          // No user data in userDataService
         }
 
     }

@@ -5,6 +5,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 
@@ -17,6 +19,8 @@ import { User } from '../user';
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
+
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-host-start',
@@ -36,10 +40,15 @@ export class HostStartComponent implements OnInit {
     builder: HostDataBuilder;
     host_data = {};
 
+    dialog_description: string;
+    dialog_positive: string;
+    dialog_negative: string;
+
     constructor(
       private apiService: ApiService,
       private userDataService: UserDataService,
-      private router: Router
+      private router: Router,
+      public dialog: MatDialog
       ) { }
 
     ngOnInit() {
@@ -126,6 +135,7 @@ export class HostStartComponent implements OnInit {
 
           } else {
             console.log('createHostData response error');
+
           }
         });
     }
@@ -150,5 +160,38 @@ export class HostStartComponent implements OnInit {
       });
 
     }
+
+
+    openDialog(description: string, positive_button: string, negative_button: string): void {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '250px',
+        data: {dialog_description: description, dialog_positive: positive_button, dialog_negative: negative_button}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        console.log(result);
+        // this.description = result;
+    });
+  }
+
+
+    openDialogTest(): void {
+
+      this.dialog_description = "Somethng went wrong. Please sign in again";
+      this.dialog_positive = "Sign in";
+      this.dialog_negative = "Cancel";
+
+      const dialogRef = this.dialog.open(DialogComponent, {
+        // width: '250px',
+        data: {dialog_description: this.dialog_description, dialog_positive: this.dialog_positive, dialog_negative: this.dialog_negative}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        console.log(result);
+        // this.description = result;
+    });
+  }
 
 }

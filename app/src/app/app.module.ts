@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -35,6 +35,7 @@ import { HostStartComponent } from './host-start/host-start.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { ChooseComponent } from './choose/choose.component';
 import { MyPageComponent } from './my-page/my-page.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 const config = new AuthServiceConfig([
 {
@@ -57,7 +58,8 @@ export function provideConfig() {
     HostStartComponent,
     ConversationComponent,
     ChooseComponent,
-    MyPageComponent
+    MyPageComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,11 +77,15 @@ export function provideConfig() {
     MatCardModule,
     MatToolbarModule,
     MatDatepickerModule,
+    MatDialogModule,
     FlexLayoutModule,
     IgxNavbarModule,
     NgbModule,
     ScrollingModule,
     MatSidenavModule
+  ],
+  entryComponents: [
+    DialogComponent
   ],
   providers: [
     {

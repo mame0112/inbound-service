@@ -1,4 +1,4 @@
-<nav>
+<!-- <nav>
   <a routerLink="/visit-start">Visitor flow</a>
 </nav>
 <nav>
@@ -7,9 +7,116 @@
 <nav>
   <a routerLink="/conversation/10221180198043872/10221180198043872">Conversation flow</a>
 </nav>
-<img src="/assets/image/heroshot01.jpg">
+ -->
+<div class="container" fxLayout="column">
+  <div class="bg" fxLayout="row">
+    <div fxLayout="column">
+      <div class="mat-h1">
+        Serice name
+      </div>
+      <div class="mat-h1">
+        Get your advisor while you are in Japan
+      </div>
+      <div>
+        <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
+      </div>
+    </div>
+    <div>
+      Smartphone image
+    </div>
+  </div>
 
-<div class="example-container mat-elevation-z8">
+<!-- <div class="container" fxLayout="column" fxLayoutGap="20px">
+  <mat-jumbotron imgURL="/assets/image/dummy.jpg">
+    <mat-jumbotron-content>
+      <h1 class="display-1" ngClass.xs="display-3 text-center" ngClass.sm="display-3">jumbotron</h1>
+      <p class="headline" ngClass.xs="text-center">Angular UI open source library built
+        with material design in order to illustrate a highlighted/important information for the user
+      </p>
+
+      <p class="text-center"> Scroll down to see it in action!</p>
+
+      <div fxLayout="row" fxLayout.xs="column"
+           fxLayoutGap.xs="1rem"
+           fxLayoutAlign="center center">
+        <a mat-stroked-button
+           color="primary"
+           target="_blank"
+           href="https://github.com/angular-material-extensions/jumbotron">
+          <mat-icon>code</mat-icon>
+          Code on Github
+        </a>
+        <a mat-stroked-button
+           color="primary"
+           target="_blank"
+           href="doc/index.html">
+          <mat-icon>note</mat-icon>
+          Documentation
+        </a>
+      </div>
+
+    </mat-jumbotron-content>
+  </mat-jumbotron> -->
+<div fxFlex="grow" fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.lt-md="column">
+    <img src="/assets/image/dummy.jpg"/>
+    <span class="mat-headline">
+      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+    </span>
+  </div>
+  <div fxLayout="row-reverse" fxLayoutAlign="start start" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.lt-md="column">
+    <img src="/assets/image/dummy.jpg"/>
+    <span class="mat-headline">
+      こんにちは、めそ子です。2017年6月より2代目めそ子として、広報兼人事担当のお仕事をしています。先輩から引き継いだ「めそ子通信」は今後私が執筆してゆきますので、どうぞよろしくお願いします。
+    </span>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.lt-md="column">
+    <img src="/assets/image/dummy.jpg"/>
+    <span class="mat-headline">
+      こんにちは、めそ子です。昼間の雲は高い位置に浮かび、夜はずいぶん涼しくなって、すっかり秋めいてきましたね。まだサンダルを履いていたいところですが、そろそろ衣替えもしなくちゃです。
+    </span>
+  </div>
+</div>
+
+
+
+
+<!-- <img src="/assets/image/heroshot01.jpg"> -->
+
+<!-- <div class="container" fxLayout="column">
+  <div fxLayout="row">
+    <div fxLayout="column">
+      <div class="item item3">Service icon / Name</div>
+      <div class="item item4">Get your advisor while you are in Japan</div>
+      <div class="item item5">
+        <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
+      </div>
+    </div>
+    <div>2</div>
+  </div>
+  <div class="center" fxFlex="grow" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <img src="/assets/image/dummy.jpg" width="100px" />
+      <span>
+        こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+      </span>
+    </div>
+    <div fxLayout="row-reverse" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <img src="/assets/image/dummy.jpg" width="100px" />
+      <span>
+        こんにちは、めそ子です。2017年6月より2代目めそ子として、広報兼人事担当のお仕事をしています。先輩から引き継いだ「めそ子通信」は今後私が執筆してゆきますので、どうぞよろしくお願いします。
+      </span>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <img src="/assets/image/dummy.jpg" width="100px" />
+      <span>
+        こんにちは、めそ子です。昼間の雲は高い位置に浮かび、夜はずいぶん涼しくなって、すっかり秋めいてきましたね。まだサンダルを履いていたいところですが、そろそろ衣替えもしなくちゃです。
+      </span>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="example-container mat-elevation-z8">
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title><h2>Welcome <span *ngIf="loggedIn===true">{{user.firstName}} {{user.lastName}}, </span> to Angular 8 Application</h2></mat-card-title>
@@ -29,4 +136,4 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </mat-card-content>
   </mat-card>
-</div>
+</div> -->

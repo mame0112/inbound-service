@@ -8,55 +8,25 @@
   <a routerLink="/conversation/10221180198043872/10221180198043872">Conversation flow</a>
 </nav>
  -->
-<div class="container" fxLayout="column">
+
+<div class="container_landing" fxLayout="column">
   <div class="bg" fxLayout="row">
-    <div fxLayout="column">
-      <div class="mat-h1">
+    <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%" fxFlexOffset="10px">
+      <div class="mat-display-2" fxFlexOffset="20px">
         Serice name
       </div>
-      <div class="mat-h1">
+      <div class="mat-display-2" fxFlexOffset="20px">
         Get your advisor while you are in Japan
       </div>
-      <div>
+      <div fxFlexOffset="20px">
         <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
       </div>
     </div>
-    <div>
+    <div fxFlex="40%" fxFlexOffset="10px">
       Smartphone image
     </div>
   </div>
 
-<!-- <div class="container" fxLayout="column" fxLayoutGap="20px">
-  <mat-jumbotron imgURL="/assets/image/dummy.jpg">
-    <mat-jumbotron-content>
-      <h1 class="display-1" ngClass.xs="display-3 text-center" ngClass.sm="display-3">jumbotron</h1>
-      <p class="headline" ngClass.xs="text-center">Angular UI open source library built
-        with material design in order to illustrate a highlighted/important information for the user
-      </p>
-
-      <p class="text-center"> Scroll down to see it in action!</p>
-
-      <div fxLayout="row" fxLayout.xs="column"
-           fxLayoutGap.xs="1rem"
-           fxLayoutAlign="center center">
-        <a mat-stroked-button
-           color="primary"
-           target="_blank"
-           href="https://github.com/angular-material-extensions/jumbotron">
-          <mat-icon>code</mat-icon>
-          Code on Github
-        </a>
-        <a mat-stroked-button
-           color="primary"
-           target="_blank"
-           href="doc/index.html">
-          <mat-icon>note</mat-icon>
-          Documentation
-        </a>
-      </div>
-
-    </mat-jumbotron-content>
-  </mat-jumbotron> -->
 <div fxFlex="grow" fxLayout="column" fxLayoutGap="20px">
   <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.lt-md="column">
     <img src="/assets/image/dummy.jpg"/>

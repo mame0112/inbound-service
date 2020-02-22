@@ -1,9 +1,21 @@
 footer {
-  background-color: #ddd;
+  background-color: #666666;
   text-align: center;
   height: 100px;
 }
 
+.footer_text {
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+}
+
 #btmFooter {
   align-self: flex-end;
+  height: 100px;
+}
+
+.tmp {
+    background-color: #99cc00;
 }

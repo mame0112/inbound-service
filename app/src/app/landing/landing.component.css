@@ -22,6 +22,10 @@
     background-color: #99cc00;
 }
 
+.content {
+    color: #333333;
+}
+
 /*.bg {
     background-image:url('/assets/image/heroshot01.png');
     background-repeat:  no-repeat;

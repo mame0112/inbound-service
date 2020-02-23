@@ -1,13 +1,17 @@
 <div class="container_landing" fxLayout="column">
   <div class="bg" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
-      <div fxFlex="100px">
-        <p class="mat-display-2">Service name</p>
+    <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center start">
+      <div fxFlex="100px" fxLayoutAlign="center center">
+        <div class="landing_headline" fxLayout="column" fxFlex fxLayoutAlign="center center">
+          Service name
+        </div>
       </div>
-      <div fxFlex="200px" fxLayoutAlign="center center">
-        <p class="mat-display-2">Get your advisor while you are in Japan</p>
+      <div fxFlex="100px" fxLayoutAlign="center center">
+        <div class="landing_headline" fxLayout="column" fxFlex fxLayoutAlign="center center">
+          Get your advisor while you are in Japan
+        </div>
       </div>
-      <div fxFlex="200px" fxLayoutAlign="center center">
+      <div fxFlex="100px" fxLayoutAlign="center center">
         <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
       </div>
     </div>
@@ -17,6 +21,7 @@
       </div>
     </div>
   </div>
+
   <div fxLayout="row" fxLayout.lt-md="column">
     <div fxFlex="30%" fxLayoutAlign="center center">
       <img src="/assets/image/dummy.jpg"/>

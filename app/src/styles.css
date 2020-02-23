@@ -8,6 +8,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size:32px;
 }
 
+.page_title {
+    color: #1976D2;
+    font-size:32px;
+}
+
 .body_text {
     color: #333333;
     font-size:16px;

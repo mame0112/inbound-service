@@ -1,70 +1,53 @@
 <div class="container_landing" fxLayout="column">
-  <div class="bg" fxLayout="row" fxLayoutAlign="center">
-    <div fxFlex></div>
-    <div fxFlex="40">
-      <div fxLayout="column">
-        <div class="mat-display-2" fxFlex>
-          Serice name
-        </div>
-        <div class="mat-display-2" fxFlex>
-          Get your advisor while you are in Japan
-        </div>
-        <div fxFlex>
-          <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
-        </div>
+  <div class="bg" fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
+      <div fxFlex="100px">
+        <p class="mat-display-2">Service name</p>
+      </div>
+      <div fxFlex="200px" fxLayoutAlign="center center">
+        <p class="mat-display-2">Get your advisor while you are in Japan</p>
+      </div>
+      <div fxFlex="200px" fxLayoutAlign="center center">
+        <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
       </div>
     </div>
-    <div fxFlex="20">
+    <div fxLayout="column" fxFlex="40%" style="background-color: #FF0000" fxLayoutAlign="center center">
+      <div fxFlex="500px" fxLayoutAlign="center center">
+        <img src="/assets/image/dummy.jpg"/>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="30%" fxLayoutAlign="center center">
       <img src="/assets/image/dummy.jpg"/>
     </div>
-    <div fxFlex></div>
-  </div>
-  <div class="content" fxFlex>
-    <div fxLayout="column" fxLayoutAlign="center">
-      <div fxFlex>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column">
-          <div fxFlex></div>
-          <div fxFlex=70 fxLayoutAlign="center center">
-            <img src="/assets/image/dummy.jpg"/>
-            <span class="mat-headline" fxFlexOffset="20px">
-              こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
-            </span>
-          </div>
-          <div fxFlex></div>
-        </div>
-      </div>
-
-      <div fxFlex>
-        <div fxLayout="row-reverse" fxLayoutAlign="center center" fxLayout.lt-md="column">
-          <div fxFlex></div>
-          <div fxFlex=70 fxLayoutAlign="center center">
-            <span class="mat-headline" fxFlexOffset="20px">
-              こんにちは、めそ子です。2017年6月より2代目めそ子として、広報兼人事担当のお仕事をしています。先輩から引き継いだ「めそ子通信」は今後私が執筆してゆきますので、どうぞよろしくお願いします。
-            </span>
-            <img src="/assets/image/dummy.jpg"/>
-          </div>
-          <div fxFlex></div>
-        </div>
-      </div>
-
-      <div fxFlex>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column">
-          <div fxFlex></div>
-          <div fxFlex=70 fxLayoutAlign="center center">
-            <img src="/assets/image/dummy.jpg"/>
-            <span class="mat-headline" fxFlexOffset="20px">
-              こんにちは、めそ子です。昼間の雲は高い位置に浮かび、夜はずいぶん涼しくなって、すっかり秋めいてきましたね。まだサンダルを履いていたいところですが、そろそろ衣替えもしなくちゃです。
-            </span>
-          </div>
-          <div fxFlex></div>
-        </div>
-      </div>
+    <div fxFlex="50%" fxLayoutAlign="center center">
+      <p class="mat-headline">
+      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+      </p>
     </div>
-
+  </div>
+  <div fxLayout="row-reverse" fxLayout.lt-md="column">
+    <div fxFlex="30%" fxLayoutAlign="center center">
+      <img src="/assets/image/dummy.jpg"/>
+    </div>
+    <div fxFlex="50%" fxLayoutAlign="center center">
+      <p class="mat-headline">
+      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+      </p>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="30%" fxLayoutAlign="center center">
+      <img src="/assets/image/dummy.jpg"/>
+    </div>
+    <div fxFlex="50%" fxLayoutAlign="center center">
+      <p class="mat-headline">
+      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+      </p>
+    </div>
   </div>
 </div>
-
-
 
 <!-- <nav>
   <a routerLink="/visit-start">Visitor flow</a>

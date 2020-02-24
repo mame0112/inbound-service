@@ -1,3 +1,15 @@
+.container_visit_start {
+    display:block;
+    width:80%;
+    /*height:100%;*/
+    margin:auto;
+}
+
+.header_image {
+    width: 100%; 
+    height: auto;
+}
+
 .tmp {
     background-color: #99cc00;
 }

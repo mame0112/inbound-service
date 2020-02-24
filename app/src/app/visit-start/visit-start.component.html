@@ -1,9 +1,10 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-  <div fxLayout="column" fxFlex="80%" fxLayoutAlign="start start">
-    <div fxFlex fxLayoutAlign="start start">
-      <img src="/assets/image/header-image01.jpg"/>
-    </div>
-    <div fxFlex fxLayoutAlign="start start" fxFlex="80%">
+<div class="container_visit_start" fxLayout="column" fxLayoutAlign="center center">
+  <!-- <img class="header_image" src="/assets/image/header-image01.jpg"/> -->
+  <!-- state 1 start -->
+  <div *ngIf="state === 1" fxLayout="column" fxFlexFill fxLayoutAlign="start start" fxLayoutGap="20px">
+<!-- <img class="header_image" src="/assets/image/header-image01.jpg"/> -->
+<!--     <div fxFlex fxLayoutAlign="start start" fxFlex="80%"> -->
+    <div fxFlex fxLayoutAlign="start start" fxFlex>
       <div class="page_title">AAAAAA</div>
     </div>
     <div fxFlex>
@@ -18,13 +19,73 @@
     <div fxFlex>
       <p class="mat-h1" fxFlex>OK, now create visit schedule! It only takes 30 seconds!</p>
     </div>
+    <div fxFlex>
+      <button (click)="onNextButtonClicked()" mat-flat-button color="primary">Create visit</button>
+    </div>
   </div>
+  <!-- state 1 end -->
+  <!-- state 2 start -->
+  <div *ngIf="state === 2" fxLayoutAlign="start start" fxFlexFill fxLayoutGap="20px">
+    <form class="form-horizontal" (ngSubmit)="onSubmit()" #form1="ngForm">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Place</label>
+        <div class="col-sm-5">
+          <input type="text" name="name" required class="form-control" [(ngModel)]="visit.place" #name="ngModel">
+            <div class="alert alert-danger" [hidden]="name.valid || name.untouched">
+              <span class="glyphicon glyphicon-exclamation-sign"></span> Place is required
+            </div>
+        </div>
+      </div>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker_start" placeholder="Choose a date" name="start date" required [(ngModel)]="visit.start" #start="ngModel">
+        <mat-datepicker-toggle matSuffix [for]="picker_start"></mat-datepicker-toggle>
+        <mat-datepicker #picker_start></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker_end" placeholder="Choose a date" name="end date" required [(ngModel)]="visit.end" #end="ngModel">
+        <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
+        <mat-datepicker #picker_end></mat-datepicker>
+      </mat-form-field>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Comment</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" name="nickname" [(ngModel)]="visit.comment" #comment>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+          <button type="submit" class="btn btn-primary" [disabled]="!form1.form.valid">OK</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- state 2 end -->
+  <!-- state 3 start -->
+  <div *ngIf="state === 3" fxLayout="column">
+    Waiting for host
+  </div>
+  <!-- state 3 end -->
+  <!-- state 4 start -->
+  <div *ngIf="state === 4" fxLayout="column">
+    Matched with host
+    {{host.user_name}}
+    {{host.thumb_url}}
+    <div class="col-sm-offset-2 col-sm-5"> 
+        <button type="button" mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
+    </div>
+  </div>
+  <!-- state 4 end -->
 </div>
 
-<div fxLayout="row" fxLayoutAlign="center" fxFill>
+
+
+<!-- <div fxLayout="row" fxLayoutAlign="center" fxFill>
   <div fxFlex></div>
   <div fxFlex="70">
-    <!-- state 1 start -->
     <div *ngIf="state === 1" fxLayout="column">
       <div fxFlex>
         <img src="/assets/image/heroshot01.png"/>
@@ -43,8 +104,6 @@
         </div>
       </div>
     </div>
-    <!-- state 1 end -->
-    <!-- state 2 start -->
     <div *ngIf="state === 2" fxLayout="column">
       <form class="form-horizontal" (ngSubmit)="onSubmit()" #form1="ngForm">
         <div class="form-group">
@@ -83,13 +142,9 @@
         </div>
       </form>
     </div>
-    <!-- state 2 end -->
-    <!-- state 3 start -->
     <div *ngIf="state === 3" fxLayout="column">
       Waiting for host
     </div>
-    <!-- state 3 end -->
-    <!-- state 4 start -->
     <div *ngIf="state === 4" fxLayout="column">
       Matched with host
       {{host.user_name}}
@@ -98,10 +153,9 @@
           <button type="button" mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
       </div>
     </div>
-    <!-- state 4 end -->
   </div>
   <div fxFlex></div>
-</div>
+</div> -->
 
 
 <!-- <div *ngIf="state === 1">

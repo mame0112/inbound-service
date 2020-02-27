@@ -11,7 +11,12 @@
     background-image:url('/assets/image/heroshot01.png');
     background-repeat:  no-repeat;
     background-position:center center;
-    background-size:cover;
+    background-size:1200px 800px;
+}
+
+.landing_title {
+    font-size:32px;
+    color: #FFFFFF;
 }
 
 .tmp {

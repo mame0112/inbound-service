@@ -1,23 +1,18 @@
 <div class="container_visit_start" fxLayout="column" fxLayoutAlign="center center">
   <!-- <img class="header_image" src="/assets/image/header-image01.jpg"/> -->
   <!-- state 1 start -->
-  <div *ngIf="state === 1" fxLayout="column" fxFlexFill fxLayoutAlign="start start" fxLayoutGap="20px">
+  <div *ngIf="state === 1" fxLayout="column" fxFlexFill fxLayoutAlign="start start">
 <!-- <img class="header_image" src="/assets/image/header-image01.jpg"/> -->
 <!--     <div fxFlex fxLayoutAlign="start start" fxFlex="80%"> -->
-    <div fxFlex fxLayoutAlign="start start" fxFlex>
-      <div class="page_title">AAAAAA</div>
+    <div fxFlex fxLayoutGap="20px">
+      <p class="page_title">What can I do if I create visit schedule?</p>
     </div>
     <div fxFlex>
-      <p class="mat-h1" fxFlex>What can I do if I create visit schedule?</p>
+      <p class="body_text">If you create visit, you can help Japanese to be an advidor for you.</p>
+      <p class="body_text">Detail explain here</p>
     </div>
     <div fxFlex>
-      <p class="mat-h2" fxFlex>If you create visit, you can help Japanese to be an advidor for you.</p>
-    </div>
-    <div fxFlex>
-      <p class="mat-body" fxFlex>Detail explain here</p>
-    </div>
-    <div fxFlex>
-      <p class="mat-h1" fxFlex>OK, now create visit schedule! It only takes 30 seconds!</p>
+      <p class="body_text">OK, now create visit schedule! It only takes 30 seconds!</p>
     </div>
     <div fxFlex>
       <button (click)="onNextButtonClicked()" mat-flat-button color="primary">Create visit</button>

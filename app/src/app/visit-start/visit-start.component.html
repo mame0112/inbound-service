@@ -60,17 +60,35 @@
   <!-- state 2 end -->
   <!-- state 3 start -->
   <div *ngIf="state === 3" fxLayout="column">
-    Waiting for host
+    <div fxFlex>
+      <p class="page_title">Waiting for host...</p>
+    </div>
+    <div fxFlex>
+      <p class="body_text">Please wait a moment.</p>
+      <p class="body_text">As soon as we find your host, we would let you know via Facebook Message.</p>
+    </div>
   </div>
   <!-- state 3 end -->
   <!-- state 4 start -->
   <div *ngIf="state === 4" fxLayout="column">
-    Matched with host
-    {{host.user_name}}
-    {{host.thumb_url}}
-    <div class="col-sm-offset-2 col-sm-5"> 
-        <button type="button" mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
+    <div fxFlex>
+      <p class="page_title">Congraturations! Matched with your host.</p>
     </div>
+    <div fxFlex>
+      <p class="body_text">Now let’s start conversation.</p>
+    </div>
+    <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center">
+      <!-- {{host.thumb_url}} -->
+      <p class="common_header_text" fxFlex>
+        {{host.user_name}}
+      </p>
+      <span fxFlex>
+        <img class="host_image" mat-card-image [src]="host.thumb_url" alt="Host image">
+      </span>
+      <div fxFlex> 
+        <button type="button" mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
+      </div>
+    </mat-card>
   </div>
   <!-- state 4 end -->
 </div>

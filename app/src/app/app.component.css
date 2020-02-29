@@ -10,7 +10,18 @@ html, body {
     color: #1976D2;
 }
 
+.common_main_text {
 
+}
+
+.common_header_text {
+    color: #1976D2;
+    font-size:24px;
+}
+
+.common_accent_text {
+    color: #EF5350;
+}
 
 .main {
     color: #2196F3;

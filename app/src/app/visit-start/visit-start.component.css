@@ -15,3 +15,14 @@
     margin-left: 16px;
     width: 50%;
 }
+
+.common_header_text {
+    color: #1976D2;
+    font-size:24px;
+}
+
+.host_image {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+}

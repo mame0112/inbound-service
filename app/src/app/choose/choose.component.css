@@ -1,5 +1,14 @@
+.container_choose {
+    display:block;
+    width:80%;
+    height:100%;
+    padding: 10px;
+    margin:auto;
+}
+
+
 .choose-card {
-  max-width: 400px;
+  /*max-width: 400px;*/
 }
 
 .choose-header-image {

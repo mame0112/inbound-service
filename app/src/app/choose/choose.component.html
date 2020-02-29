@@ -1,91 +1,40 @@
-<div fxLayout="row" fxLayoutAlign="center" fxFill>
-  <div fxFlex></div>
-  <div fxFlex="70">
-    <div fxLayout="column">
-      <div class="mat-h1" fxFlex>
-        Choose your type
-      </div>
-      <div fxLayout="row">
-        <div fxFlex fxFlexOffset="20px">
-          <mat-card class="choose-card">
-            <mat-card-header>
-              <div mat-card-avatar class="choose-header-image"></div>
-              <mat-card-title>For Visitors</mat-card-title>
-              <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
-            </mat-card-header>
-            <a routerLink="/visit-start">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>
-                      This is for visitors. You can ask questions to Japanese.
-                  </p>
-                </mat-card-content>
-            </a>
-          </mat-card>
-        </div>
-        <div fxFlex>
-          <mat-card class="choose-card">
-            <mat-card-header>
-              <div mat-card-avatar class="choose-header-image"></div>
-              <mat-card-title>For Japanese</mat-card-title>
-              <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
-            </mat-card-header>
-            <a routerLink="/host-start">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                  <p>
-                      This is mainly for for Japanese. You can give som advices, hints & tips for visitors.
-                  </p>
-                </mat-card-content>
-            </a>
-          </mat-card>
-        </div>
-      </div>
-    </div>
+<div class="container_choose" fxLayout="column" fxLayoutAlign="center start">
+  <div fxFlex>
+    <p class="page_title">Choose your type</p>
   </div>
-  <div fxFlex></div>
+  <div fxFlex>
+    <p class="body_text">Select whether visitor or host</p>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+    <mat-card class="choose-card" fxFlex="40%">
+      <mat-card-header>
+        <div mat-card-avatar class="choose-header-image"></div>
+        <mat-card-title>For Visitors</mat-card-title>
+        <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
+      </mat-card-header>
+      <a routerLink="/visit-start">
+          <img mat-card-image src="/assets/image/visitor_header.jpg" alt="Visitor image">
+          <mat-card-content>
+            <p>
+                This is mainly for visitors to Japan. You can ask some questions for travel.
+            </p>
+          </mat-card-content>
+      </a>
+    </mat-card>
+    <mat-card class="choose-card" fxFlex="40%">
+      <mat-card-header>
+        <div mat-card-avatar class="choose-header-image"></div>
+        <mat-card-title>For Japanese</mat-card-title>
+        <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
+      </mat-card-header>
+      <a routerLink="/host-start">
+          <img mat-card-image src="/assets/image/host_header.jpg" alt="Host image">
+          <mat-card-content>
+            <p>
+                This is mainly for Japanese. You can give advices, hints & tips for visitors.
+            </p>
+          </mat-card-content>
+      </a>
+    </mat-card>
+  </div>
 </div>
-
-<!-- <div fxLayout="column" fxLayout="row wrap" fxLayoutAlign="center center">
-  <div fxLayout="row" fxLayout="row wrap">
-    <div class="mat-h1" fxFlex="70%">
-     Choose your type
-    </div>
-  </div>
-  <div fxLayout="row" fxLayout="row wrap">
-    <div fxFlex fxFlexOffset="20px">
-      <mat-card class="choose-card">
-        <mat-card-header>
-          <div mat-card-avatar class="choose-header-image"></div>
-          <mat-card-title>For Visitors</mat-card-title>
-          <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
-        </mat-card-header>
-        <a routerLink="/visit-start">
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              <p>
-                  This is for visitors. You can ask questions to Japanese.
-              </p>
-            </mat-card-content>
-        </a>
-      </mat-card>
-    </div>
-    <div fxFlex>
-      <mat-card class="choose-card">
-        <mat-card-header>
-          <div mat-card-avatar class="choose-header-image"></div>
-          <mat-card-title>For Japanese</mat-card-title>
-          <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
-        </mat-card-header>
-        <a routerLink="/host-start">
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              <p>
-                  This is mainly for for Japanese. You can give som advices, hints & tips for visitors.
-              </p>
-            </mat-card-content>
-        </a>
-      </mat-card>
-    </div>
-  </div>
-</div> -->

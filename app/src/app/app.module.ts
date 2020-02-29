@@ -22,7 +22,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatJumbotronModule } from '@angular-material-extensions/jumbotron';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -83,8 +82,7 @@ export function provideConfig() {
     IgxNavbarModule,
     NgbModule,
     ScrollingModule,
-    MatSidenavModule,
-    MatJumbotronModule
+    MatSidenavModule
   ],
   entryComponents: [
     DialogComponent

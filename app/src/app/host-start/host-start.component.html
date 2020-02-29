@@ -1,22 +1,75 @@
-<p>host-start works!</p>
-<div *ngIf="state === 1">
-    <p>Overview explanation here</p>
-    <button mat-flat-button color="primary" (click)="onNextButtonClicked()">Register as host</button>
-</div>
-<!-- Match with visitor -->
-<div *ngIf="state === 2">
-    <p>下記のビジターとマッチングしました！</p>
-    <p>{{matched_visit.visit_id}}</p>
-    <p>{{matched_visit.user_id}}</p>
-    <p>{{matched_visit.user_name}}</p>
-    <p>{{matched_visit.thumb_url}}</p>
-    <p>{{matched_visit.place}}</p>
-    <p>{{matched_visit.start}}</p>
-    <p>{{matched_visit.end}}</p>
-    <p>{{matched_visit.comment}}</p>
-    <button mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
-</div>
-<!-- No visitor waiting -->
-<div *ngIf="state === 3">
-    <p>マッチングを待っています。マッチングしたらFacebookのメッセージでお知らせします</p>
+<div class="container_host_start" fxLayout="column" fxLayoutAlign="center start">
+    <div *ngIf="state === 1" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+        <div fxFlex>
+            <p class="page_title">What can I do if I become a host?</p>
+        </div>
+        <div fxFlex>
+            <p class="body_text">You can be a host</p>
+            <p class="body_text">If some foreign visitors are in trouble, you can give some advices.</p>
+        </div>
+        <div fxFlex>
+            <button mat-flat-button color="primary" (click)="onNextButtonClicked()">Register as host</button>
+        </div>
+    </div>
+    <!-- Match with visitor -->
+    <div *ngIf="state === 2" fxLayout="column">
+        <div fxFlex>
+            <p class="page_title">Congraturations! Matched with your visitor.</p>
+        </div>
+        <div fxFlex>
+            <p class="body_text">Now let’s start conversation.</p>
+        </div>
+        <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <!-- {{host.thumb_url}} -->
+            <!-- <p class="common_header_text" fxFlex> -->
+            <!-- </p> -->
+            <span fxFlex>
+                <img class="visitor_image" mat-card-image [src]="matched_visit.thumb_url" alt="Visitor image">
+            </span>
+            <p class="common_header_text" fxFlex>
+                {{matched_visit.user_name}}
+            </p>
+            <div class="visit_info" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+                    <div class="title" fxFlex="40%">Place</div>
+                    <div fxFlex="60%">{{matched_visit.place}}</div>
+                </div> 
+                <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+                    <div class="title" fxFlex fxFlex="40%">Schedule</div>
+                    <div fxFlex fxFlex="60%">{{matched_visit.start}} - {{matched_visit.end}}</div>
+                </div>
+                <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+                    <div class="title" fxFlex fxFlex="40%">Comment</div>
+                    <div fxFlex fxFlex="60%">{{matched_visit.comment}}</div>
+                </div> 
+            </div>
+            <div fxFlex> 
+                <button mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
+            </div>
+<!--             <div class="tmp" fxFlex="80%" fxLayout="column" fxLayoutAlign="start start">
+                <div fxFlex fxLayout="row" fxLayoutAlign="start start">
+                    <div fxFlex>Place</div>
+                    <div fxFlex>{{matched_visit.place}}</div>
+                </div> 
+                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex>Schedule</div>
+                    <div fxFlex><p>{{matched_visit.start}}</p> - <p>{{matched_visit.end}}</p></div>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex>Comment</div>
+                    <div fxFlex>{{matched_visit.comment}}</div>
+                </div> 
+            </div>
+            <div fxFlex> 
+                <button mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
+            </div>
+        -->
+        </mat-card>
+    </div>
+
+
+    <!-- No visitor waiting -->
+    <div *ngIf="state === 3">
+        <p>マッチングを待っています。マッチングしたらFacebookのメッセージでお知らせします</p>
+    </div>
 </div>

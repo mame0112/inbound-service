@@ -1,0 +1,42 @@
+.container_host_start {
+    display:block;
+    width:80%;
+    height:100%;
+    padding: 10px;
+    margin:auto;
+}
+
+.common_header_text {
+    color: #1976D2;
+    font-size:24px;
+}
+
+.visitor_image {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+}
+
+.visit_info {
+    width: 80%;
+}
+
+.visit_info .title{
+    font-weight:bold;
+}
+
+.tmp {
+    background-color: #FF0000;
+}
+
+.tmp2 {
+    background-color: #00FF00;
+}
+
+.tmp3 {
+    background-color: #0000FF;
+}
+
+.tmp4 {
+    background-color: #FFFF00;
+}

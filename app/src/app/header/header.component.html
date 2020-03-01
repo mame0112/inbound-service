@@ -6,18 +6,6 @@
     <span>
       <a mat-button routerLink="" class="header-button">Overview</a>
     </span>
-    <span>
-      <a mat-button routerLink="" class="header-button">My page</a>
-    </span>
-    <span>
-      <a mat-button routerLink="" class="header-button">Privacy policy</a>
-    </span>
-    <span>
-      <a mat-button routerLink="" class="header-button">Terms</a>
-    </span>
-    <span>
-      <a mat-button routerLink="" class="header-button" (click)="ClearUserData()">Sign out</a>
-    </span>
     <span class="example-fill-remaining-space"></span>
     <span *ngIf="userData != null">
       <a mat-button routerLink="/my-page" class="header-button">{{userData.user_name}}</a>

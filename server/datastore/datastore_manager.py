@@ -582,6 +582,7 @@ class DatastoreManager:
             client.put(entity)
 
             # Update user db (For Host)
+            # TODO Need to add plan info
             convs_host = {}
             convs_host[Conversation.KEY_VISITOR_ID] = conv_data[
                 Conversation.KEY_VISITOR_ID]

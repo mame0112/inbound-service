@@ -1,16 +1,25 @@
-<mat-card>Host data
-    <mat-list>
-        <mat-list-item *ngFor="let host of hosts">
-            <a [routerLink]="['/conversation', host.conversation_id]">
-                <img [src]="host.visitor_thumb_url">
-                {{host.visitor_name}}
-            </a>
-        </mat-list-item>
-    </mat-list>
-</mat-card>
+<div class="container_mypage" fxLayout="column" fxLayoutAlign="center start">
+    <div fxLayout="column">
+        <div fxFlex>
+            <p class="page_title">Host data</p>
+        </div>
+        <div fxFlex *ngFor="let host of hosts">
+            <mat-card class="mypage-card" fxLayoutGap="4px">
+                <a [routerLink]="['/conversation', host.conversation_id]">
+                    <img [src]="host.visitor_thumb_url">
+                    {{host.visitor_name}}
+                </a>
+            </mat-card>
+        </div>
 
-<mat-card>Visit data
-    <mat-list>
-        <mat-list-item *ngFor="let visit of visits">{{visit.place}} / {{visit.start}} / {{visit.end}}</mat-list-item>
-    </mat-list>
-</mat-card>
+        <div fxFlex fxFlexOffset="40px">
+            <p class="page_title">Visit data</p>
+        </div>
+
+        <div fxFlex *ngFor="let visit of visits">
+            <mat-card class="mypage-card" fxLayoutGap="4px">
+                {{visit.place}} / {{visit.start}} / {{visit.end}}
+            </mat-card>
+        </div>
+    </div>
+</div>

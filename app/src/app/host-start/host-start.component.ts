@@ -22,6 +22,8 @@ import { ConversationDataBuilder } from '../data-builder/conversation-data-build
 
 import { DialogComponent } from '../dialog/dialog.component';
 
+import { Util } from '../util';
+
 @Component({
   selector: 'app-host-start',
   templateUrl: './host-start.component.html',
@@ -100,8 +102,8 @@ export class HostStartComponent implements OnInit {
       let obj = array[0];
       console.log(obj);
 
-      let start = this.createDateForDisplay(obj[VisitConsts.KEY_START]);
-      let end = this.createDateForDisplay(obj[VisitConsts.KEY_END]);
+      let start = new Util().createDateForDisplay(obj[VisitConsts.KEY_START]);
+      let end = new Util().createDateForDisplay(obj[VisitConsts.KEY_END]);
 
       let builder = new VisitDataBuilder();
       this.matched_visit = builder.setVisitId(obj[VisitConsts.KEY_VISIT_ID]).setUserId(obj[VisitConsts.KEY_USER_ID]).setUserName(obj[VisitConsts.KEY_USER_NAME]).setThumbUrl(obj[VisitConsts.KEY_THUMB_URL]).setPlace(obj[VisitConsts.KEY_PLACE]).setStart(start).setEnd(end).setComment(obj[VisitConsts.KEY_COMMENT]).getResult();
@@ -129,17 +131,6 @@ export class HostStartComponent implements OnInit {
         });
     }
 
-    createDateForDisplay(date: string): string {
-      console.log('createDateForDisplay');
-
-      const input = new Date(date);
-      let year = input.getFullYear();
-      let month = input.getMonth() + 1;
-      let day = input.getDate();
-
-      return year + ' / ' + month + ' / ' + day;
-
-    }
 
     startConversation(): void {
       console.log('startConversation');

@@ -39,6 +39,8 @@ export class UserConsts {
     public static readonly KEY_USER_PROPERTIES = "user_properties"
     public static readonly KEY_PLANS = "key_plans"
 
+
+
 }
 
 export class VisitConsts {

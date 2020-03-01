@@ -1,0 +1,11 @@
+.container_mypage {
+    display:block;
+    width:80%;
+    height:100%;
+    padding: 10px;
+    margin:auto;
+}
+
+.mypage-card {
+    margin: 6px;
+}

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Constants, UserConsts } from '../constants';
+import { Constants, UserConsts, ConversationConsts, VisitConsts} from '../constants';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 
 import { User } from '../user';
+import { Host } from '../host';
 
 import { catchError, map, tap } from 'rxjs/operators';
+
+import { Util } from '../util';
 
 @Component({
   selector: 'app-my-page',
@@ -16,8 +19,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class MyPageComponent implements OnInit {
 
-  visits: []
-  hosts: []
+  visits: any[];
+  hosts: any[];
 
   constructor(
       private apiService: ApiService,
@@ -32,8 +35,8 @@ export class MyPageComponent implements OnInit {
               console.log(params);
             if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
                 let content = params[Constants.CONTENT];
-                this.hosts = content[UserConsts.KEY_CONVERSATIONS_HOST];
-                this.visits = content[UserConsts.KEY_CONVERSATIONS_GUEST];
+                this.hosts = this.validateAndExtractHostData(content[UserConsts.KEY_CONVERSATIONS_HOST]);
+                this.visits = this.validateAndExtractVisitData(content[UserConsts.KEY_CONVERSATIONS_GUEST]);
                 let plan = content[UserConsts.KEY_PLANS];
                 // console.log(hosts);
                 // console.log(this.visits);
@@ -42,10 +45,61 @@ export class MyPageComponent implements OnInit {
                 console.log('Error ocurred');
                 // TODO Error handling
             }
-
           });
+  }
 
+  validateAndExtractHostData(inputs: any): any[]{
 
+    let result: any[] = new Array();
+
+    if(inputs == null){
+      return result;
+    }
+
+    for(let content of inputs) {
+      let conversation_id = content[ConversationConsts.KEY_CONVERSATION_ID];
+      let visitor_id = content[ConversationConsts.KEY_VISITOR_ID];
+      let visitor_name = content[ConversationConsts.KEY_VISITOR_NAME];
+      let visitor_thumb_url = content[ConversationConsts.KEY_VISITOR_THUMB_URL];
+      if(conversation_id != undefined && visitor_id != undefined && visitor_name != undefined && visitor_thumb_url != undefined){
+        result.push(content);
+      } else {
+        console.log('Something is null');
+      }
+
+    }
+
+    return result;
+  }
+
+  validateAndExtractVisitData(inputs: any): any[]{
+
+    let result: any[] = new Array();
+
+    if(inputs == null){
+      return result;
+    }
+
+    for(let content of inputs) {
+      let visit_id = content[VisitConsts.KEY_VISIT_ID];
+      let place = content[VisitConsts.KEY_PLACE];
+
+      let start = content[VisitConsts.KEY_START];
+      content[VisitConsts.KEY_START] = new Util().createDateForDisplay(start);
+
+      let end = content[VisitConsts.KEY_END];
+      content[VisitConsts.KEY_END] = new Util().createDateForDisplay(end);
+
+      // Skip comment because this field is optional
+      if(visit_id != undefined && place != undefined && start != undefined && end != undefined){
+        result.push(content);
+      } else {
+        console.log('Something is null');
+      }
+
+    }
+
+    return result;
   }
 
 }

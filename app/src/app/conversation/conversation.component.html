@@ -1,3 +1,27 @@
+<div class="container_conversation" fxLayout="column" fxLayoutAlign="start start">
+    <mat-list class="scroll" flex>
+        <mat-list-item *ngFor="let msg of messages">
+            <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
+            {{ msg.msg_sender_name }}<br>
+            {{ msg.msg_content }}<br>
+            </div>
+            <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
+            {{ msg.msg_sender_name }}<br>
+            {{ msg.msg_content }}<br>
+            </div>
+        </mat-list-item>
+    </mat-list>
+
+    <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" fxFlexFill>
+        <div fxFlex>
+            <input type="text" name="comment" required class="form-control" [(ngModel)]="comment" #comm="ngModel">
+        </div>
+        <div fxFlex="100px">
+            <button type="submit" class="btn btn-primary" [disabled]="!form2.form.valid">Send</button>
+        </div>
+    </form>
+</div>
+
 <!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
     <div *cdkVirtualFor="let msg of messages" class="example-item">
         <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
@@ -24,28 +48,3 @@
     </li>
 </ul>
  -->
-<mat-list>
-    <mat-list-item *ngFor="let msg of messages">
-        <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
-        {{ msg.msg_sender_name }}<br>
-        {{ msg.msg_content }}<br>
-        </div>
-        <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
-        {{ msg.msg_sender_name }}<br>
-        {{ msg.msg_content }}<br>
-        </div>
-    </mat-list-item>
-</mat-list>
-
-<form class="form-horizontal" (ngSubmit)="sendComment()" #form2="ngForm">
-    <div class="form-group">
-        <div class="col-sm-5">
-        <input type="text" name="comment" required class="form-control" [(ngModel)]="comment" #comm="ngModel">
-        </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-5">
-        <button type="submit" class="btn btn-primary" [disabled]="!form2.form.valid">Send</button>
-      </div>
-    </div>
-</form>

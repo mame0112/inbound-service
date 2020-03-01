@@ -49,6 +49,11 @@ export class ConversationDataBuilder {
         return this;
     }
 
+    setVisitId(visit_id: number): ConversationDataBuilder {
+        this.conversation.setVisitId(visit_id);
+        return this;
+    }
+
     getResult(): Conversation{
         return this.conversation;
     }

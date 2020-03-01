@@ -57,9 +57,61 @@ export class VisitStartComponent implements OnInit {
     onSubmit(){
         console.log('Submitted:' + JSON.stringify(this.visit));
 
+        // this.apiService.createVisitData(this.visit).pipe(
+        //     flatMap((params1) => this.apiService.getHostData())).subscribe(param2 => {
+        //         if(param2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+
+        //             let content = param2[Constants.CONTENT];
+        //             if(content !== null && content.length >= 1) {
+        //                 // Host is waiting
+        //                 console.log('Matched with Host');
+
+        //                 let first_host = content[0];
+        //                 console.log(first_host);
+
+        //                 let builder = new HostDataBuilder();
+        //                 this.host = builder.setUserId(first_host[HostConsts.KEY_USER_ID]).setUserName(first_host[HostConsts.KEY_USER_NAME]).setThumbUrl(first_host[HostConsts.KEY_THUMB_URL]).getResult();
+
+        //                 this.state = VisitStartComponent.MatchedWithHost;
+        //             } else {
+        //                 console.log('Host is not waiting');
+        //                 console.log(param2);
+        //                 this.state = VisitStartComponent.WaitingForHost;
+        //             }
+        //         } else {
+        //             console.log('Error ocurred');
+        //         }
+
+        //     });
+
         this.apiService.createVisitData(this.visit).pipe(
-            flatMap((params1) => this.apiService.getHostData())).subscribe(param2 => {
+            tap(heroes => console.log('fetched users')),
+            catchError(this.apiService.handleError<string>('createVisitData', 'Error'))
+        ).subscribe(param => {
+
+          if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+                console.log('createVisitData OK');
+
+                let create_visit_content = param[Constants.CONTENT]
+                if(create_visit_content == null || create_visit_content == undefined){
+                    console.log('visit_id is null or undefined');
+                    return;
+                }
+
+                let visit_id = create_visit_content[VisitConsts.KEY_VISIT_ID];
+                this.visit.setVisitId(visit_id);
+                console.log('visit_id');
+                console.log(visit_id);
+
+
+                this.apiService.getHostData().pipe(
+                    tap(heroes2 => console.log('fetched users')),
+                    catchError(this.apiService.handleError<string>('getHostData', 'Error'))
+                ).subscribe(param2 => {
+
                 if(param2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+                      console.log('getHostData OK');
+
                     let content = param2[Constants.CONTENT];
                     if(content !== null && content.length >= 1) {
                         // Host is waiting
@@ -81,7 +133,10 @@ export class VisitStartComponent implements OnInit {
                     console.log('Error ocurred');
                 }
 
-            });
+            }
+            );
+          }
+        });
 
     }
 
@@ -89,7 +144,7 @@ export class VisitStartComponent implements OnInit {
       console.log('startConversation');
 
       let builder = new ConversationDataBuilder();
-      let conversation = builder.setHostUserId(this.host.getUserId()).setHostUserName(this.host.getUserName()).setHostThumbUrl(this.host.getThumbUrl()).setVisitorUserId(this.visit.getUserId()).setVisitorUserName(this.visit.getUserName()).setVisitorThumbUrl(this.visit.getThumbUrl()).setMessages([]).getResult();
+      let conversation = builder.setHostUserId(this.host.getUserId()).setHostUserName(this.host.getUserName()).setHostThumbUrl(this.host.getThumbUrl()).setVisitorUserId(this.visit.getUserId()).setVisitorUserName(this.visit.getUserName()).setVisitorThumbUrl(this.visit.getThumbUrl()).setMessages([]).setVisitId(this.visit.getVisitId()).getResult();
 
       this.apiService.createConversationData(conversation).pipe(
         tap(heroes => console.log('fetched users')),

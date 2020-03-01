@@ -90,12 +90,6 @@ export class HostStartComponent implements OnInit {
       return this.builder.setUserId(this.userDataService.getUserId()).setUserName(this.userDataService.getUserName()).setThumbUrl(this.userDataService.getThumbUrl()).getResult();
     }
 
-    // createUserData(): void {
-    //   let user = new User();
-    //   user.setUserId(this.userDataService.getUserId());
-
-    // }
-
     matchingWithVisitor(contents: any): void {
       console.log('matchingWithVisitor');
       let array = JSON.parse(contents);
@@ -136,7 +130,7 @@ export class HostStartComponent implements OnInit {
       console.log('startConversation');
 
       let builder = new ConversationDataBuilder();
-      let conversation = builder.setHostUserId(this.userDataService.getUserId()).setHostUserName(this.userDataService.getUserName()).setHostThumbUrl(this.userDataService.getThumbUrl()).setVisitorUserId(this.matched_visit.getUserId()).setVisitorUserName(this.matched_visit.getUserName()).setVisitorThumbUrl(this.matched_visit.getThumbUrl()).setMessages([]).getResult();
+      let conversation = builder.setHostUserId(this.userDataService.getUserId()).setHostUserName(this.userDataService.getUserName()).setHostThumbUrl(this.userDataService.getThumbUrl()).setVisitorUserId(this.matched_visit.getUserId()).setVisitorUserName(this.matched_visit.getUserName()).setVisitorThumbUrl(this.matched_visit.getThumbUrl()).setMessages([]).setVisitId(this.matched_visit.getVisitId()).getResult();
 
       this.apiService.createConversationData(conversation).pipe(
         tap(heroes => console.log('fetched users')),

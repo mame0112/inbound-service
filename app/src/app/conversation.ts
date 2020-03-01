@@ -8,6 +8,7 @@ export class Conversation {
     visitor_name: string;
     visitor_thumb_url: string;
     messages: object[];
+    visit_id: number;
 
 
     constructor(){}
@@ -44,6 +45,10 @@ export class Conversation {
         this.messages = messages;
     }
 
+    setVisitId(visit_id: number): void {
+        this.visit_id = visit_id;
+    }
+
     addMessage(message: object): void {
         this.messages.push(message);
     }
@@ -78,6 +83,10 @@ export class Conversation {
 
     getMessages(): any {
         return this.messages;
+    }
+
+    getVisitId(): number {
+        return this.visit_id;
     }
 
     

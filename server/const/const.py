@@ -24,6 +24,7 @@ class Conversation:
     KEY_HOST_NAME = "host_name"
     KEY_HOST_THUMB_URL = "host_thumb_url"
     KEY_VISITOR_ID = "visitor_id"
+    KEY_VISIT_ID = "visit_id"
     KEY_VISITOR_NAME = "visitor_name"
     KEY_VISITOR_THUMB_URL = "visitor_thumb_url"
     KEY_MESSAGES = "messages"

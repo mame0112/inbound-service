@@ -220,7 +220,44 @@ class DatastoreManager:
 
             if convs_guest != None:
                 jsonGuestArray = entity[User.KEY_CONVERSATIONS_GUEST]
-                jsonGuestArray.append(convs_guest)
+
+                isExisting = False
+
+                for obj in jsonGuestArray:
+
+                    try:
+                        # Update if already exist
+                        if obj[Conversation.KEY_VISIT_ID] == convs_guest[Conversation.KEY_VISIT_ID]:
+                            self.log.debug('Visitor id matched')
+                            obj[Conversation.KEY_HOST_ID] = convs_guest[
+                                Conversation.KEY_HOST_ID]
+                            obj[Conversation.KEY_HOST_NAME] = convs_guest[
+                                Conversation.KEY_HOST_NAME]
+                            obj[Conversation.KEY_HOST_THUMB_URL] = convs_guest[
+                                Conversation.KEY_HOST_THUMB_URL]
+                            obj[Conversation.KEY_CONVERSATION_ID] = convs_guest[
+                                Conversation.KEY_CONVERSATION_ID]
+
+                            isExisting = True
+                    except ValueError as error:
+                        pass
+
+                        # Create new if this vist deosn't exist
+                if isExisting == False:
+
+                    newObj = {}
+
+                    newObj[Visit.KEY_VISIT_ID] = convs_guest[
+                        Visit.KEY_VISIT_ID]
+                    newObj[Visit.KEY_PLACE] = convs_guest[Visit.KEY_PLACE]
+                    newObj[Visit.KEY_START] = convs_guest[Visit.KEY_START]
+                    newObj[Visit.KEY_END] = convs_guest[Visit.KEY_END]
+                    # TODO Need to catch because comment is optional field
+                    newObj[Visit.KEY_COMMENT] = convs_guest[Visit.KEY_COMMENT]
+
+                    jsonGuestArray.append(newObj)
+
+                # jsonGuestArray.append(convs_guest)
                 entity[User.KEY_CONVERSATIONS_GUEST] = jsonGuestArray
 
             if user_properties != None:
@@ -420,6 +457,12 @@ class DatastoreManager:
             # Update state
             self.register_waiting_visitor_to_state(ut)
 
+            # Create result
+            visit_id = {}
+            visit_id[Visit.KEY_VISIT_ID] = ut
+
+            result.set_content(visit_id)
+
             return result
 
         except ValueError as error:
@@ -563,6 +606,9 @@ class DatastoreManager:
             convs_guest[Conversation.KEY_HOST_THUMB_URL] = conv_data[
                 Conversation.KEY_HOST_THUMB_URL]
             convs_guest[Conversation.KEY_CONVERSATION_ID] = ut
+            convs_guest[Conversation.KEY_VISIT_ID] = conv_data[
+                Conversation.KEY_VISIT_ID]
+            self.log.debug(conv_data[Conversation.KEY_VISIT_ID])
 
             visitor_user_id = conv_data[Conversation.KEY_VISITOR_ID]
 

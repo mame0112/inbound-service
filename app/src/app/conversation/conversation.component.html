@@ -1,9 +1,19 @@
 <div class="container_conversation" fxLayout="column" fxLayoutAlign="start start">
     <mat-list class="make-scrollable" flex>
-        <mat-list-item *ngFor="let msg of messages">
-            <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
-            {{ msg.msg_sender_name }}<br>
-            {{ msg.msg_content }}<br>
+        <mat-list-item class="item" *ngFor="let msg of messages">
+            <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="40%" fxLayoutGap="10px" class="comment_frame">
+                <img class="user_image" mat-card-image [src]="msg.msg_sender_tu" fxFlex="40px">
+                <div fxLayout="column" fxFlex>
+                    <div class="user_name" fxFlex>
+                        {{ msg.msg_sender_name }}
+                    </div>
+                    <div fxFlex>
+                        {{ msg.msg_content }}
+                    </div>
+                    <div class="post_time" fxFlex>
+                        {{ msg.msg_time }}
+                    </div>
+                </div>
             </div>
             <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
             {{ msg.msg_sender_name }}<br>
@@ -13,7 +23,7 @@
     </mat-list>
 
     <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" flex>
-<!--     <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" fxFlexFill> -->
+    <!-- <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" flex fxFlexFill> -->
         <div fxFlex>
             <input type="text" name="comment" required class="form-control" [(ngModel)]="comment" #comm="ngModel">
         </div>
@@ -23,29 +33,3 @@
     </form>
 </div>
 
-<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-    <div *cdkVirtualFor="let msg of messages" class="example-item">
-        <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
-        {{ msg.msg_sender_name }}<br>
-        {{ msg.msg_content }}<br>
-        </div>
-        <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
-        {{ msg.msg_sender_name }}<br>
-        {{ msg.msg_content }}<br>
-        </div>
-    </div>
-</cdk-virtual-scroll-viewport>
- -->
-<!-- <ul>
-    <li *ngFor="let msg of messages">
-        <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
-        {{ msg.msg_sender_name }}<br>
-        {{ msg.msg_content }}<br>
-        </div>
-        <div *ngIf="msg.msg_sender_id != user_id" class=item-left>
-        {{ msg.msg_sender_name }}<br>
-        {{ msg.msg_content }}<br>
-        </div>
-    </li>
-</ul>
- -->

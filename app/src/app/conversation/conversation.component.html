@@ -1,5 +1,5 @@
 <div class="container_conversation" fxLayout="column" fxLayoutAlign="start start">
-    <mat-list class="scroll" flex>
+    <mat-list class="make-scrollable" flex>
         <mat-list-item *ngFor="let msg of messages">
             <div *ngIf="msg.msg_sender_id == user_id" class=item-right>
             {{ msg.msg_sender_name }}<br>
@@ -12,7 +12,8 @@
         </mat-list-item>
     </mat-list>
 
-    <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" fxFlexFill>
+    <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" flex>
+<!--     <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" fxFlexFill> -->
         <div fxFlex>
             <input type="text" name="comment" required class="form-control" [(ngModel)]="comment" #comm="ngModel">
         </div>

@@ -80,6 +80,10 @@ export class ConversationComponent implements OnInit {
                 this.conversations = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).getResult();
                 this.messages = this.conversations.getMessages();
 
+                for (var i = 0; i < this.messages.length; i++) {
+                  this.messages[i].date = this.getDateForDisplay(this.messages[i].msg_time);
+                }
+
                 if(this.user_id == this.conversations.getVisitorUserId()){
                   console.log('This is Visitor');
                   this.is_visitor = true;
@@ -127,12 +131,25 @@ export class ConversationComponent implements OnInit {
             if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
               let updated_comments = param[Constants.CONTENT];
               for (var i in updated_comments) {
-                console.log(updated_comments[i].msg_content);
+                updated_comments[i].date = this.getDateForDisplay(updated_comments[i].msg_time);
                 this.conversations.messages.push(updated_comments[i]);
               }
             }
           });
 
+    }
+
+    getDateForDisplay(timestamp: number): string{
+      var a = new Date(timestamp * 1000);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var hour = a.getHours();
+      var min = a.getMinutes();
+      // var sec = a.getSeconds();
+      var time = year + '/' + month + '/' + date + ' ' + hour + ':' + min;
+      return time;
     }
 
 }

@@ -23,14 +23,16 @@ mat-list-item.item {
     border-radius: 50%;
 }
 
-.user_name {
-    color: #1976D2;
-    font-size:18px;
+.message_content {
+    font-size:16px;
+    background-color: #99cc00;
+    padding: 10px;
+    border-radius: 6px 6px 6px 6px;
 }
 
-.post_time {
+.sub_text {
     color: #666666;
-    font-size:16px;
+    font-size:12px;
 }
 
 .tmp {

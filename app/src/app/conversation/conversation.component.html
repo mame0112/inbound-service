@@ -1,16 +1,16 @@
 <div class="container_conversation" fxLayout="column" fxLayoutAlign="start start">
-    <mat-list class="make-scrollable" flex>
-        <mat-list-item class="item" *ngFor="let msg of messages">
+    <mat-list class="make-scrollable" fxFlex fxLayout="column">
+        <mat-list-item class="item" *ngFor="let msg of messages" flex fxFlexOffset="10px">
             <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="40%" fxLayoutGap="10px" class="comment_frame">
                 <img class="user_image" mat-card-image [src]="msg.msg_sender_tu" fxFlex="40px">
                 <div fxLayout="column" fxFlex>
-                    <div class="user_name" fxFlex>
+                    <div class="sub_text" fxFlex>
                         {{ msg.msg_sender_name }}
                     </div>
-                    <div fxFlex>
+                    <div class="message_content" fxFlex>
                         {{ msg.msg_content }}
                     </div>
-                    <div class="post_time" fxFlex>
+                    <div class="sub_text" fxFlex>
                         {{ msg.msg_time }}
                     </div>
                 </div>

@@ -134,6 +134,9 @@ export class ConversationComponent implements OnInit {
                 updated_comments[i].date = this.getDateForDisplay(updated_comments[i].msg_time);
                 this.conversations.messages.push(updated_comments[i]);
               }
+
+              // Clear text
+              this.comment = '';
             }
           });
 

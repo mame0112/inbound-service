@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -22,7 +22,7 @@ import { ConversationDataBuilder } from '../data-builder/conversation-data-build
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.css']
 })
-export class ConversationComponent implements OnInit {
+export class ConversationComponent implements OnInit, AfterViewInit {
 
     conv_id: number;
 
@@ -42,6 +42,8 @@ export class ConversationComponent implements OnInit {
     conversations: Conversation;
     messages = undefined;
 
+    container: HTMLElement;
+
 
     // items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
 
@@ -54,7 +56,9 @@ export class ConversationComponent implements OnInit {
     ngOnInit() {
       console.log('ConversationComponent onInit');
 
-      this.conv_id = +this.route.snapshot.paramMap.get('conv_id');      
+      this.conv_id = +this.route.snapshot.paramMap.get('conv_id');
+      console.log('conv_id');
+      console.log(this.conv_id);
 
       this.user_id = this.userDataService.getUserId();
       this.user_name = this.userDataService.getUserName();
@@ -62,6 +66,13 @@ export class ConversationComponent implements OnInit {
 
       this.getConversationData();
 
+    }
+
+    ngAfterViewInit() {
+      console.log('ngAfterViewInit');
+      this.container = document.getElementById("make-scrollable");
+      console.log(this.container);
+      this.container.scrollTop = this.container.scrollHeight;
     }
 
     getConversationData(): void {

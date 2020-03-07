@@ -242,20 +242,21 @@ class DatastoreManager:
                     except ValueError as error:
                         pass
 
-                        # Create new if this vist deosn't exist
+                # Create new if this vist deosn't exist
                 if isExisting == False:
 
                     newObj = {}
 
-                    newObj[Visit.KEY_VISIT_ID] = convs_guest[
-                        Visit.KEY_VISIT_ID]
-                    newObj[Visit.KEY_PLACE] = convs_guest[Visit.KEY_PLACE]
-                    newObj[Visit.KEY_START] = convs_guest[Visit.KEY_START]
-                    newObj[Visit.KEY_END] = convs_guest[Visit.KEY_END]
-                    # TODO Need to catch because comment is optional field
-                    newObj[Visit.KEY_COMMENT] = convs_guest[Visit.KEY_COMMENT]
+                    # TODO Need to update this part
+                    # newObj[Visit.KEY_VISIT_ID] = convs_guest[
+                    #     Visit.KEY_VISIT_ID]
+                    # newObj[Visit.KEY_PLACE] = convs_guest[Visit.KEY_PLACE]
+                    # newObj[Visit.KEY_START] = convs_guest[Visit.KEY_START]
+                    # newObj[Visit.KEY_END] = convs_guest[Visit.KEY_END]
+                    # # TODO Need to catch because comment is optional field
+                    # newObj[Visit.KEY_COMMENT] = convs_guest[Visit.KEY_COMMENT]
 
-                    jsonGuestArray.append(newObj)
+                    # jsonGuestArray.append(newObj)
 
                 # jsonGuestArray.append(convs_guest)
                 entity[User.KEY_CONVERSATIONS_GUEST] = jsonGuestArray
@@ -571,6 +572,8 @@ class DatastoreManager:
                 Conversation.KEY_VISITOR_NAME]
             entity[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
                 Conversation.KEY_VISITOR_THUMB_URL]
+            entity[Conversation.KEY_VISIT_ID] = conv_data[
+                Conversation.KEY_VISIT_ID]
             # entity[Conversation.KEY_MESSAGES] = json.dumps(conv_json[
             #     Conversation.KEY_MESSAGES])
             # messages = []

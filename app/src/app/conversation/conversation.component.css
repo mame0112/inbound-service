@@ -6,7 +6,7 @@
     margin:auto;
 }
 
-mat-list.make-scrollable {
+mat-list#make-scrollable {
 /*    height: 300px;*/
     height: 60vh;
     width: 100%;

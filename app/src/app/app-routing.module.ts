@@ -7,6 +7,8 @@ import { VisitStartComponent } from './visit-start/visit-start.component';
 import { HostStartComponent } from './host-start/host-start.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { MyPageComponent } from './my-page/my-page.component';
+import { DebugComponent } from './debug/debug.component';
+
 
 const routes: Routes = [
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
@@ -15,7 +17,8 @@ const routes: Routes = [
     { path: 'visit-start', component: VisitStartComponent },
     { path: 'host-start', component: HostStartComponent },
     { path: 'conversation/:conv_id', component: ConversationComponent },
-    { path: 'my-page', component: MyPageComponent }
+    { path: 'my-page', component: MyPageComponent },
+    { path: 'debug', component: DebugComponent }
 
 ];
 

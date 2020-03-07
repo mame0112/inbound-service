@@ -36,6 +36,7 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { ChooseComponent } from './choose/choose.component';
 import { MyPageComponent } from './my-page/my-page.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { DebugComponent } from './debug/debug.component';
 
 const config = new AuthServiceConfig([
 {
@@ -59,7 +60,8 @@ export function provideConfig() {
     ConversationComponent,
     ChooseComponent,
     MyPageComponent,
-    DialogComponent
+    DialogComponent,
+    DebugComponent
   ],
   imports: [
     BrowserModule,

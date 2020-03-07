@@ -1,0 +1,33 @@
+<div>
+    Create dummy user 1
+    <form fxLayout="row" (ngSubmit)="createDummyUserData1()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Create dummy user 1 </button>
+    </form>
+</div>
+<div>
+    <form fxLayout="row" (ngSubmit)="createDummyUserData2()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Create dummy user 2 </button>
+    </form>
+</div>
+
+
+<div>
+    Create Conversation
+    <form fxLayout="row" (ngSubmit)="createDummyData1()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Create dummy conversatioon1 </button>
+    </form>
+    <nav>
+        <a [routerLink]="['/conversation', conversation_id]">Go to conversation page</a>
+    </nav>
+</div>
+
+<div>
+    Update comment
+    <form fxLayout="row" (ngSubmit)="updateCommentAsVisitor()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Update comment as Visitor </button>
+    </form>
+    <form fxLayout="row" (ngSubmit)="updateCommentAsUser2()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Update comment as user 2 </button>
+    </form>
+
+</div>

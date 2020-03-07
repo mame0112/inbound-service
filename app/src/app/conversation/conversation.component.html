@@ -1,5 +1,5 @@
 <div class="container_conversation" fxLayout="column" fxLayoutAlign="start start">
-    <mat-list class="make-scrollable" fxFlex fxLayout="column">
+    <mat-list id="make-scrollable" fxFlex fxLayout="column">
         <mat-list-item class="item" *ngFor="let msg of messages" flex fxFlexOffset="10px">
             <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="40%" fxLayoutGap="10px" class="comment_frame">
                 <img class="user_image" mat-card-image [src]="msg.msg_sender_tu" fxFlex="40px">

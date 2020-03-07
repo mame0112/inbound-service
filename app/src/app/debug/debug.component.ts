@@ -17,7 +17,7 @@ export class DebugComponent implements OnInit {
 
     conversation_dummy = {}
 
-    conversation_id = 1583060157;
+    conversation_id = 1583573947;
 
     constructor(private apiService: ApiService) { }
 
@@ -73,7 +73,7 @@ export class DebugComponent implements OnInit {
 
         let data = {};
 
-        data['conversation_id'] = String(this.conversation_id);
+        data['conversation_id'] = this.conversation_id;
         data['host_id'] = 10221180198043873;
         data['host_name'] = 'Kosuke Endo';
         data['host_thumb_url'] = 'https://graph.facebook.com/10221180198043871/picture?type=normal';
@@ -104,18 +104,12 @@ export class DebugComponent implements OnInit {
 
     }
 
-    updateCommentAsVisitor(): void {
-        console.log('updateCommentAsVisitor');
+    updateCommentAsHost(): void {
+        console.log('updateCommentAsHost');
 
         let obj = {}
-        obj[ConversationConsts.KEY_CONVERSATION_ID] = 1583573947;
-
-        // if(this.messages.length != 0){
-        // let latest_message = this.messages[this.messages.length-1]
-        // obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = latest_message[ConversationConsts.KEY_MESSAGES_TIMESTAMP];
-        // } else {
+        obj[ConversationConsts.KEY_CONVERSATION_ID] = this.conversation_id;
         obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = 0;
-        // }
 
         let message = {}
         message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = 10221180198043873;
@@ -124,10 +118,6 @@ export class DebugComponent implements OnInit {
         message[ConversationConsts.KEY_MESSAGES_CONTENT] = "Test message";
 
         obj[ConversationConsts.KEY_MESSAGES] = message;
-
-        // this.conversations.addMessage(message);
-
-        // console.log(this.conversations);
 
         this.apiService.updateCommentData(obj).pipe(
           tap(data => console.log(data)),
@@ -141,15 +131,39 @@ export class DebugComponent implements OnInit {
                 // updated_comments[i].date = this.getDateForDisplay(updated_comments[i].msg_time);
                 // this.conversations.messages.push(updated_comments[i]);
               }
-
-              // Clear text
-              // this.comment = '';
             }
           });
     }
 
-    updateCommentAsUser2(): void {
-        console.log('updateCommentAsUser2');
+    updateCommentAsVisitor(): void {
+        console.log('updateCommentAsVisitor');
+
+        let obj = {}
+        obj[ConversationConsts.KEY_CONVERSATION_ID] = this.conversation_id;
+        obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = 0;
+
+        let message = {}
+        message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = 10206368047916225;
+        message[ConversationConsts.KEY_MESSAGES_SENDER_NAME] = 'Test name';
+        message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = 'https://graph.facebook.com/10206368047916225/picture?type=normal';
+        message[ConversationConsts.KEY_MESSAGES_CONTENT] = "Message from visitor";
+
+        obj[ConversationConsts.KEY_MESSAGES] = message;
+
+        this.apiService.updateCommentData(obj).pipe(
+          tap(data => console.log(data)),
+          catchError(this.apiService.handleError<string>('updateCommentData', 'Error'))
+          ).subscribe(param => {
+            console.log(param);
+            if(param[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
+              let updated_comments = param[Constants.CONTENT];
+              for (var i in updated_comments) {
+                  console.log('Successfully sent')
+                // updated_comments[i].date = this.getDateForDisplay(updated_comments[i].msg_time);
+                // this.conversations.messages.push(updated_comments[i]);
+              }
+            }
+          });
         
     }
 

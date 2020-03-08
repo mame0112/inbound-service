@@ -3,12 +3,28 @@
         <div fxFlex>
             <p class="page_title">Host data</p>
         </div>
-        <div fxFlex *ngFor="let host of hosts">
-            <mat-card class="mypage-card" fxLayoutGap="4px">
-                <a [routerLink]="['/conversation', host.conversation_id]">
-                    <img [src]="host.visitor_thumb_url">
-                    {{host.visitor_name}}
-                </a>
+        <div fxFlex *ngIf="hosts?.length !== 0">
+            <div fxFlex *ngFor="let host of hosts">
+                <mat-card class="mypage-card" fxLayoutGap="4px">
+                    <a [routerLink]="['/conversation', host.conversation_id]">
+                        <img [src]="host.visitor_thumb_url">
+                        {{host.visitor_name}}
+                    </a>
+                </mat-card>
+            </div>
+        </div>
+        <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
+            <div fxFlex>
+<!--             <mat-card class="mypage-card" fxLayoutGap="4px"> -->
+                You haven't host any guests.
+            <!-- </mat-card> -->
+            </div>
+            <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px">
+                <div fxFlex>Register as host</div>
+                <div fxFlex>(Some drawing here)</div>
+                <div fxFlex>
+                    <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
+                </div>
             </mat-card>
         </div>
 
@@ -16,10 +32,25 @@
             <p class="page_title">Visit data</p>
         </div>
 
-        <div fxFlex *ngFor="let visit of visits">
+        <div fxFlex *ngIf="visits?.length !== 0">
+            <div fxFlex *ngFor="let visit of visits">
+                <mat-card class="mypage-card" fxLayoutGap="4px">
+                    {{visit.place}} / {{visit.start}} / {{visit.end}}
+                </mat-card>
+            </div>
+        </div>
+        <div fxFlex *ngIf="visits?.length === 0">
+            <!-- <mat-card class="mypage-card" fxLayoutGap="4px"> -->
+                You haven't created any visit plans yet.
+            <!-- </mat-card> -->
             <mat-card class="mypage-card" fxLayoutGap="4px">
-                {{visit.place}} / {{visit.start}} / {{visit.end}}
+                Create new plan
+                (Some drawing here)
+                <div fxFlex>
+                    <button mat-flat-button color="primary" (click)="createPlan()">CreatePlan</button>
+                </div>
             </mat-card>
         </div>
+
     </div>
 </div>

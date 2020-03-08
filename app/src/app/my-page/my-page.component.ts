@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 import { Constants, UserConsts, ConversationConsts, VisitConsts} from '../constants';
 
 import { ApiService } from '../api.service';
@@ -19,12 +21,13 @@ import { Util } from '../util';
 })
 export class MyPageComponent implements OnInit {
 
-  visits: any[];
-  hosts: any[];
+  visits: any[] = [];
+  hosts: any[] = [];
 
   constructor(
       private apiService: ApiService,
-      private userDataService: UserDataService
+      private userDataService: UserDataService,
+      private router: Router
       ) { }
 
   ngOnInit() {
@@ -46,6 +49,17 @@ export class MyPageComponent implements OnInit {
                 // TODO Error handling
             }
           });
+  }
+
+  registerAsHost(): void {
+    console.log('registerAsHost');
+    this.router.navigate(['/host-start']);
+  }
+
+  createPlan(): void {
+    console.log('createPlan');
+    this.router.navigate(['/visit-start']);
+
   }
 
   validateAndExtractHostData(inputs: any): any[]{

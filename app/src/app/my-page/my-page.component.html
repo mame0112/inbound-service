@@ -14,13 +14,8 @@
             </div>
         </div>
         <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
-            <div fxFlex>
-<!--             <mat-card class="mypage-card" fxLayoutGap="4px"> -->
-                You haven't host any guests.
-            <!-- </mat-card> -->
-            </div>
-            <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px">
-                <div fxFlex>Register as host</div>
+            <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+                <div fxFlex>You haven't host any guests.</div>
                 <div fxFlex>(Some drawing here)</div>
                 <div fxFlex>
                     <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
@@ -39,15 +34,12 @@
                 </mat-card>
             </div>
         </div>
-        <div fxFlex *ngIf="visits?.length === 0">
-            <!-- <mat-card class="mypage-card" fxLayoutGap="4px"> -->
-                You haven't created any visit plans yet.
-            <!-- </mat-card> -->
-            <mat-card class="mypage-card" fxLayoutGap="4px">
-                Create new plan
-                (Some drawing here)
+        <div fxFlex *ngIf="visits?.length === 0" fxLayout="column">
+            <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+                <div fxFlex>You haven't created any visit plans yet.</div>
+                <div fxFlex>(Some drawing here)</div>
                 <div fxFlex>
-                    <button mat-flat-button color="primary" (click)="createPlan()">CreatePlan</button>
+                    <button mat-flat-button color="primary" (click)="createPlan()">Create plan</button>
                 </div>
             </mat-card>
         </div>

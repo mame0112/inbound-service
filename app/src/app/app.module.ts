@@ -38,6 +38,9 @@ import { MyPageComponent } from './my-page/my-page.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { DebugComponent } from './debug/debug.component';
 
+import { ScrollableDirective } from './directive/scrollable.directive';
+import { OffsetTopDirective } from './directive/offset-top.directive';
+
 const config = new AuthServiceConfig([
 {
   id: FacebookLoginProvider.PROVIDER_ID,
@@ -61,7 +64,9 @@ export function provideConfig() {
     ChooseComponent,
     MyPageComponent,
     DialogComponent,
-    DebugComponent
+    DebugComponent,
+    ScrollableDirective,
+    OffsetTopDirective
   ],
   imports: [
     BrowserModule,

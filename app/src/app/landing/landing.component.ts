@@ -36,7 +36,7 @@ export class LandingComponent implements OnInit {
     this.userObj = this.userDataService.initialize();
     if(this.userObj != null){
       //TODO
-      // this.router.navigate(['/my-page']);
+      this.router.navigate(['/my-page']);
     }
 
 

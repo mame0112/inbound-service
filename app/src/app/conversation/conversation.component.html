@@ -1,5 +1,5 @@
-<div class="container_conversation" fxLayout="column" fxLayoutAlign="start start">
-    <mat-list id="make-scrollable" fxFlex fxLayout="column">
+<div class="container_conversation" fxLayout="column" fxLayoutAlign="start center">
+    <mat-list id="make-scrollable" fxFlex="auto" fxLayout="column">
         <mat-list-item class="item" *ngFor="let msg of messages" flex fxFlexOffset="10px">
             <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="400px" fxLayoutGap="10px">
                 <img class="user_image" mat-card-image [src]="msg.msg_sender_tu" fxFlex="40px">
@@ -28,14 +28,11 @@
         </mat-list-item>
     </mat-list>
 
-    <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" flex>
-    <!-- <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm" flex fxFlexFill> -->
-        <div fxFlex>
-            <input type="text" name="comment" required class="form-control" [(ngModel)]="comment" #comm="ngModel">
-        </div>
-        <div fxFlex="100px">
-            <button type="submit" class="btn btn-primary" [disabled]="!form2.form.valid">Send</button>
-        </div>
-    </form>
+    <div class="input_field" fxFlex="nogrow">
+        <form fxLayout="row" (ngSubmit)="sendComment()" #form2="ngForm">
+            <input type="text" name="comment" required [(ngModel)]="comment" #comm="ngModel" fxFlex="auto">
+            <button type="submit" class="btn btn-primary" [disabled]="!form2.form.valid" fxFlex="nogrow">Send</button>
+        </form>
+    </div>
 </div>
 

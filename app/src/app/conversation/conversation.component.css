@@ -46,18 +46,14 @@ mat-list-item.item {
     font-size:12px;
 }
 
+.input_field{
+    width: 100%;
+}
+
 .tmp {
     background-color: #00FF00;
 }
 
 .tmp2 {
     background-color: #FF0000;
-}
-
-.item-right {
-    background-color: #ff0000
-}
-
-.item-left {
-    background-color: #00ff00
 }

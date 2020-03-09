@@ -40,6 +40,8 @@ import { DebugComponent } from './debug/debug.component';
 
 import { ScrollableDirective } from './directive/scrollable.directive';
 import { OffsetTopDirective } from './directive/offset-top.directive';
+import { TermsComponent } from './terms/terms.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 const config = new AuthServiceConfig([
 {
@@ -66,7 +68,9 @@ export function provideConfig() {
     DialogComponent,
     DebugComponent,
     ScrollableDirective,
-    OffsetTopDirective
+    OffsetTopDirective,
+    TermsComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,

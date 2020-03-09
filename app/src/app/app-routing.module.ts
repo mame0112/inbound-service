@@ -7,6 +7,8 @@ import { VisitStartComponent } from './visit-start/visit-start.component';
 import { HostStartComponent } from './host-start/host-start.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { MyPageComponent } from './my-page/my-page.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { TermsComponent } from './terms/terms.component';
 import { DebugComponent } from './debug/debug.component';
 
 
@@ -18,6 +20,8 @@ const routes: Routes = [
     { path: 'host-start', component: HostStartComponent },
     { path: 'conversation/:conv_id', component: ConversationComponent },
     { path: 'my-page', component: MyPageComponent },
+    { path: 'privacy', component: PrivacyComponent },
+    { path: 'terms', component: TermsComponent },
     { path: 'debug', component: DebugComponent }
 
 ];

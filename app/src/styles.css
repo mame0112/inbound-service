@@ -3,6 +3,15 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.container {
+    display:block;
+    width:80%;
+    height:100%;
+    padding: 10px;
+    margin:auto;
+}
+
+
 .accent_headline {
     color: #EF5350;
     font-size:32px;
@@ -11,6 +20,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .page_title {
     color: #1976D2;
     font-size:32px;
+}
+
+.body_title {
+    color: #000000;
+    font-size:18px;
 }
 
 .body_text {

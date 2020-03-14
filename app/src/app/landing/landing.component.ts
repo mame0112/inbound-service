@@ -41,7 +41,7 @@ export class LandingComponent implements OnInit {
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      // this.loggedIn = (user != null);
+      this.loggedIn = (user != null);
       console.log(this.user);
 
       if (user !=null) {
@@ -84,5 +84,4 @@ export class LandingComponent implements OnInit {
   broadcastFBUserInfo() {
     this.userInfo.emit(this.userObj);
   }
-
 }

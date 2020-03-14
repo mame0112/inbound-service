@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IgxCalendarModule, IgxNavbarModule } from 'igniteui-angular';
 
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, LoginOpt } from 'angularx-social-login';
 
 import { LandingComponent } from './landing/landing.component';
 import { VisitStartComponent } from './visit-start/visit-start.component';
@@ -43,9 +43,17 @@ import { OffsetTopDirective } from './directive/offset-top.directive';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 
+
+// const fbLoginOptions: LoginOpt = {
+//   scope: 'pages_messaging',
+//   return_scopes: true,
+//   enable_profile_selector: true
+// };
+
 const config = new AuthServiceConfig([
 {
   id: FacebookLoginProvider.PROVIDER_ID,
+  // provider: new FacebookLoginProvider('1194303814099473', fbLoginOptions)
   provider: new FacebookLoginProvider('1194303814099473')
   }
 ]);

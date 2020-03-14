@@ -14,6 +14,8 @@ from server.datastore.data_processor.conversation_dataformat_processor import Co
 
 from google.cloud import datastore
 
+from server.facebook.token_retriver import TokenRetriever
+
 
 class DatastoreManager:
 
@@ -90,6 +92,12 @@ class DatastoreManager:
                 entity[User.KEY_USER_NAME] = userJson[User.KEY_USER_NAME]
                 entity[User.KEY_THUMB_URL] = userJson[User.KEY_THUMB_URL]
                 entity[User.KEY_ACCESS_TOKEN] = userJson[User.KEY_ACCESS_TOKEN]
+
+                retriver = TokenRetriever()
+                long_token = retriver.exchange_token(
+                    userJson[User.KEY_ACCESS_TOKEN])
+                self.log.debug(long_token)
+
                 # Create empty Json array
                 entity[User.KEY_CONVERSATIONS_HOST] = []
                 entity[User.KEY_CONVERSATIONS_GUEST] = []

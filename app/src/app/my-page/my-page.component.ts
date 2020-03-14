@@ -116,4 +116,10 @@ export class MyPageComponent implements OnInit {
     return result;
   }
 
+  signout(): void {
+    console.log('signout');
+    this.userDataService.deleteUserData();
+    this.router.navigate(['/landing']);
+  }
+
 }

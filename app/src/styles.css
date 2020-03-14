@@ -22,12 +22,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size:32px;
 }
 
+.page_sub_title {
+    color: #666666;
+    font-size:24px;
+}
+
 .body_title {
     color: #000000;
     font-size:18px;
 }
 
 .body_text {
+    color: #333333;
+    font-size:16px;
+}
+
+li.body_text {
     color: #333333;
     font-size:16px;
 }

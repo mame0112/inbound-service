@@ -39,14 +39,9 @@ export class LandingComponent implements OnInit {
       this.router.navigate(['/my-page']);
     }
 
-
-
-    // apiService.getUserData().subscribe(params => this.contents = this.dataProcessorServie.parseJson2ContentsData(params));
-    // this.apiService.getUserData().subscribe(param => console.log('Data fetched'));
-
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
+      // this.loggedIn = (user != null);
       console.log(this.user);
 
       if (user !=null) {
@@ -55,7 +50,6 @@ export class LandingComponent implements OnInit {
         let builder = new UserDataBuilder();
         this.userObj = builder.setUserId(Number(user.id)).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
 
-        // this.apiService.createUserData(obj).subscribe(params => console.log(params));
         this.apiService.createUserData(this.userObj)
         .pipe(
             tap(heroes => console.log('fetched users')),

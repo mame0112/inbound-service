@@ -91,12 +91,13 @@ class DatastoreManager:
                 entity[User.KEY_USER_ID] = userJson[User.KEY_USER_ID]
                 entity[User.KEY_USER_NAME] = userJson[User.KEY_USER_NAME]
                 entity[User.KEY_THUMB_URL] = userJson[User.KEY_THUMB_URL]
-                entity[User.KEY_ACCESS_TOKEN] = userJson[User.KEY_ACCESS_TOKEN]
 
                 retriver = TokenRetriever()
-                long_token = retriver.exchange_token(
+                token_response = retriver.exchange_token(
                     userJson[User.KEY_ACCESS_TOKEN])
-                self.log.debug(long_token)
+
+                entity[User.KEY_ACCESS_TOKEN] = token_response[0]
+                entity[User.KEY_ACCESS_TOKEN_EXPIRE_TIME] = token_response[1]
 
                 # Create empty Json array
                 entity[User.KEY_CONVERSATIONS_HOST] = []

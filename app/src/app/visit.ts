@@ -1,7 +1,7 @@
 export class Visit {
 
     visit_id: number;
-    user_id: number;
+    user_id: string;
     user_name: string;
     thumb_url: string;
     place: string;
@@ -15,7 +15,7 @@ export class Visit {
         this.visit_id = visit_id;
     }
 
-    setUserId(user_id: number): void {
+    setUserId(user_id: string): void {
         this.user_id = user_id;
     }
 
@@ -48,7 +48,7 @@ export class Visit {
         return this.visit_id;
     }
 
-    getUserId(): number {
+    getUserId(): string {
         return this.user_id;
     }
 

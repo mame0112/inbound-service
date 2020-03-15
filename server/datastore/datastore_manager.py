@@ -41,16 +41,16 @@ class DatastoreManager:
         self.log.debug(type(user_id))
 
         if user_id is None or self.is_num(user_id) == False:
-            self.log.debug('user is none or not number')
+            self.log.debug('user is none or not string')
             result.set_error_message('user_id is none or not number')
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
             return result
 
-        user_id_int = int(user_id)
+        # user_id_int = int(user_id)
 
         try:
             client = datastore.Client()
-            key = client.key(User.KIND_NAME, user_id_int)
+            key = client.key(User.KIND_NAME, user_id)
             self.log.debug(key)
             entity = client.get(key)
             self.log.debug(entity)

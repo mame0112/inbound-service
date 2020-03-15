@@ -28,7 +28,7 @@ export class DebugComponent implements OnInit {
 
     createDummyUserData1(): void {
         let builder = new UserDataBuilder();
-        let userObj = builder.setUserId(10221180198043873).setUserName('Kosuke Endo').setThumbUrl('https://graph.facebook.com/10221180198043871/picture?type=normal').setAccessToken("Dummy access token").getResult();
+        let userObj = builder.setUserId("10221180198043873").setUserName('Kosuke Endo').setThumbUrl('https://graph.facebook.com/10221180198043871/picture?type=normal').setAccessToken("Dummy access token").getResult();
 
         // this.apiService.createUserData(obj).subscribe(params => console.log(params));
         this.apiService.createUserData(userObj)
@@ -49,7 +49,7 @@ export class DebugComponent implements OnInit {
 
     createDummyUserData2(): void {
         let builder = new UserDataBuilder();
-        let userObj = builder.setUserId(10206368047916225).setUserName('Test name').setThumbUrl('https://graph.facebook.com/10206368047916225/picture?type=normal').setAccessToken("Dummy access token2").getResult();
+        let userObj = builder.setUserId("10206368047916225").setUserName('Test name').setThumbUrl('https://graph.facebook.com/10206368047916225/picture?type=normal').setAccessToken("Dummy access token2").getResult();
 
         // this.apiService.createUserData(obj).subscribe(params => console.log(params));
         this.apiService.createUserData(userObj)
@@ -74,11 +74,11 @@ export class DebugComponent implements OnInit {
         let data = {};
 
         data['conversation_id'] = this.conversation_id;
-        data['host_id'] = 10221180198043873;
+        data['host_id'] = "10221180198043873";
         data['host_name'] = 'Kosuke Endo';
         data['host_thumb_url'] = 'https://graph.facebook.com/10221180198043871/picture?type=normal';
         data['messages'] = [];
-        data['visitor_id'] = 10206368047916225;
+        data['visitor_id'] = "10206368047916225";
         data['visitor_name'] = 'Test name';
         data['visitor_thumb_url'] = 'https://graph.facebook.com/10206368047916225/picture?type=normal';
         data['visit_id'] = 1583060127;
@@ -112,7 +112,7 @@ export class DebugComponent implements OnInit {
         obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = 0;
 
         let message = {}
-        message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = 10221180198043873;
+        message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = "10221180198043873";
         message[ConversationConsts.KEY_MESSAGES_SENDER_NAME] = 'Kosuke Endo';
         message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = 'https://graph.facebook.com/10221180198043871/picture?type=normal';
         message[ConversationConsts.KEY_MESSAGES_CONTENT] = "Test message";
@@ -143,7 +143,7 @@ export class DebugComponent implements OnInit {
         obj[ConversationConsts.KEY_MESSAGES_LATEST_TIMESTAMP] = 0;
 
         let message = {}
-        message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = 10206368047916225;
+        message[ConversationConsts.KEY_MESSAGES_SENDER_ID] = "10206368047916225";
         message[ConversationConsts.KEY_MESSAGES_SENDER_NAME] = 'Test name';
         message[ConversationConsts.KEY_MESSAGES_SENDER_THUMB_URL] = 'https://graph.facebook.com/10206368047916225/picture?type=normal';
         message[ConversationConsts.KEY_MESSAGES_CONTENT] = "Message from visitor";

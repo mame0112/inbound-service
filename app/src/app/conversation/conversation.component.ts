@@ -44,7 +44,7 @@ export class ConversationComponent implements OnInit, AfterViewInit {
 
     comments = []
 
-    user_id: number;
+    user_id: string;
     user_name: string;
     thumb_url: string;
 

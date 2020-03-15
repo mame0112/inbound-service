@@ -14,7 +14,7 @@ export class ConversationDataBuilder {
         return this;
     }
 
-    setHostUserId(host_id: number): ConversationDataBuilder {
+    setHostUserId(host_id: string): ConversationDataBuilder {
         this.conversation.setHostUserId(host_id);
         return this;
     }
@@ -29,7 +29,7 @@ export class ConversationDataBuilder {
         return this;
     }
 
-    setVisitorUserId(visitor_id: number): ConversationDataBuilder {
+    setVisitorUserId(visitor_id: string): ConversationDataBuilder {
         this.conversation.setVisitorUserId(visitor_id);
         return this;
     }

@@ -36,7 +36,7 @@ export class LandingComponent implements OnInit {
     this.userObj = this.userDataService.initialize();
     if(this.userObj != null){
       //TODO
-      this.router.navigate(['/my-page']);
+      // this.router.navigate(['/my-page']);
     }
 
     this.authService.authState.subscribe((user) => {
@@ -50,7 +50,7 @@ export class LandingComponent implements OnInit {
         let builder = new UserDataBuilder();
         console.log(user.id);
         console.log(Number(user.id));
-        this.userObj = builder.setUserId(Number(user.id)).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
+        this.userObj = builder.setUserId(user.id).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
         console.log(this.userObj.user_id);
 
         this.apiService.createUserData(this.userObj)

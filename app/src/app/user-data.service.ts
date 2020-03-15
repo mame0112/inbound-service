@@ -13,7 +13,7 @@ import { UserDataBuilder } from './data-builder/user-data-builder';
 })
 export class UserDataService {
 
-    user_id: number;
+    user_id: string;
     user_name: string;
     thumb_url: string;
 
@@ -23,8 +23,8 @@ export class UserDataService {
 
     initialize(): User{
         console.log('initialize');
-        this.user_id = Number(this.cookieService.get(Constants.COOKIE_USER_ID));
-        if(this.user_id == 0){
+        this.user_id = this.cookieService.get(Constants.COOKIE_USER_ID);
+        if(this.user_id == null){
             return null;
         }
         console.log(this.user_id);
@@ -47,7 +47,7 @@ export class UserDataService {
         this.cookieService.set(Constants.COOKIE_THUMB_URL, this.thumb_url);
     }
 
-    getUserId(): number {
+    getUserId(): string {
         return this.user_id;
     }
 
@@ -60,7 +60,7 @@ export class UserDataService {
     }
 
     deleteUserData(): void {
-        this.user_id = Constants.NO_USER;
+        this.user_id = null;
         this.user_name = null;
         this.thumb_url = null;
         this.cookieService.deleteAll();

@@ -15,7 +15,7 @@ class NotificationSender():
     def send_notification(self, user_id, access_token):
         self.log.debug('send_notification')
 
-        url = BASE_URL + str(user_id - 1) + NOTIFICATION_URL
+        url = BASE_URL + user_id + NOTIFICATION_URL
 
         self.log.debug(url)
 

@@ -15,9 +15,9 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    getUserData(user_id: number): Observable<string> {
+    getUserData(user_id: string): Observable<string> {
         console.log('getUserData');
-        const params = new HttpParams().set('user_id', String(user_id));
+        const params = new HttpParams().set('user_id', user_id);
         return this.http.get<string>(Constants.url_users, {params});
 
     }

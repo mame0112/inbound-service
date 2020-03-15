@@ -8,7 +8,7 @@ export class HostDataBuilder {
         // Nothing to do
     }
 
-    setUserId(user_id: number): HostDataBuilder {
+    setUserId(user_id: string): HostDataBuilder {
         this.host.setUserId(user_id);
         return this;
     }

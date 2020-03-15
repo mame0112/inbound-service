@@ -1,6 +1,6 @@
 export class User {
 
-    user_id: number;
+    user_id: string;
     user_name: string;
     thumb_url: string;
     access_token: string;
@@ -12,7 +12,7 @@ export class User {
     constructor(){}
 
 
-    setUserId(user_id: number): void {
+    setUserId(user_id: string): void {
         console.log(user_id);
         this.user_id = user_id;
     }
@@ -46,7 +46,7 @@ export class User {
     }
 
 
-    getUserId(): number {
+    getUserId(): string {
         console.log(this.user_id);
         return this.user_id;
     }

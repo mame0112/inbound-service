@@ -13,7 +13,7 @@ export class VisitDataBuilder {
         return this;
     }
 
-    setUserId(user_id: number): VisitDataBuilder {
+    setUserId(user_id: string): VisitDataBuilder {
         this.visit.setUserId(user_id);
         return this;
     }

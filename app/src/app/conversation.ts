@@ -1,10 +1,10 @@
 export class Conversation {
 
     conversation_id: number;
-    host_id: number;
+    host_id: string;
     host_name: string;
     host_thumb_url : string;
-    visitor_id: number;
+    visitor_id: string;
     visitor_name: string;
     visitor_thumb_url: string;
     messages: object[];
@@ -17,7 +17,7 @@ export class Conversation {
         this.conversation_id = conversation_id;
     }
 
-    setHostUserId(host_id: number): void {
+    setHostUserId(host_id: string): void {
         this.host_id = host_id;
     }
 
@@ -29,7 +29,7 @@ export class Conversation {
         this.host_thumb_url = host_thumb_url;        
     }
 
-    setVisitorUserId(visitor_id: number): void {
+    setVisitorUserId(visitor_id: string): void {
         this.visitor_id = visitor_id;
     }
 
@@ -57,7 +57,7 @@ export class Conversation {
         return this.conversation_id;
     }
 
-    getHostUserId(): number {
+    getHostUserId(): string {
         return this.host_id;
     }
 
@@ -69,7 +69,7 @@ export class Conversation {
         return this.host_thumb_url;
     }
 
-    getVisitorUserId(): number {
+    getVisitorUserId(): string {
         return this.visitor_id;
     }
 

@@ -1,13 +1,13 @@
 export class Host {
 
 
-    user_id: number;
+    user_id: string;
     user_name: string;
     thumb_url: string;
 
     constructor(){}
 
-    setUserId(user_id: number): void {
+    setUserId(user_id: string): void {
         this.user_id = user_id;
     }
 
@@ -19,7 +19,7 @@ export class Host {
         this.thumb_url = thumb_url;        
     }
 
-    getUserId(): number {
+    getUserId(): string {
         return this.user_id;
     }
 

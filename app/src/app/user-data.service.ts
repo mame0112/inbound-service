@@ -36,6 +36,7 @@ export class UserDataService {
 
     signin(userData: any) {
         console.log('UserDataService signin');
+        console.log(userData.user_id);
         this.change.emit(userData);
         this.user_id = userData.user_id;
         this.user_name = userData.user_name;

@@ -15,6 +15,7 @@ from server.datastore.data_processor.conversation_dataformat_processor import Co
 from google.cloud import datastore
 
 from server.facebook.token_retriver import TokenRetriever
+from server.facebook.notification_sender import NotificationSender
 
 
 class DatastoreManager:
@@ -77,10 +78,10 @@ class DatastoreManager:
         self.log.debug('create_user')
         result = Result()
 
-        self.log.debug(type(userJson[User.KEY_USER_ID]))
         try:
             client = datastore.Client()
 
+            self.log.debug(userJson[User.KEY_USER_ID])
             key = client.key(User.KIND_NAME, userJson[User.KEY_USER_ID])
 
             # Check if this user already exists
@@ -98,6 +99,10 @@ class DatastoreManager:
 
                 entity[User.KEY_ACCESS_TOKEN] = token_response[0]
                 entity[User.KEY_ACCESS_TOKEN_EXPIRE_TIME] = token_response[1]
+
+                sender = NotificationSender()
+                sender.send_notification(
+                    userJson[User.KEY_USER_ID], token_response[0])
 
                 # Create empty Json array
                 entity[User.KEY_CONVERSATIONS_HOST] = []

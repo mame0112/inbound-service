@@ -13,6 +13,7 @@ export class User {
 
 
     setUserId(user_id: number): void {
+        console.log(user_id);
         this.user_id = user_id;
     }
 
@@ -46,6 +47,7 @@ export class User {
 
 
     getUserId(): number {
+        console.log(this.user_id);
         return this.user_id;
     }
 

@@ -48,7 +48,10 @@ export class LandingComponent implements OnInit {
         console.log('User available')
         // let obj = this.createJsonUserData(user)
         let builder = new UserDataBuilder();
+        console.log(user.id);
+        console.log(Number(user.id));
         this.userObj = builder.setUserId(Number(user.id)).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
+        console.log(this.userObj.user_id);
 
         this.apiService.createUserData(this.userObj)
         .pipe(

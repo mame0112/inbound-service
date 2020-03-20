@@ -14,6 +14,7 @@ class NotificationSender():
 
     def send_notification(self, user_id, access_token):
         self.log.debug('send_notification')
+        self.log.debug(type(user_id))
 
         url = BASE_URL + user_id + NOTIFICATION_URL
 
@@ -28,7 +29,7 @@ class NotificationSender():
         payload['seen'] = True
         payload['template'] = 'template_test'
         payload['type'] = 'generic'
-        payload['notif_ids'] = '12354'
+        payload['notif_ids'] = 12354
         payload['read'] = True
         payload['access_token'] = access_token
         # payload['access_token'] = fb_settings['app_access_token']

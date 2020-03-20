@@ -44,11 +44,11 @@ import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 
 
-// const fbLoginOptions: LoginOpt = {
-//   scope: 'pages_messaging',
-//   return_scopes: true,
-//   enable_profile_selector: true
-// };
+const fbLoginOptions: LoginOpt = {
+  scope: 'pages_show_list',
+  return_scopes: true,
+  enable_profile_selector: true
+};
 
 const config = new AuthServiceConfig([
 {

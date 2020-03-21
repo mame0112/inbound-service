@@ -63,7 +63,8 @@ export class LandingComponent implements OnInit {
               this.userDataService.signin(this.userObj);
 
               // Go to next page
-              this.router.navigate(['/choose']);
+              //TODO
+              // this.router.navigate(['/choose']);
 
             } else {
               console.log('Error happens');

@@ -16,6 +16,10 @@ footer {
   height: 100px;
 }
 
-.tmp {
-    background-color: #99cc00;
+a {
+  color: #ffffff;
+}
+
+a:hover {
+  color: #cccccc;
 }

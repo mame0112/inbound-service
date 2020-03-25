@@ -119,18 +119,40 @@ class Comment(Resource):
         return dataManager.update_comment(comment_data).get_result_json()
 
 
-@app.route('/callback/<input>')
-def callback(input):
-    log.debug('callback')
-    # dataManager = DatastoreManager()
-    # dataManager.create_user(input)
-    return app.send_static_file('index.html')
+class Webhook(Resource):
+
+    def get(self):
+        log.debug('Webhook get')
+        challenge = request.args.get("hub.challenge")
+        log.debug(challenge)
+        log.debug(type(challenge))
+        log.debug(request.args.get("hub.mode"))
+        log.debug(request.args.get("hub.verify_token"))
+
+        # return request.args.get("hub.challenge")
+        return str(request.args.get("hub.challenge"))
+
+    def post(self):
+        log.debug('Webhook post')
+        log.debug(request.get_data())
+        log.debug(request.args.get("hub.challenge"))
+        log.debug(request.args.get("hub.mode"))
+        log.debug(request.args.get("hub.verify_token"))
+        return "traca_verifiy_token", 200
 
 
-@app.route('/')
-def angular():
-    log.debug('Root')
-    return app.send_static_file('index.html')
+# @app.route('/callback/<input>')
+# def callback(input):
+#     log.debug('callback')
+#     # dataManager = DatastoreManager()
+#     # dataManager.create_user(input)
+#     return app.send_static_file('index.html')
+
+
+# @app.route('/')
+# def angular():
+#     log.debug('Root')
+#     return app.send_static_file('index.html')
 
 
 api.add_resource(User, '/users')
@@ -138,6 +160,7 @@ api.add_resource(Host, '/hosts')
 api.add_resource(Visit, '/visits')
 api.add_resource(Conversation, '/conversations')
 api.add_resource(Comment, '/comments')
+api.add_resource(Webhook, '/webhook')
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=False)

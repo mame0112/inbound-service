@@ -124,13 +124,12 @@ class Webhook(Resource):
     def get(self):
         log.debug('Webhook get')
         challenge = request.args.get("hub.challenge")
-        log.debug(challenge)
-        log.debug(type(challenge))
+        log.debug(challenge.strip())
         log.debug(request.args.get("hub.mode"))
         log.debug(request.args.get("hub.verify_token"))
 
         # return request.args.get("hub.challenge")
-        return str(request.args.get("hub.challenge"))
+        return request.args.get("hub.challenge").strip()
 
     def post(self):
         log.debug('Webhook post')
@@ -141,18 +140,18 @@ class Webhook(Resource):
         return "traca_verifiy_token", 200
 
 
-# @app.route('/callback/<input>')
-# def callback(input):
-#     log.debug('callback')
-#     # dataManager = DatastoreManager()
-#     # dataManager.create_user(input)
-#     return app.send_static_file('index.html')
+@app.route('/callback/<input>')
+def callback(input):
+    log.debug('callback')
+    # dataManager = DatastoreManager()
+    # dataManager.create_user(input)
+    return app.send_static_file('index.html')
 
 
-# @app.route('/')
-# def angular():
-#     log.debug('Root')
-#     return app.send_static_file('index.html')
+@app.route('/')
+def angular():
+    log.debug('Root')
+    return app.send_static_file('index.html')
 
 
 api.add_resource(User, '/users')

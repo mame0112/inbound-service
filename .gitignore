@@ -184,4 +184,6 @@ dmypy.json
 
 facebook_setting.json
 
+app/src/app/environment.ts
+
 >>>>>>> origin/master

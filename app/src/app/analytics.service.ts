@@ -15,7 +15,6 @@ export class AnalyticsService {
     }
 
     sendPageView(url: string): void {
-        console.log('sendPageView');
         if (!this.useGA()) {
             return;
         }

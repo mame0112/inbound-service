@@ -67,7 +67,7 @@ export class LandingComponent implements OnInit {
 
               // Go to next page
               //TODO
-              // this.router.navigate(['/choose']);
+              this.router.navigate(['/choose']);
 
             } else {
               console.log('Error happens');

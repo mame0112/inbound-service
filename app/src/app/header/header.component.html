@@ -22,11 +22,8 @@
       <a mat-button routerLink="" class="header-button">Overview</a>
     </span>
     <span fxFlex></span>
-    <span *ngIf="userData != null" fxFlexAlign="center end" class="tmp">
+    <span *ngIf="userData != null" fxFlexAlign="center end">
       <a mat-button routerLink="/my-page" class="header-button">{{userData.user_name}}</a>
-    </span>
-    <span *ngIf="userData == null">
-      <a mat-button routerLink="" class="header-button">Sign in</a>
     </span>
   </mat-toolbar-row>
 </mat-toolbar>

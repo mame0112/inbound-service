@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         console.log('AppComponent OnInit');
         this.router.events.subscribe((params: any) => {
-            console.log(params);
             this.analyticsService.sendPageView(params.url);
         });
     }

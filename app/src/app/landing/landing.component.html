@@ -96,6 +96,9 @@ In Tokyo, many restaurants have only Japanese menu and waiter/waitress don't spe
   size="large">
 </div>
 <nav>
+  <button (click)="sendEvent('body', 'visitor', 'click')">Event test</button>
+</nav>
+<nav>
   <a routerLink="/visit-start" (click)="sendEvent('body', 'visitor', 'click')">Visitor flow</a>
 </nav>
 <nav>

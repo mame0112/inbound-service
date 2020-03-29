@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { AnalyticsService } from './analytics.service';
 
+// import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +15,11 @@ export class AppComponent implements OnInit {
     constructor(
         private router: Router,
         private analyticsService: AnalyticsService
-    ) {}
+        // private translate: TranslateService
+    ) {
+        // translate.setDefaultLang('en');
+        // translate.use('en');
+    }
 
 
     title = 'app';
@@ -21,6 +27,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         console.log('AppComponent OnInit');
         this.router.events.subscribe((params: any) => {
+            console.log(params);
             this.analyticsService.sendPageView(params.url);
         });
     }

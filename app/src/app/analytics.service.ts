@@ -19,14 +19,19 @@ export class AnalyticsService {
         if (!this.useGA()) {
             return;
         }
+
+        if(url == undefined){
+            return;
+        }
+
         if (!url.startsWith('/')) {
           url = `/${url}`;
         }
-        // if (Environment.production) {
+        if (Environment.production) {
           gtag('config', Environment.analytics.id, {
             page_path: url
           });
-        // }
+        }
     }
 
     sendEvent(eventName: string, eventCategory: string, eventAction: string, eventLabel: any): void {
@@ -34,13 +39,13 @@ export class AnalyticsService {
         if (!this.useGA()) {
           return;
         }
-        // if (Environment.production) {
+        if (Environment.production) {
             gtag('event', eventName, {
                 event_category: eventCategory,
                 event_action: eventAction,
                 event_label: eventLabel
             });
-        // }
+        }
     }
 
 }

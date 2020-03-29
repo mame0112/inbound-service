@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@ng-bootstrap/ng-bootstrap": "^5.1.5",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@types/facebook-js-sdk": "^3.3.0",
     "angularx-social-login": "^2.2.1",
     "bootstrap": "^4.4.1",

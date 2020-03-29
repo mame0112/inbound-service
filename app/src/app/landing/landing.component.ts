@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 import { AnalyticsService } from '../analytics.service';
+// import { TranslateModule } from '@ngx-translate/core';
 
 import { Constants } from '../constants';
 import { User } from '../user';

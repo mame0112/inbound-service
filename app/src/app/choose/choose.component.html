@@ -12,7 +12,7 @@
         <mat-card-title>For Visitors</mat-card-title>
         <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
       </mat-card-header>
-      <a routerLink="/visit-start">
+      <a routerLink="/visit-start" (click)="sendEvent('body', 'visitor', 'click')">
           <img mat-card-image src="/assets/image/visitor_header.jpg" alt="Visitor image">
           <mat-card-content>
             <p>
@@ -27,7 +27,7 @@
         <mat-card-title>For Japanese</mat-card-title>
         <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
       </mat-card-header>
-      <a routerLink="/host-start">
+      <a routerLink="/host-start" (click)="sendEvent('body', 'host', 'click')">
           <img mat-card-image src="/assets/image/host_header.jpg" alt="Host image">
           <mat-card-content>
             <p>

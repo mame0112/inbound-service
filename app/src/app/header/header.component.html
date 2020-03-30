@@ -16,14 +16,14 @@
   </mat-toolbar-row> -->
   <mat-toolbar-row>
     <span>
-      <a mat-button routerLink="/" class="header-button">Inbound</a>
+      <a mat-button routerLink="/" class="header-button" (click)="sendEvent('body', 'traca', 'click')">Inbound</a>
     </span>
     <span>
-      <a mat-button routerLink="" class="header-button">Overview</a>
+      <a mat-button routerLink="" class="header-button" (click)="sendEvent('body', 'overview', 'click')">Overview</a>
     </span>
     <span fxFlex></span>
     <span *ngIf="userData != null" fxFlexAlign="center end">
-      <a mat-button routerLink="/my-page" class="header-button">{{userData.user_name}}</a>
+      <a mat-button routerLink="/my-page" class="header-button" (click)="sendEvent('body', 'profile', 'click')">{{userData.user_name}}</a>
     </span>
   </mat-toolbar-row>
 </mat-toolbar>

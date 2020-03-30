@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
+import { AnalyticsService } from '../analytics.service';
+
 import { Visit } from '../visit';
 import { Host } from '../host';
 
@@ -38,7 +40,8 @@ export class VisitStartComponent implements OnInit {
     constructor(
         private apiService: ApiService,
         private userDataService: UserDataService,
-        private router: Router) { }
+        private router: Router,
+        private analyticsService: AnalyticsService) { }
 
     ngOnInit() {
         this.createVisitJson();
@@ -48,6 +51,7 @@ export class VisitStartComponent implements OnInit {
         console.log('onNextButtonClicked');
         // this.isOverview = !this.isOverview;
         this.state = VisitStartComponent.Creation;
+        this.sendEvent('body', 'next_button', 'click');
     }
 
     onClickMenu() {
@@ -159,6 +163,8 @@ export class VisitStartComponent implements OnInit {
           }
       });
 
+        this.sendEvent('body', 'start_conversation', 'click');
+
     }
 
 
@@ -167,5 +173,10 @@ export class VisitStartComponent implements OnInit {
         this.visit.setUserId(this.userDataService.getUserId());
         this.visit.setUserName(this.userDataService.getUserName());
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());
+    }
+
+    sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+        console.log('sendEvent');
+        this.analyticsService.sendEvent('visit-start', eventCategory, eventAction, eventLabel);
     }
 }

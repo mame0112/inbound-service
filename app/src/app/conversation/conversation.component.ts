@@ -10,6 +10,7 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { User } from '../user';
 import { Conversation } from '../conversation';
@@ -62,7 +63,8 @@ export class ConversationComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private location: Location,
         private apiService: ApiService,
-        private userDataService: UserDataService) { }
+        private userDataService: UserDataService,
+        private analyticsService: AnalyticsService) { }
 
     ngOnInit() {
       console.log('ConversationComponent onInit');
@@ -196,5 +198,11 @@ export class ConversationComponent implements OnInit, AfterViewInit {
       var time = year + '/' + month + '/' + date + ' ' + hour + ':' + min;
       return time;
     }
+
+    sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+      console.log('sendEvent');
+      this.analyticsService.sendEvent('conversation', eventCategory, eventAction, eventLabel);
+    }
+
 
 }

@@ -50,6 +50,10 @@ mat-list-item.item {
     width: 100%;
 }
 
+.landing_smartphone{
+    width: 200px;
+}
+
 .tmp {
     background-color: #00FF00;
 }

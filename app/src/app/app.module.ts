@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { IgxCalendarModule, IgxNavbarModule } from 'igniteui-angular';
@@ -28,6 +28,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { CookieService } from 'ngx-cookie-service';
+
+// import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -61,6 +64,10 @@ const config = new AuthServiceConfig([
 export function provideConfig() {
   return config;
 }
+
+// export function HttpLoaderFactory(http: HttpClient) {
+//     return new TranslateHttpLoader(http);
+// }
 
 @NgModule({
   declarations: [
@@ -102,6 +109,14 @@ export function provideConfig() {
     NgbModule,
     ScrollingModule,
     MatSidenavModule
+    // TranslateModule.forRoot({
+    //   defaultLanguage: 'en',
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: HttpLoaderFactory,
+    //     deps: [HttpClient]
+    //   }
+    // })
   ],
   entryComponents: [
     DialogComponent

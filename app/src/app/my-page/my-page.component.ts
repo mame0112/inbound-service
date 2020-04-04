@@ -6,6 +6,7 @@ import { Constants, UserConsts, ConversationConsts, VisitConsts} from '../consta
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { User } from '../user';
 import { Host } from '../host';
@@ -27,7 +28,8 @@ export class MyPageComponent implements OnInit {
   constructor(
       private apiService: ApiService,
       private userDataService: UserDataService,
-      private router: Router
+      private router: Router,
+      private analyticsService: AnalyticsService
       ) { }
 
   ngOnInit() {
@@ -53,11 +55,13 @@ export class MyPageComponent implements OnInit {
 
   registerAsHost(): void {
     console.log('registerAsHost');
+    this.sendEvent('body', 'register_as_host', 'click');
     this.router.navigate(['/host-start']);
   }
 
   createPlan(): void {
     console.log('createPlan');
+    this.sendEvent('body', 'create_plan', 'click');
     this.router.navigate(['/visit-start']);
 
   }
@@ -118,8 +122,14 @@ export class MyPageComponent implements OnInit {
 
   signout(): void {
     console.log('signout');
+    this.sendEvent('body', 'signout', 'click');
     this.userDataService.deleteUserData();
     this.router.navigate(['/landing']);
+  }
+
+  sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+    console.log('sendEvent');
+    this.analyticsService.sendEvent('my-page', eventCategory, eventAction, eventLabel);
   }
 
 }

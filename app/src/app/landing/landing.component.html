@@ -1,4 +1,4 @@
-<div class="container_landing" fxLayout="column">
+<div class="container_landing" fxLayout="column" fxLayoutGap="60px">
 <!--   <div class="bg" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center"> -->
   <div class="bg" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
     <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center start" fxLayoutGap="10px" fxFlexOffset="20px">
@@ -18,53 +18,70 @@
       </div>
     </div>
     <div fxLayout="column" fxFlex="40%" fxLayoutAlign="center center">
-      <div fxLayoutAlign="center center">
-        <img src="/assets/image/dummy.jpg"/>
+      <div fxFlex fxLayoutAlign="center center">
+        <img fxFlex="40%" src="/assets/image/landing_smartphone.png"/>
       </div>
     </div>
   </div>
 
-  <div fxLayout="row" fxLayout.lt-md="column" fxFlexOffset="20px">
-    <div fxFlex="30%" fxLayoutAlign="center center">
-      <img src="/assets/image/dummy.jpg"/>
-    </div>
-    <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start">
+  <div fxLayout="row" fxLayout.lt-md="column" fxFlexOffset="20px" fxFlex="80%" fxLayoutAlign="center center">
+    <div fxLayout="column" fxFlex="80%" fxLayoutAlign="center start">
       <p class="accent_headline">
-        What is this service?
+        Do you want to enjoy Tokyo travel without any trouble? Let's use this service right now!
       </p>
       <p class="body_text">
-      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+Our kind host shall give some advices / supports to you online. Then even though your home country, you can solve your worries and concerns via online chat with them.
+      </p>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxFlexOffset="20px" fxFlex="80%" fxLayoutAlign="center center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <p class="accent_headline">
+        Example use cases
       </p>
     </div>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column" fxFlexOffset="20px">
-    <div fxFlex="30%" fxLayoutAlign="center center">
-      <img src="/assets/image/dummy.jpg"/>
+    <div fxFlex="50%" fxLayoutAlign="center center">
+      <img fxFlex="70%" src="/assets/image/overview_1.png"/>
     </div>
-    <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start">
+    <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center start">
       <p class="accent_headline">
-        What is this service?
+        If you can't understand which train should go on
       </p>
       <p class="body_text">
-      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+In Tokyo, there are a lot of platforms. Do you think you can use correct train at Shinjuku station for the first time? You can check correct platform in this service.
       </p>
     </div>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column" fxFlexOffset="20px">
-    <div fxFlex="30%" fxLayoutAlign="center center">
-      <img src="/assets/image/dummy.jpg"/>
+    <div fxFlex="50%" fxLayoutAlign="center center">
+      <img fxFlex="70%" src="/assets/image/overview_2.png"/>
     </div>
-    <div fxLayout="column" fxFlex="50%" fxLayoutAlign="center start">
+    <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center start">
       <p class="accent_headline">
-        What is this service?
+        If you can't find best exit from huge station
       </p>
       <p class="body_text">
-      こんにちは、めそ子です。いつもは広報兼人事担当として、クラスメソッドをアピールするための活動をしていますが、今回は僭越ながら、少しだけ、私のことについてお話しさせてください。
+In huge station, it has more than 10 exit from stataion. Do you think you can choose best one from them?
+      </p>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxFlexOffset="20px">
+    <div fxFlex="50%" fxLayoutAlign="center center">
+      <img fxFlex="70%" src="/assets/image/overview_3.png"/>
+    </div>
+    <div fxLayout="column" fxFlex="30%" fxLayoutAlign="center start">
+      <p class="accent_headline">
+        If you can't read restaurant menu
+      </p>
+      <p class="body_text">
+In Tokyo, many restaurants have only Japanese menu and waiter/waitress don't speak Englisht, Chinese and Korean... Can you find your desired menu in such situation?
       </p>
     </div>
   </div>
 </div>
-
+<div class="fb-customerchat" page_id="103120367999159"></div>
 <div class="fb-send-to-messenger" 
   messenger_app_id="1194303814099473" 
   page_id="Japan-Inbound-service-103120367999159"
@@ -78,11 +95,14 @@
   color="blue"
   size="large">
 </div>
+<!-- <nav>
+  <button (click)="sendEvent('body', 'visitor', 'click')">Event test</button>
+</nav> -->
 <nav>
-  <a routerLink="/visit-start">Visitor flow</a>
+  <a routerLink="/visit-start" (click)="sendEvent('body', 'visitor', 'click')">Visitor flow</a>
 </nav>
 <nav>
-  <a routerLink="/host-start">Host flow</a>
+  <a routerLink="/host-start" translate>hostflow</a>
 </nav>
 <nav>
   <a routerLink="/conversation/10221180198043872/10221180198043872">Conversation flow</a>

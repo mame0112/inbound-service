@@ -6,6 +6,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
+import { AnalyticsService } from '../analytics.service';
+// import { TranslateModule } from '@ngx-translate/core';
 
 import { Constants } from '../constants';
 import { User } from '../user';
@@ -28,7 +30,8 @@ export class LandingComponent implements OnInit {
   constructor(private router: Router,
     private apiService: ApiService,
    private authService: AuthService,
-   private userDataService: UserDataService ) { }
+   private userDataService: UserDataService,
+   private analyticsService: AnalyticsService ) { }
 
   ngOnInit() {
     console.log('LandingComponent onInit');
@@ -64,7 +67,7 @@ export class LandingComponent implements OnInit {
 
               // Go to next page
               //TODO
-              // this.router.navigate(['/choose']);
+              this.router.navigate(['/choose']);
 
             } else {
               console.log('Error happens');
@@ -79,6 +82,7 @@ export class LandingComponent implements OnInit {
   signInWithFB(): void {
     console.log('signInWithFB')
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.sendEvent('body', 'facebook', 'click');
   }
 
   signOut(): void {
@@ -87,5 +91,10 @@ export class LandingComponent implements OnInit {
 
   broadcastFBUserInfo() {
     this.userInfo.emit(this.userObj);
+  }
+
+  sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+    console.log('sendEvent');
+    this.analyticsService.sendEvent('landing', eventCategory, eventAction, eventLabel);
   }
 }

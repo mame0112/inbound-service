@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AnalyticsService } from '../analytics.service';
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+    constructor(private analyticsService: AnalyticsService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+      console.log('sendEvent');
+      this.analyticsService.sendEvent('footer', eventCategory, eventAction, eventLabel);
+    }
 
 }

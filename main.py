@@ -119,6 +119,15 @@ class Comment(Resource):
         return dataManager.update_comment(comment_data).get_result_json()
 
 
+#     def post(self):
+#         log.debug('Webhook post')
+#         log.debug(request.get_data())
+#         log.debug(request.args.get("hub.challenge"))
+#         log.debug(request.args.get("hub.mode"))
+#         log.debug(request.args.get("hub.verify_token"))
+#         return "traca_verifiy_token", 200
+
+
 @app.route('/callback/<input>')
 def callback(input):
     log.debug('callback')
@@ -133,11 +142,41 @@ def angular():
     return app.send_static_file('index.html')
 
 
+@app.route('/webhook', methods=['GET'])
+def webhookget():
+    log.debug('webhook get')
+    mode = request.args.get("hub.mode", "")
+    token = request.args.get("hub.verify_token", "")
+    challenge = request.args.get("hub.challenge", "")
+    if mode == 'subscribe' and token == 'token':
+        log.debug('OK')
+        return challenge
+    return
+
+
+@app.route('/webhook', methods=['POST'])
+def webhookpost():
+    log.debug('webhook post')
+    output = request.json
+    log.debug(output)
+    event = output['entry'][0]['messaging']
+    for x in event:
+        if (x.get('message') and x['message'].get('text')):
+            message = x['message']['text']
+            recipient_id = x['sender']['id']
+            log.debug('recipient_id')
+            log.debug(recipient_id)
+        else:
+            pass
+    return "success"
+
+
 api.add_resource(User, '/users')
 api.add_resource(Host, '/hosts')
 api.add_resource(Visit, '/visits')
 api.add_resource(Conversation, '/conversations')
 api.add_resource(Comment, '/comments')
+# api.add_resource(Webhook, '/webhook')
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=False)

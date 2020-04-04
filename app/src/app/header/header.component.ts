@@ -4,6 +4,7 @@ import { UserConsts } from '../constants';
 
 import { User } from '../user';
 import { UserDataService } from '../user-data.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { UserDataBuilder } from '../data-builder/user-data-builder';
 
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
     userData: User;
 
-    constructor(private userDataService: UserDataService) { }
+    constructor(private userDataService: UserDataService,
+      private analyticsService: AnalyticsService) { }
 
     ngOnInit() {
         console.log('HeaderComponent OnInit');
@@ -41,6 +43,11 @@ export class HeaderComponent implements OnInit {
     ClearUserData(): void{
       console.log('RemodeUserData');
       this.userDataService.deleteUserData();
+    }
+
+    sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+      console.log('sendEvent');
+      this.analyticsService.sendEvent('header', eventCategory, eventAction, eventLabel);
     }
 
 }

@@ -24,7 +24,7 @@ export class UserDataService {
     initialize(): User{
         console.log('initialize');
         this.user_id = this.cookieService.get(Constants.COOKIE_USER_ID);
-        if(this.user_id == null){
+        if(this.user_id == null || this.user_id.length <= 1){
             return null;
         }
         console.log(this.user_id);

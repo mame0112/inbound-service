@@ -9,3 +9,7 @@ mat-card img{
   width: 10%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   height: 10%;
 }
+
+.tmp {
+    background-color: #FF0000;
+}

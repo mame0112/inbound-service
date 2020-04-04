@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
+import { AnalyticsService } from '../analytics.service';
 
 import { Constants, VisitConsts, ConversationConsts } from '../constants';
 
@@ -51,7 +52,8 @@ export class HostStartComponent implements OnInit {
       private apiService: ApiService,
       private userDataService: UserDataService,
       private router: Router,
-      public dialog: MatDialog
+      public dialog: MatDialog,
+      private analyticsService: AnalyticsService
       ) { }
 
     ngOnInit() {
@@ -82,6 +84,8 @@ export class HostStartComponent implements OnInit {
               this.openDialog(1, 'Something went wrong. Please try again later', 'OK', null);
             }
           })
+
+        this.sendEvent('body', 'register_as_host', 'click');
 
     }
 
@@ -148,6 +152,8 @@ export class HostStartComponent implements OnInit {
         }
       });
 
+     this.sendEvent('body', 'start_conversation', 'click');
+
     }
 
 
@@ -176,6 +182,11 @@ export class HostStartComponent implements OnInit {
     } else {
       console.log('Option negative');
     }
+  }
+
+  sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
+    console.log('sendEvent');
+    this.analyticsService.sendEvent('host-start', eventCategory, eventAction, eventLabel);
   }
 
 }

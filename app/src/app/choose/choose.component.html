@@ -19,35 +19,25 @@
     <p class="body_text">Select whether visitor or host</p>
   </div>
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-    <mat-card class="choose-card" fxFlex="40%">
-      <mat-card-header>
-        <div mat-card-avatar class="choose-header-image"></div>
+
+    <mat-card fxFlex="40%" fxLayout="column" fxLayoutAlign="start center">
+      <a routerLink="/visit-start" (click)="sendEvent('body', 'visitor', 'click')" fxFlex>
+          <img mat-card-image src="/assets/image/visitor_header.png" alt="Visitor image" fxFlex>
+      </a>
+      <mat-card-header fxFlex>
         <mat-card-title>For Visitors</mat-card-title>
-        <mat-card-subtitle>If you would come to Japan</mat-card-subtitle>
+        <mat-card-subtitle>This is mainly for visitors to Japan. You can ask some questions for travel.</mat-card-subtitle>
       </mat-card-header>
-      <a routerLink="/visit-start" (click)="sendEvent('body', 'visitor', 'click')">
-          <img mat-card-image src="/assets/image/visitor_header.jpg" alt="Visitor image">
-          <mat-card-content>
-            <p>
-                This is mainly for visitors to Japan. You can ask some questions for travel.
-            </p>
-          </mat-card-content>
-      </a>
     </mat-card>
-    <mat-card class="choose-card" fxFlex="40%">
-      <mat-card-header>
-        <div mat-card-avatar class="choose-header-image"></div>
-        <mat-card-title>For Japanese</mat-card-title>
-        <mat-card-subtitle>If you can give Japanese information</mat-card-subtitle>
-      </mat-card-header>
-      <a routerLink="/host-start" (click)="sendEvent('body', 'host', 'click')">
-          <img mat-card-image src="/assets/image/host_header.jpg" alt="Host image">
-          <mat-card-content>
-            <p>
-                This is mainly for Japanese. You can give advices, hints & tips for visitors.
-            </p>
-          </mat-card-content>
+
+    <mat-card fxFlex="40%" fxLayout="column" fxLayoutAlign="start center">
+      <a routerLink="/host-start" (click)="sendEvent('body', 'host', 'click')" fxFlex>
+          <img mat-card-image src="/assets/image/host_header.png" alt="Host image" fxFlex>
       </a>
+      <mat-card-header fxFlex>
+        <mat-card-title>For Japanese</mat-card-title>
+        <mat-card-subtitle>This is mainly for Japanese. You can give advices, hints & tips for visitors.</mat-card-subtitle>
+      </mat-card-header>
     </mat-card>
   </div>
 </div>

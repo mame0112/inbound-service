@@ -1,61 +1,63 @@
 <div class="container_mypage" fxLayout="column" fxLayoutAlign="center start">
-    <div fxLayout="column">
-        <div fxFlex>
-            <p class="page_title">Host data</p>
-        </div>
-        <div fxFlex *ngIf="hosts?.length !== 0">
-            <div fxFlex *ngFor="let host of hosts">
-                <mat-card class="mypage-card" fxLayoutGap="4px">
-                    <a [routerLink]="['/conversation', host.conversation_id]">
-                        <img [src]="host.visitor_thumb_url">
-                        {{host.visitor_name}}
-                    </a>
-                </mat-card>
-            </div>
-        </div>
-        <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
-            <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
-                <div fxFlex>You haven't host any guests.</div>
-                <div fxFlex>(Some drawing here)</div>
-                <div fxFlex>
-                    <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
-                </div>
-            </mat-card>
-        </div>
-
-        <div fxFlex fxFlexOffset="40px">
-            <p class="page_title">Visit data</p>
-        </div>
-
-        <div fxFlex *ngIf="visits?.length !== 0">
-            <div fxFlex *ngFor="let visit of visits">
-                <mat-card class="mypage-card" fxLayoutGap="4px">
-                    {{visit.place}} / {{visit.start}} / {{visit.end}}
-                </mat-card>
-            </div>
-        </div>
-        <div fxFlex *ngIf="visits?.length === 0" fxLayout="column">
-            <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
-                <div fxFlex>You haven't created any visit plans yet.</div>
-                <div fxFlex>(Some drawing here)</div>
-                <div fxFlex>
-                    <button mat-flat-button color="primary" (click)="createPlan()">Create plan</button>
-                </div>
-            </mat-card>
-        </div>
-
-        <div fxFlex fxFlexOffset="40px">
-            <p class="page_sub_title">Other options</p>
-        </div>
-
-        <div fxFlex>
-            <mat-card class="mypage-card" fxLayoutGap="4px">
-                <mat-list>
-                    <mat-list-item><a mat-button routerLink="." (click)="signout()">Sign out</a></mat-list-item>
-                </mat-list>
-            </mat-card>
-        </div>
-
-
+    <div fxFlex>
+        <p class="page_title">Host data</p>
     </div>
+
+    <div fxFlex *ngIf="hosts?.length !== 0" fxFlexFill>
+        <div fxLayout="column" *ngFor="let host of hosts">
+            <a fxFlex [routerLink]="['/conversation', host.conversation_id]">
+                <mat-card fxLayout="row" class="mypage-card" fxLayoutGap="4px" >
+                    <img [src]="host.visitor_thumb_url" fxFlex="0 0 100px">
+                    <div fxFlex>
+                        {{host.visitor_name}}
+                    </div>
+                </mat-card>
+            </a>
+        </div>
+    </div>
+
+
+    <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
+        <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+            <div fxFlex>You haven't host any guests.</div>
+            <div fxFlex>(Some drawing here)</div>
+            <div fxFlex>
+                <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
+            </div>
+        </mat-card>
+    </div>
+
+    <div fxFlex fxFlexOffset="40px">
+        <p class="page_title">Visit data</p>
+    </div>
+
+    <div fxFlex *ngIf="visits?.length !== 0">
+        <div fxFlex *ngFor="let visit of visits">
+            <mat-card class="mypage-card" fxLayoutGap="4px">
+                {{visit.place}} / {{visit.start}} / {{visit.end}}
+            </mat-card>
+        </div>
+    </div>
+    <div fxFlex *ngIf="visits?.length === 0" fxLayout="column">
+        <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+            <div fxFlex>You haven't created any visit plans yet.</div>
+            <div fxFlex>(Some drawing here)</div>
+            <div fxFlex>
+                <button mat-flat-button color="primary" (click)="createPlan()">Create plan</button>
+            </div>
+        </mat-card>
+    </div>
+
+    <div fxFlex fxFlexOffset="40px">
+        <p class="page_sub_title">Other options</p>
+    </div>
+
+    <div fxFlex>
+        <mat-card class="mypage-card" fxLayoutGap="4px">
+            <mat-list>
+                <mat-list-item><a mat-button routerLink="." (click)="signout()">Sign out</a></mat-list-item>
+            </mat-list>
+        </mat-card>
+    </div>
+
 </div>

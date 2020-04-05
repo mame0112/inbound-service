@@ -37,15 +37,13 @@ export class MyPageComponent implements OnInit {
             tap(heroes => console.log('fetched users')),
             catchError(this.apiService.handleError<string>('createUserData', 'Error'))
           ).subscribe(params => {
-              console.log(params);
             if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
                 let content = params[Constants.CONTENT];
                 this.hosts = this.validateAndExtractHostData(content[UserConsts.KEY_CONVERSATIONS_HOST]);
                 this.visits = this.validateAndExtractVisitData(content[UserConsts.KEY_CONVERSATIONS_GUEST]);
                 let plan = content[UserConsts.KEY_PLANS];
-                // console.log(hosts);
-                // console.log(this.visits);
-                // console.log(plan);
+                console.log('host');
+                console.log(this.hosts);
             } else {
                 console.log('Error ocurred');
                 // TODO Error handling

@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatGridListModule } from '@angular/material';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -104,6 +104,7 @@ export function provideConfig() {
     MatToolbarModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatGridListModule,
     FlexLayoutModule,
     IgxNavbarModule,
     NgbModule,

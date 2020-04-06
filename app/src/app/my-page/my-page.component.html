@@ -18,13 +18,13 @@
 
 
     <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
-        <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+        <div fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+            <img src="/assets/image/no-host.png" alt="No host data image" fxFlex>
             <div fxFlex>You haven't host any guests.</div>
-            <div fxFlex>(Some drawing here)</div>
             <div fxFlex>
                 <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
             </div>
-        </mat-card>
+        </div>
     </div>
 
     <div fxFlex fxFlexOffset="40px">
@@ -38,14 +38,15 @@
             </mat-card>
         </div>
     </div>
+
     <div fxFlex *ngIf="visits?.length === 0" fxLayout="column">
-        <mat-card fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+        <div fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+            <img src="/assets/image/no-visit.png" alt="No visit data image" fxFlex>
             <div fxFlex>You haven't created any visit plans yet.</div>
-            <div fxFlex>(Some drawing here)</div>
             <div fxFlex>
                 <button mat-flat-button color="primary" (click)="createPlan()">Create plan</button>
             </div>
-        </mat-card>
+        </div>
     </div>
 
     <div fxFlex fxFlexOffset="40px">

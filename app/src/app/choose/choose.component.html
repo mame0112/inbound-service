@@ -1,41 +1,41 @@
 <div class="container_choose" fxLayout="column" fxLayoutAlign="center start">
   <div fxFlex>
     <p class="page_title">Choose your type</p>
-<div class="fb-messengermessageus" 
+<!-- <div class="fb-messengermessageus" 
   messenger_app_id="1194303814099473" 
   page_id="103120367999159"
   color="blue"
   size="large">
 </div>
-<div class="fb-send-to-messenger" 
-  messenger_app_id="1194303814099473"
-  page_id="103120367999159" 
-  data-ref="<PASS_THROUGH_PARAM>" 
-  color="blue" 
-  size="xlarge">
-</div>
+ -->
+
+    <div class="fb-send-to-messenger" 
+    messenger_app_id="1194303814099473"
+    page_id="103120367999159" 
+    data-ref="example_ref" 
+    color="blue" 
+    size="xlarge">
+    </div>
   </div>
 
-  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="20px">
 
     <mat-card fxFlex="40%" fxLayout="column" fxLayoutAlign="start center">
-      <a routerLink="/visit-start" (click)="sendEvent('body', 'visitor', 'click')" fxFlex>
-          <img mat-card-image src="/assets/image/visitor_header.png" alt="Visitor image" fxFlex>
-      </a>
-      <mat-card-header fxFlex>
-        <mat-card-title>For Visitors</mat-card-title>
-        <mat-card-subtitle>This is mainly for visitors to Japan. You can ask some questions for travel.</mat-card-subtitle>
-      </mat-card-header>
+      <img src="/assets/image/visitor_header.png" alt="Visitor image" fxFlex.lt-md="60%" class="choose_image">
+      <mat-card-title fxFlex fxFlexOffset="10px">For Visitors</mat-card-title>
+      <mat-card-subtitle fxFlex>This is mainly for visitors to Japan. You can ask some questions for travel.</mat-card-subtitle>
+      <div fxFlex>
+        <button mat-button (click)="onCreateVisitButtonClicked()" mat-flat-button color="primary">Create visit</button>
+      </div>
     </mat-card>
 
     <mat-card fxFlex="40%" fxLayout="column" fxLayoutAlign="start center">
-      <a routerLink="/host-start" (click)="sendEvent('body', 'host', 'click')" fxFlex>
-          <img mat-card-image src="/assets/image/host_header.png" alt="Host image" fxFlex>
-      </a>
-      <mat-card-header fxFlex>
-        <mat-card-title>For Japanese</mat-card-title>
-        <mat-card-subtitle>This is mainly for Japanese. You can give advices, hints & tips for visitors.</mat-card-subtitle>
-      </mat-card-header>
+        <img src="/assets/image/host_header.png" alt="Host image" fxFlex.lt-md="60%" class="choose_image">
+        <mat-card-title fxFlex fxFlexOffset="10px">For Japanese</mat-card-title>
+        <mat-card-subtitle fxFlex>This is mainly for Japanese. You can give advices, hints & tips for visitors.</mat-card-subtitle>
+        <div fxFlex>
+          <button mat-button (click)="onRegisterAsHostButtonClicked()" mat-flat-button color="primary">Register as host</button>
+        </div>
     </mat-card>
   </div>
 </div>

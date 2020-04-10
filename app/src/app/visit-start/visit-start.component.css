@@ -21,6 +21,11 @@
     font-size:24px;
 }
 
+.problem_image {
+    height: 60px;
+    width: 60px;
+}
+
 .host_image {
     height: 300px;
     width: 300px;

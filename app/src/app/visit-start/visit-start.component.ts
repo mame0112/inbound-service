@@ -28,6 +28,17 @@ export class VisitStartComponent implements OnInit {
     title = 'Test title';
     host: Host;
 
+    problems = [
+        {'id': 'exit', 'icon': 'exit', 'label': 'Exit of big station'},
+        {'id': 'language', 'icon': 'language', 'label': 'Japanese language'},
+        {'id': 'restaurant', 'icon': 'restaurant', 'label': 'Best restaurant for me'},
+        {'id': 'lost', 'icon': 'lost', 'label': 'How to get my destination'},
+        {'id': 'train', 'icon': 'train', 'label': 'How to buy ticket & get intrain'},
+        {'id': 'menu', 'icon': 'menu', 'label': 'Japanese menu'},
+        {'id': 'manner', 'icon': 'manner', 'label': 'Japanese manner'},
+        {'id': 'others', 'icon': 'others', 'label': 'Others'}
+    ]
+
     static readonly Start = 1;
     static readonly Creation = 2;
     static readonly WaitingForHost = 3;

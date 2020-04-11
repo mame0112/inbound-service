@@ -5,6 +5,8 @@ import { flatMap } from 'rxjs/operators';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
+// import { MatListOption } from '@angular/material/list';
+
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 import { AnalyticsService } from '../analytics.service';
@@ -28,16 +30,16 @@ export class VisitStartComponent implements OnInit {
     title = 'Test title';
     host: Host;
 
-    problems = [
-        {'id': 'exit', 'icon': 'exit', 'label': 'Exit of big station'},
-        {'id': 'language', 'icon': 'language', 'label': 'Japanese language'},
-        {'id': 'restaurant', 'icon': 'restaurant', 'label': 'Best restaurant for me'},
-        {'id': 'lost', 'icon': 'lost', 'label': 'How to get my destination'},
-        {'id': 'train', 'icon': 'train', 'label': 'How to buy ticket & get intrain'},
-        {'id': 'menu', 'icon': 'menu', 'label': 'Japanese menu'},
-        {'id': 'manner', 'icon': 'manner', 'label': 'Japanese manner'},
-        {'id': 'others', 'icon': 'others', 'label': 'Others'}
-    ]
+    problems = {
+        'exit': {'icon': 'exit', 'label': 'Exit of big station'},
+        'language': {'icon': 'language', 'label': 'Japanese language'},
+        'restaurant': {'icon': 'restaurant', 'label': 'Best restaurant for me'},
+        'lost': {'icon': 'lost', 'label': 'How to get my destination'},
+        'train': {'icon': 'train', 'label': 'How to buy ticket & get in train'},
+        'menu': {'icon': 'menu', 'label': 'Japanese menu'},
+        'manner': {'icon': 'manner', 'label': 'Japanese manner'},
+        'others': {'icon': 'others', 'label': 'Others'}
+    }
 
     static readonly Start = 1;
     static readonly Creation = 2;
@@ -47,6 +49,8 @@ export class VisitStartComponent implements OnInit {
     state = 1;
 
     visit = new Visit();
+
+    selectedOptions: string[] = [];
 
     constructor(
         private apiService: ApiService,
@@ -185,6 +189,15 @@ export class VisitStartComponent implements OnInit {
         this.visit.setUserName(this.userDataService.getUserName());
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());
     }
+
+    onNgModelChange(event){
+        console.log('on ng model change', event);
+    }
+    // onGroupsChange(options: MatListOption[]) {
+    //     console.log('onGroupsChange');
+    //     // map these MatListOptions to their values
+    //     console.log(options.map(o => o.value));
+    // }
 
     sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
         console.log('sendEvent');

@@ -20,14 +20,12 @@
   <!-- state 2 start -->
     <form *ngIf="state === 2" fxLayout="column" fxFlexFill (ngSubmit)="onSubmit()" #form1="ngForm">
       <!-- <div class="form-group" fxFlex> -->
-      <mat-selection-list fxFlex>
-        <mat-list-option *ngFor="let problem of problems">
-          <img matListAvatar [src]='"/assets/image/problems/"+problem.icon+".png"' class="problem_image">
-          <div matLine>{{problem.label}}</div>
+      <mat-selection-list fxFlex #problem [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)" name="problem">
+        <mat-list-option *ngFor="let problem of problems | keyvalue" [value]="problem">
+          <img matListAvatar [src]='"/assets/image/problems/"+problem.value.icon+".png"' class="problem_image">
+          <div matLine>{{problem.value.label}}</div>
         </mat-list-option>
       </mat-selection-list>
-
-
       <div fxFlex>
         <label class="col-sm-2 control-label">Place</label>
         <div class="col-sm-5">

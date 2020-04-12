@@ -19,6 +19,9 @@
   <!-- state 1 end -->
   <!-- state 2 start -->
     <form *ngIf="state === 2" fxLayout="column" fxFlexFill (ngSubmit)="onSubmit()" #form1="ngForm">
+      <div class="page_title" fxFlex>Create your plan</div>
+      <div class="page_sub_title" fxFlex>Problem / Concerns</div>
+      <div fxFlex>Please select your concerns for your japan travel. You can select more than two items</div>
       <!-- <div class="form-group" fxFlex> -->
       <mat-selection-list fxFlex #problem [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)" name="problem">
         <mat-list-option *ngFor="let problem of problems | keyvalue" [value]="problem">
@@ -27,6 +30,7 @@
         </mat-list-option>
       </mat-selection-list>
       <div fxFlex>
+        <div class="page_sub_title">Plan details</div>
         <label class="col-sm-2 control-label">Place</label>
         <div class="col-sm-5">
           <input type="text" name="name" required class="form-control" [(ngModel)]="visit.place" #name="ngModel">

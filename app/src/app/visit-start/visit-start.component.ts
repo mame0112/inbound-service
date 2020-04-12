@@ -31,14 +31,14 @@ export class VisitStartComponent implements OnInit {
     host: Host;
 
     problems = {
-        'exit': {'icon': 'exit', 'label': 'Exit of big station'},
-        'language': {'icon': 'language', 'label': 'Japanese language'},
-        'restaurant': {'icon': 'restaurant', 'label': 'Best restaurant for me'},
-        'lost': {'icon': 'lost', 'label': 'How to get my destination'},
-        'train': {'icon': 'train', 'label': 'How to buy ticket & get in train'},
-        'menu': {'icon': 'menu', 'label': 'Japanese menu'},
-        'manner': {'icon': 'manner', 'label': 'Japanese manner'},
-        'others': {'icon': 'others', 'label': 'Others'}
+        '01_exit': {'icon': 'exit', 'label': 'Exit of big station'},
+        '02_language': {'icon': 'language', 'label': 'Japanese language'},
+        '03_restaurant': {'icon': 'restaurant', 'label': 'Best restaurant for me'},
+        '04_lost': {'icon': 'lost', 'label': 'How to get my destination'},
+        '05_train': {'icon': 'train', 'label': 'How to buy ticket & get in train'},
+        '06_menu': {'icon': 'menu', 'label': 'Japanese menu'},
+        '07_manner': {'icon': 'manner', 'label': 'Japanese manner'},
+        '99_others': {'icon': 'others', 'label': 'Others'}
     }
 
     static readonly Start = 1;
@@ -75,33 +75,6 @@ export class VisitStartComponent implements OnInit {
 
     onSubmit(){
         console.log('Submitted:' + JSON.stringify(this.visit));
-
-        // this.apiService.createVisitData(this.visit).pipe(
-        //     flatMap((params1) => this.apiService.getHostData())).subscribe(param2 => {
-        //         if(param2[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK){
-
-        //             let content = param2[Constants.CONTENT];
-        //             if(content !== null && content.length >= 1) {
-        //                 // Host is waiting
-        //                 console.log('Matched with Host');
-
-        //                 let first_host = content[0];
-        //                 console.log(first_host);
-
-        //                 let builder = new HostDataBuilder();
-        //                 this.host = builder.setUserId(first_host[HostConsts.KEY_USER_ID]).setUserName(first_host[HostConsts.KEY_USER_NAME]).setThumbUrl(first_host[HostConsts.KEY_THUMB_URL]).getResult();
-
-        //                 this.state = VisitStartComponent.MatchedWithHost;
-        //             } else {
-        //                 console.log('Host is not waiting');
-        //                 console.log(param2);
-        //                 this.state = VisitStartComponent.WaitingForHost;
-        //             }
-        //         } else {
-        //             console.log('Error ocurred');
-        //         }
-
-        //     });
 
         this.apiService.createVisitData(this.visit).pipe(
             tap(heroes => console.log('fetched users')),
@@ -191,7 +164,15 @@ export class VisitStartComponent implements OnInit {
     }
 
     onNgModelChange(event){
-        console.log('on ng model change', event);
+
+        let problem_array = [];
+
+        event.forEach(function(value){
+            // console.log(value.key);
+            problem_array.push(value.key);
+        })
+
+        this.visit.problems = problem_array;
     }
     // onGroupsChange(options: MatListOption[]) {
     //     console.log('onGroupsChange');

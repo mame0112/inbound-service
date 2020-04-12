@@ -48,6 +48,12 @@ export class VisitDataBuilder {
         return this;
     }
 
+    setProblems(problems?: string[]): VisitDataBuilder {
+        this.visit.setProblems(problems);
+        return this;
+    }
+
+
     getResult(): Visit{
         return this.visit
     }

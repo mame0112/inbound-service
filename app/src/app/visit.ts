@@ -8,6 +8,7 @@ export class Visit {
     start: string;
     end: string;
     comment?: string;
+    problems?: string[];
 
     constructor(){}
 
@@ -43,6 +44,10 @@ export class Visit {
         this.comment = comment;
     }
 
+    setProblems(problems?: string[]): void {
+        this.problems = problems;
+    }
+
 
     getVisitId(): number {
         return this.visit_id;
@@ -74,6 +79,10 @@ export class Visit {
 
     getComment(): string {
         return this.comment;
+    }
+
+    getProblems(): string[] {
+        return this.problems;
     }
 
 

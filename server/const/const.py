@@ -55,6 +55,7 @@ class Visit:
     KEY_START = "start"
     KEY_END = "end"
     KEY_COMMENT = "comment"
+    KEY_PROBLEMS = "problems"
 
 
 # This kind is for check which visitor / host has already been done. And

@@ -6,6 +6,8 @@ from server.util.time_util import TimeUtil
 
 TOKEN_URL = 'https://graph.facebook.com/oauth/access_token'
 
+DUMMY_EXPIRES_IN = 5184000
+
 
 class TokenRetriever():
 
@@ -28,10 +30,25 @@ class TokenRetriever():
             self.log.debug(response.text)
 
             response_json = json.loads(response.text)
-            token_json = response_json['access_token']
-            expire_in = response_json['expires_in']
+            token_json = None
+            expire_in = DUMMY_EXPIRES_IN
+
+            try:
+                token_json = response_json['access_token']
+            except KeyError as error:
+                self.log.debug(error)
+                return None
+
+            try:
+                expire_in = response_json['expires_in']
+            except KeyError as error:
+                self.log.debug(error)
+                self.log.debug('Use dummy exipres_in')
+                expire_in = DUMMY_EXPIRES_IN
+
             util = TimeUtil()
             expire_time = util.calcurate_next_time(expire_in)
             return token_json, expire_time
+
         else:
             return None

@@ -454,6 +454,7 @@ class DatastoreManager:
             entity[Visit.KEY_START] = visit_json[Visit.KEY_START]
             entity[Visit.KEY_END] = visit_json[Visit.KEY_END]
             entity[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]
+            entity[Visit.KEY_PROBLEMS] = visit_json[Visit.KEY_PROBLEMS]
 
             client.put(entity)
 
@@ -464,6 +465,7 @@ class DatastoreManager:
             user_visit[Visit.KEY_START] = visit_json[Visit.KEY_START]
             user_visit[Visit.KEY_END] = visit_json[Visit.KEY_END]
             user_visit[Visit.KEY_COMMENT] = visit_json[Visit.KEY_COMMENT]
+            user_visit[Visit.KEY_PROBLEMS] = visit_json[Visit.KEY_PROBLEMS]
 
             # Update User info
             self.update_user_parameters(visit_json[Visit.KEY_USER_ID], None, None, None,

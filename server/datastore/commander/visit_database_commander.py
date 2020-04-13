@@ -60,7 +60,7 @@ class VisitDatastoreCommander(AbstractDatastoreCommander):
                 if entity is not None:
                     self.log.debug('entity is not none')
                     processor = VisitDataFormatProcessor()
-                    visit_json = processor.entityToJson(entity)
+                    visit_json = processor.entity_to_json(entity)
 
                     self.log.debug(visit_json)
 

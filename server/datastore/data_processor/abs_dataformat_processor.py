@@ -1,12 +1,12 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 
-class AbstractDataFormatProcessor(metaclass=ABCMeta):
+class AbstractDataFormatProcessor(ABC):
 
     @abstractmethod
-    def entityToJson(self, entity):
+    def entity_to_json(self, entity):
         pass
 
     @abstractmethod
-    def jsonToEntity(self, json, entity):
+    def json_to_entity(self, json, entity):
         pass

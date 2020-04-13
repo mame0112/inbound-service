@@ -32,7 +32,7 @@ class HostDatastoreCommander(AbstractDatastoreCommander):
                 processor = HostDataFormatProcessor()
 
                 for entity in entities:
-                    content = processor.entityToJson(entity)
+                    content = processor.entity_to_json(entity)
                     jsonarray.append(content)
 
                 result.set_content(jsonarray)
@@ -69,7 +69,7 @@ class HostDatastoreCommander(AbstractDatastoreCommander):
             else:
                 entity = datastore.Entity(key=key)
                 processor = HostDataFormatProcessor()
-                entity = processor.jsonToEntity(host_json, entity)
+                entity = processor.json_to_entity(host_json, entity)
 
                 client.put(entity)
 

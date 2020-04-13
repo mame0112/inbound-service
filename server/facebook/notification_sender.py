@@ -1,4 +1,4 @@
-import json
+# import json
 
 import requests
 
@@ -20,8 +20,8 @@ class NotificationSender():
 
         self.log.debug(url)
 
-        f = open('facebook_setting.json', 'r')
-        fb_settings = json.load(f)
+        # f = open('facebook_setting.json', 'r')
+        # fb_settings = json.load(f)
 
         payload = {}
         payload['ref'] = 'XXXXX'

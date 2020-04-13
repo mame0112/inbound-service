@@ -1,6 +1,6 @@
 import json
 
-from server.const.const import User, Conversation, Host, Visit
+from server.const.const import Host
 
 from server.datastore.data_processor.abs_dataformat_processor import AbstractDataFormatProcessor
 
@@ -14,8 +14,8 @@ class HostDataFormatProcessor(AbstractDataFormatProcessor):
     def __init__(self):
         self.log.debug('Initialize')
 
-    def entityToJson(self, entity):
-        self.log.debug('entityToJson')
+    def entity_to_json(self, entity):
+        self.log.debug('entity_to_json')
         data = {}
         data[Host.KEY_USER_ID] = entity[Host.KEY_USER_ID]
         data[Host.KEY_USER_NAME] = entity[Host.KEY_USER_NAME]
@@ -27,8 +27,8 @@ class HostDataFormatProcessor(AbstractDataFormatProcessor):
 
         return data
 
-    def jsonToEntity(self, host_json, entity):
-        self.log.debug('jsonToEntity')
+    def json_to_entity(self, host_json, entity):
+        self.log.debug('json_to_entity')
 
         entity[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
         entity[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]

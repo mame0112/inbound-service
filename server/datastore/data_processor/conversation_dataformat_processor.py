@@ -14,8 +14,8 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
     def __init__(self):
         self.log.debug('Initialize')
 
-    def entityToJson(self, entity):
-        self.log.debug('entityToJson')
+    def entity_to_json(self, entity):
+        self.log.debug('entity_to_json')
 
         data = {}
 
@@ -50,13 +50,14 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
     def entities_to_jsonarray(self, entities):
         self.log.debug('entities_to_jsonarray')
 
-    def jsonToEntity(self, conv_json, entity):
-        self.log.debug('jsonToEntity')
+    def json_to_entity(self, conv_json, entity):
+        self.log.debug('json_to_entity')
 
         try:
             entity[Conversation.KEY_CONVERSATION_ID] = conv_json[
                 Conversation.KEY_CONVERSATION_ID]
         except KeyError as error:
+            self.log.debug(error)
             pass
 
         entity[Conversation.KEY_HOST_ID] = conv_json[Conversation.KEY_HOST_ID]

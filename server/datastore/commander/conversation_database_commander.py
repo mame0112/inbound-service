@@ -32,7 +32,7 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
 
             if entity is not None:
                 processor = ConversationDataFormatProcessor()
-                data = processor.entityToJson(entity)
+                data = processor.entity_to_json(entity)
                 result.set_content(data)
             else:
                 self.log.debug('Entity is None')

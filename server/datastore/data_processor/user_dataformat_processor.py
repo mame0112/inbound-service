@@ -3,7 +3,7 @@ import json
 from server.util.logger import Logger
 from server.datastore.data_processor.abs_dataformat_processor import AbstractDataFormatProcessor
 
-from server.const.const import User, Conversation, Host, Visit
+from server.const.const import User, Host
 
 
 class UserDataFormatProcessor(AbstractDataFormatProcessor):
@@ -13,8 +13,8 @@ class UserDataFormatProcessor(AbstractDataFormatProcessor):
     def __init__(self):
         self.log.debug('Initialize')
 
-    def entityToJson(self, entity):
-        self.log.debug('entityToJson')
+    def entity_to_json(self, entity):
+        self.log.debug('entity_to_json')
 
         data = {}
 
@@ -67,17 +67,17 @@ class UserDataFormatProcessor(AbstractDataFormatProcessor):
         try:
             data[User.KEY_PLANS] = entity[User.KEY_PLANS]
         except ValueError as error:
-            pass
+            self.log.debug(error)
         except KeyError as error:
             # Nothing to do
-            pass
+            self.log.debug(error)
 
         self.log.debug(json.dumps(data))
 
         return data
 
-    def jsonToEntity(self, host_json, entity):
-        self.log.debug('jsonToEntity')
+    def json_to_entity(self, host_json, entity):
+        self.log.debug('json_to_entity')
 
         entity[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
         entity[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]

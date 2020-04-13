@@ -1,6 +1,6 @@
 import json
 
-from server.const.const import User, Conversation, Host, Visit
+from server.const.const import Visit
 
 from server.datastore.data_processor.abs_dataformat_processor import AbstractDataFormatProcessor
 
@@ -14,8 +14,8 @@ class VisitDataFormatProcessor(AbstractDataFormatProcessor):
     def __init__(self):
         self.log.debug('Initialize')
 
-    def entityToJson(self, entity):
-        self.log.debug('entityToJson')
+    def entity_to_json(self, entity):
+        self.log.debug('entity_to_json')
 
         data = {}
         data[Visit.KEY_VISIT_ID] = entity[Visit.KEY_VISIT_ID]
@@ -53,5 +53,5 @@ class VisitDataFormatProcessor(AbstractDataFormatProcessor):
 
         return json.dumps(jsonobj)
 
-    def jsonToEntity(self, json, entity):
-        self.log.debug('jsonToEntity')
+    def json_to_entity(self, json, entity):
+        self.log.debug('json_to_entity')

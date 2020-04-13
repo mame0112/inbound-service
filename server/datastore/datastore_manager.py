@@ -1,11 +1,6 @@
-# import json
 import threading
-# import time
 
 from server.util.logger import Logger
-
-# from server.const.const import Consts, User, Conversation, Host, Visit, State, HttpResponseCode
-# from server.result.result import Result
 
 from server.datastore.commander.user_database_commander import (
     UserDatastoreCommander)
@@ -13,14 +8,6 @@ from server.datastore.commander.visit_database_commander import VisitDatastoreCo
 from server.datastore.commander.host_database_commander import HostDatastoreCommander
 from server.datastore.commander.conversation_database_commander import ConversationDatastoreCommander
 from server.datastore.commander.message_database_commander import MessageDatastoreCommander
-
-
-# from server.datastore.data_processor.user_dataformat_processor import UserDataFormatProcessor
-# from server.datastore.data_processor.host_dataformat_processor import HostDataFormatProcessor
-# from server.datastore.data_processor.visit_dataformat_processor import VisitDataFormatProcessor
-# from server.datastore.data_processor.conversation_dataformat_processor import ConversationDataFormatProcessor
-
-# from google.cloud import datastore
 
 
 class DatastoreManager:

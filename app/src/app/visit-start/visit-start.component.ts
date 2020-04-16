@@ -19,6 +19,9 @@ import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
+declare var window: any;
+declare var FB: any;
+
 @Component({
   selector: 'app-visit-start',
   templateUrl: './visit-start.component.html',
@@ -27,8 +30,9 @@ import { ConversationDataBuilder } from '../data-builder/conversation-data-build
 export class VisitStartComponent implements OnInit {
 
     isOverview = true;
-    title = 'Test title';
     host: Host;
+    user_id: string;
+
 
     problems = {
         '01_exit': {'icon': 'exit', 'label': 'Exit of big station'},
@@ -56,7 +60,33 @@ export class VisitStartComponent implements OnInit {
         private apiService: ApiService,
         private userDataService: UserDataService,
         private router: Router,
-        private analyticsService: AnalyticsService) { }
+        private analyticsService: AnalyticsService) {
+      console.log('constructor');
+        (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = '//connect.facebook.net/en_US/sdk.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+      window.fbAsyncInit = function() {
+        console.log('fbAsyncInit executed');
+        FB.init({
+          appId            : '1194303814099473',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v6.0'
+        });
+
+
+        FB.Event.subscribe('send_to_messenger', function(e) {
+          console.log('send_to_messenger');
+          console.log(e);
+        });
+
+      };
+    }
 
     ngOnInit() {
         this.createVisitJson();
@@ -159,6 +189,7 @@ export class VisitStartComponent implements OnInit {
     createVisitJson(): void {
         //TODO Need to put Start / End / Comment and other information
         this.visit.setUserId(this.userDataService.getUserId());
+        this.user_id = this.userDataService.getUserId();
         this.visit.setUserName(this.userDataService.getUserName());
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());
     }

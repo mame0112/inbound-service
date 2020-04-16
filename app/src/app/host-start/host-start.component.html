@@ -66,10 +66,20 @@
         -->
         </mat-card>
     </div>
-
-
     <!-- No visitor waiting -->
-    <div *ngIf="state === 3">
-        <p>マッチングを待っています。マッチングしたらFacebookのメッセージでお知らせします</p>
+    <div *ngIf="state === 3" fxLayout="column">
+        <div fxFlex>
+          <p class="page_title">Waiting for visitors...</p>
+        </div>
+        <div fxFlex>
+          <p class="body_text">Please click below button so that we can notify you as soon as we find your visitor.</p>
+        </div>
+        <div fxFlex class="fb-send-to-messenger" 
+          messenger_app_id="1194303814099473"
+          page_id="103120367999159" 
+          [data-ref]="user_id"
+          color="blue"
+          size="xlarge">
+        </div>
     </div>
 </div>

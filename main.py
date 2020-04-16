@@ -6,6 +6,9 @@ from server.const.const import User, Conversation, Host, Visit
 from server.util.logger import Logger
 
 from server.datastore.datastore_manager import DatastoreManager
+from server.util.webhook_parser import WebhookParser
+
+from server.facebook.fb_message_sender import FacebookMessageSender
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -23,6 +26,9 @@ class User(Resource):
     def get(self):
         log.debug('get')
         user_id = request.args['user_id']
+
+        sender = FacebookMessageSender()
+        sender.send()
         # json_data = request.get_json(force=True)
         # json_data = request.get_json(force=True)
         # username = json_data[User.KEY_USER_NAME]
@@ -149,15 +155,22 @@ def webhookpost():
     log.debug('webhook post')
     output = request.json
     log.debug(output)
-    event = output['entry'][0]['messaging']
-    for x in event:
-        if (x.get('message') and x['message'].get('text')):
-            message = x['message']['text']
-            recipient_id = x['sender']['id']
-            log.debug('recipient_id')
-            log.debug(recipient_id)
-        else:
-            pass
+    parser = WebhookParser()
+    user_id, psid = parser.extract_data_from_webhook_data(output)
+    log.debug(user_id)
+    log.debug(psid)
+
+    data_manager = DatastoreManager()
+    data_manager.put()
+    # event = output['entry'][0]['messaging']
+    # for x in event:
+    #     if (x.get('message') and x['message'].get('text')):
+    #         message = x['message']['text']
+    #         recipient_id = x['sender']['id']
+    #         log.debug('recipient_id')
+    #         log.debug(recipient_id)
+    #     else:
+    #         pass
     return "success"
 
 

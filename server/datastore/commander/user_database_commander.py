@@ -8,7 +8,6 @@ from server.datastore.commander.adb_database_commander import (
 from server.datastore.data_processor.user_dataformat_processor import(
     UserDataFormatProcessor)
 
-from server.facebook.notification_sender import NotificationSender
 from server.facebook.token_retriver import TokenRetriever
 
 from server.result.result import Result
@@ -82,10 +81,6 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
 
                 entity[User.KEY_ACCESS_TOKEN] = token_response[0]
                 entity[User.KEY_ACCESS_TOKEN_EXPIRE_TIME] = token_response[1]
-
-                sender = NotificationSender()
-                sender.send_notification(
-                    user_json[User.KEY_USER_ID], token_response[0])
 
                 # Create empty Json array
                 entity[User.KEY_CONVERSATIONS_HOST] = []

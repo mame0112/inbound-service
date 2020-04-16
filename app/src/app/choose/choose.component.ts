@@ -19,6 +19,7 @@ declare var FB: any;
 export class ChooseComponent implements OnInit {
 
     user_name: string;
+    user_id: string;
 
     constructor(private userDataService: UserDataService,
         private analyticsService: AnalyticsService,
@@ -44,8 +45,6 @@ export class ChooseComponent implements OnInit {
 
 
         FB.Event.subscribe('send_to_messenger', function(e) {
-        // FB.Event.subscribe('send_to_messenger', function(e) {
-        // callback for events triggered by the plugin
           console.log('send_to_messenger');
           console.log(e);
         });
@@ -55,6 +54,7 @@ export class ChooseComponent implements OnInit {
 
     ngOnInit() {
         this.user_name = this.userDataService.getUserName();
+        this.user_id = this.userDataService.getUserId();
         // this.jsService.testFunction();
         // this.load();
     }

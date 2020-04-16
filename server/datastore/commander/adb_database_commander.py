@@ -7,7 +7,6 @@ from server.const.const import Consts, User, Conversation, State, HttpResponseCo
 
 
 class AbstractDatastoreCommander(ABC):
-    # class Abstract(metaclass=ABCMeta):
 
     @abstractmethod
     def get(self):

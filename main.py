@@ -159,6 +159,7 @@ def webhookpost():
     user_id, psid = parser.extract_data_from_webhook_data(output)
     log.debug(user_id)
     log.debug(psid)
+    log.debug(psid)
 
     builder = UserDataBuilder()
     builder.set_user_id(user_id).set_psid(psid)

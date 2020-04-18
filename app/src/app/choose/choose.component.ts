@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-
 import { AnalyticsService } from '../analytics.service';
 import { UserDataService } from '../user-data.service';
 import { JsExecuteService } from '../js-execute.service';
@@ -47,6 +46,10 @@ export class ChooseComponent implements OnInit {
         FB.Event.subscribe('send_to_messenger', function(e) {
           console.log('send_to_messenger');
           console.log(e);
+          if (e.event !== undefined && e.event == 'opt_in'){
+            console.log(e.event);
+            console.log(e.ref);
+          }
         });
 
       };
@@ -78,9 +81,8 @@ export class ChooseComponent implements OnInit {
 
 
         FB.Event.subscribe('send_to_messenger', function(e) {
-        // FB.Event.subscribe('send_to_messenger', function(e) {
-        // callback for events triggered by the plugin
-            console.log(e);
+            console.log(e.event);
+            console.log(e.ref);
         });
 
       };

@@ -48,7 +48,7 @@ export class UserDataBuilder {
     setPlans(plans?: string): UserDataBuilder {
         this.setPlans(plans);
         return this;
-    }    
+    }
 
     getResult(): User{
         return this.user;

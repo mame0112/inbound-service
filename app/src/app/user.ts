@@ -78,6 +78,5 @@ export class User {
     getPlans(): string {
         return this.plans;
     }
-
     
 }

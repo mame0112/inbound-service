@@ -81,8 +81,11 @@ export class VisitStartComponent implements OnInit {
 
 
         FB.Event.subscribe('send_to_messenger', function(e) {
-          console.log('send_to_messenger');
-          console.log(e);
+            console.log('send_to_messenger');
+            console.log(e);
+            if (e.event !== undefined && e.event == 'opt_in'){
+              this.openDialog(1, 'Thank you very much. We would let you know soon', 'OK', null);
+            }
         });
 
       };
@@ -193,6 +196,7 @@ export class VisitStartComponent implements OnInit {
         this.visit.setUserName(this.userDataService.getUserName());
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());
     }
+
 
     onNgModelChange(event){
 

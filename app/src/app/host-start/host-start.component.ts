@@ -78,7 +78,11 @@ export class HostStartComponent implements OnInit {
 
         FB.Event.subscribe('send_to_messenger', function(e) {
           console.log('send_to_messenger');
-          console.log(e);
+          if (e.event !== undefined && e.event == 'opt_in'){
+            console.log(e);
+            this.openDialog(1, 'Thank you very much. We would let you know soon', 'OK', null);
+          }
+
         });
 
       };
@@ -182,6 +186,10 @@ export class HostStartComponent implements OnInit {
 
      this.sendEvent('body', 'start_conversation', 'click');
 
+    }
+
+    getUserId(): string {
+      return this.userDataService.getUserId();
     }
 
 

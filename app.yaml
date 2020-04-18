@@ -3,7 +3,7 @@ env: standard
 
 entrypoint: gunicorn -b :$PORT main:app
 
-default_expiration: "5m"
+default_expiration: "1m"
 
 handlers:
 - url: /static

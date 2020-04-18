@@ -12,7 +12,7 @@ class FacebookMessageSender():
 
     log = Logger("FacebookMessageSender")
 
-    def send(self):
+    def send(self, recipient_id):
         self.log.debug('send_notification')
         # self.log.debug(type(user_id))
 
@@ -27,7 +27,8 @@ class FacebookMessageSender():
 
         payload['messaging_type'] = 'RESPONSE'
 
-        recipient['id'] = '3079624638743721'
+        # recipient['id'] = '3079624638743721'
+        recipient['id'] = recipient_id
         payload['recipient'] = recipient
 
         message['text'] = "hello, world!"

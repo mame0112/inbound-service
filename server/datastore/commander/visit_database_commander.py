@@ -114,7 +114,7 @@ class VisitDatastoreCommander(AbstractDatastoreCommander):
 
             # Update User info
             self.update_user_parameters(visit_json[Visit.KEY_USER_ID], None, None, None,
-                                        None, user_visit, None, None)
+                                        None, user_visit, None, None, None)
 
             # Update state
             self.register_waiting_visitor_to_state(ut)

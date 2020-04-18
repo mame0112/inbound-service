@@ -106,6 +106,7 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
         convs_guest = None
         user_properties = None
         key_plans = None
+        psid = None
 
         result = Result()
 
@@ -169,8 +170,14 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
         except ValueError as error:
             pass
 
+        try:
+            if User.KEY_PSID in user_json and user_json[User.KEY_PSID] is not None:
+                psid = user_json[User.KEY_PSID]
+        except ValueError as error:
+            pass
+
         self.update_user_parameters(user_id, user_name, thumb_url, access_token,
-                                    convs_host, convs_guest, user_properties, key_plans)
+                                    convs_host, convs_guest, user_properties, key_plans, psid)
 
     def delete(self):
         pass

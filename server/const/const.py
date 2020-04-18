@@ -16,7 +16,8 @@ class User:
     KEY_CONVERSATIONS_HOST = "convs_host"
     KEY_CONVERSATIONS_GUEST = "convs_guest"
     KEY_USER_PROPERTIES = "user_properties"
-    KEY_PLANS = "key_plans"
+    KEY_PLANS = "plans"
+    KEY_PSID = "psid"
 
 
 class Conversation:

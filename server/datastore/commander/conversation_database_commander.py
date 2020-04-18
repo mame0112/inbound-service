@@ -100,7 +100,7 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
 
             # user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans
             self.update_user_parameters(host_user_id, None, None, None,
-                                        convs_host, None, None, None)
+                                        convs_host, None, None, None, None)
 
             # Update user db (For Guest)
             convs_guest = {}
@@ -118,7 +118,7 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
             visitor_user_id = conv_data[Conversation.KEY_VISITOR_ID]
 
             self.update_user_parameters(visitor_user_id, None, None, None,
-                                        None, convs_guest, None, None)
+                                        None, convs_guest, None, None, None)
 
             # Create result
             conv_id = {}

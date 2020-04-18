@@ -69,7 +69,7 @@ class AbstractDatastoreCommander(ABC):
 
             client.put(entity)
 
-    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans):
+    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans, psid):
         self.log.debug('update_user isolate')
         # self.log.debug(user_id)
         # self.log.debug(user_name)
@@ -165,6 +165,9 @@ class AbstractDatastoreCommander(ABC):
 
             if key_plans is not None:
                 entity[User.KEY_PLANS] = key_plans
+
+            if psid is not None:
+                entity[User.KEY_PSID] = psid
 
             client.put(entity)
 

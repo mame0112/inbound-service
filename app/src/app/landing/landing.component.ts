@@ -1,12 +1,13 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+// import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 import { AnalyticsService } from '../analytics.service';
+import { FacebookService } from '../facebook.service';
 // import { TranslateModule } from '@ngx-translate/core';
 
 import { Constants } from '../constants';
@@ -21,7 +22,7 @@ import { UserDataBuilder } from '../data-builder/user-data-builder';
 })
 export class LandingComponent implements OnInit {
 
-  user: SocialUser;
+  // user: SocialUser;
   userObj: User;
   loggedIn: boolean;
 
@@ -29,9 +30,12 @@ export class LandingComponent implements OnInit {
 
   constructor(private router: Router,
     private apiService: ApiService,
-   private authService: AuthService,
+   // private authService: AuthService,
    private userDataService: UserDataService,
-   private analyticsService: AnalyticsService ) { }
+   private analyticsService: AnalyticsService,
+   private fbService: FacebookService) { }
+   // private analyticsService: AnalyticsService,
+   // private jsService: JsExecuteService ) { }
 
   ngOnInit() {
     console.log('LandingComponent onInit');
@@ -42,51 +46,52 @@ export class LandingComponent implements OnInit {
       // this.router.navigate(['/my-page']);
     }
 
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log(this.user);
+    // this.authService.authState.subscribe((user) => {
+    //   this.user = user;
+    //   this.loggedIn = (user != null);
+    //   console.log(this.user);
 
-      if (user !=null) {
-        console.log('User available')
-        // let obj = this.createJsonUserData(user)
-        let builder = new UserDataBuilder();
-        console.log(user.id);
-        console.log(Number(user.id));
-        this.userObj = builder.setUserId(user.id).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
-        console.log(this.userObj.user_id);
+    //   if (user !=null) {
+    //     console.log('User available')
+    //     // let obj = this.createJsonUserData(user)
+    //     let builder = new UserDataBuilder();
+    //     console.log(user.id);
+    //     console.log(Number(user.id));
+    //     this.userObj = builder.setUserId(user.id).setUserName(user.name).setThumbUrl(user.photoUrl).setAccessToken(user.authToken).getResult();
+    //     console.log(this.userObj.user_id);
 
-        this.apiService.createUserData(this.userObj)
-        .pipe(
-            tap(heroes => console.log('fetched users')),
-            catchError(this.apiService.handleError<string>('createUserData', 'Error'))
-          ).subscribe(params => {
-            if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
-              console.log('Create user response OK');
-              this.userDataService.signin(this.userObj);
+    //     this.apiService.createUserData(this.userObj)
+    //     .pipe(
+    //         tap(heroes => console.log('fetched users')),
+    //         catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+    //       ).subscribe(params => {
+    //         if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
+    //           console.log('Create user response OK');
+    //           this.userDataService.signin(this.userObj);
 
-              // Go to next page
-              //TODO
-              this.router.navigate(['/choose']);
+    //           // Go to next page
+    //           //TODO
+    //           this.router.navigate(['/choose']);
 
-            } else {
-              console.log('Error happens');
-              // TODO Show error message
-            }
-          });
-      }
-    });
+    //         } else {
+    //           console.log('Error happens');
+    //           // TODO Show error message
+    //         }
+    //       });
+    //   }
+    // });
 
   }
 
   signInWithFB(): void {
     console.log('signInWithFB')
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.fbService.login();
     this.sendEvent('body', 'facebook', 'click');
   }
 
   signOut(): void {
-    this.authService.signOut();
+    // this.authService.signOut();
   }
 
   broadcastFBUserInfo() {

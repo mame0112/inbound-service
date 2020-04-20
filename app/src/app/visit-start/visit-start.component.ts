@@ -62,33 +62,33 @@ export class VisitStartComponent implements OnInit {
         private router: Router,
         private analyticsService: AnalyticsService) {
       console.log('constructor');
-        (function(d, s, id){
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {return;}
-                js = d.createElement(s); js.id = id;
-                js.src = '//connect.facebook.net/en_US/sdk.js';
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
+      //   (function(d, s, id){
+      //           var js, fjs = d.getElementsByTagName(s)[0];
+      //           if (d.getElementById(id)) {return;}
+      //           js = d.createElement(s); js.id = id;
+      //           js.src = '//connect.facebook.net/en_US/sdk.js';
+      //           fjs.parentNode.insertBefore(js, fjs);
+      //       }(document, 'script', 'facebook-jssdk'));
 
-      window.fbAsyncInit = function() {
-        console.log('fbAsyncInit executed');
-        FB.init({
-          appId            : '1194303814099473',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v6.0'
-        });
+      // window.fbAsyncInit = function() {
+      //   console.log('fbAsyncInit executed');
+      //   FB.init({
+      //     appId            : '1194303814099473',
+      //     autoLogAppEvents : true,
+      //     xfbml            : true,
+      //     version          : 'v6.0'
+      //   });
 
 
-        FB.Event.subscribe('send_to_messenger', function(e) {
-            console.log('send_to_messenger');
-            console.log(e);
-            if (e.event !== undefined && e.event == 'opt_in'){
-              this.openDialog(1, 'Thank you very much. We would let you know soon', 'OK', null);
-            }
-        });
+      //   FB.Event.subscribe('send_to_messenger', function(e) {
+      //       console.log('send_to_messenger');
+      //       console.log(e);
+      //       if (e.event !== undefined && e.event == 'opt_in'){
+      //         this.openDialog(1, 'Thank you very much. We would let you know soon', 'OK', null);
+      //       }
+      //   });
 
-      };
+      // };
     }
 
     ngOnInit() {

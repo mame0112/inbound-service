@@ -8,8 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 import { IgxCalendarModule, IgxNavbarModule } from 'igniteui-angular';
 
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, LoginOpt } from 'angularx-social-login';
-
 import { LandingComponent } from './landing/landing.component';
 import { VisitStartComponent } from './visit-start/visit-start.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,24 +45,6 @@ import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 
 
-const fbLoginOptions: LoginOpt = {
-  scope: 'pages_show_list',
-  return_scopes: true,
-  enable_profile_selector: true
-};
-
-const config = new AuthServiceConfig([
-{
-  id: FacebookLoginProvider.PROVIDER_ID,
-  // provider: new FacebookLoginProvider('1194303814099473', fbLoginOptions)
-  provider: new FacebookLoginProvider('1194303814099473')
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
-
 // export function HttpLoaderFactory(http: HttpClient) {
 //     return new TranslateHttpLoader(http);
 // }
@@ -92,7 +72,6 @@ export function provideConfig() {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SocialLoginModule,
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatListModule,
@@ -123,10 +102,6 @@ export function provideConfig() {
     DialogComponent
   ],
   providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    },
     CookieService
   ],
   bootstrap: [AppComponent]

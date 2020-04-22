@@ -86,11 +86,21 @@ export class LandingComponent implements OnInit {
   signInWithFB(): void {
     console.log('signInWithFB')
     // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    this.fbService.login();
+    // this.fbService.login();
+
+    this.fbService.loginAsync().pipe(
+          tap(heroes => console.log(heroes))
+      ).subscribe(params => {
+        console.log(params);
+    });
+
     this.sendEvent('body', 'facebook', 'click');
   }
 
   signOut(): void {
+    console.log('signOut');
+
+    this.fbService.logout();
     // this.authService.signOut();
   }
 

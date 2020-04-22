@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+
+import { UserConsts } from './constants';
+
 declare var window: any;
 declare var FB: any;
 
@@ -7,6 +11,8 @@ declare var FB: any;
   providedIn: 'root'
 })
 export class FacebookService {
+
+
 
     constructor() {
         console.log('FacebookService');
@@ -69,22 +75,102 @@ export class FacebookService {
         }
     }
 
+    loginAsync(): Observable<any> {
+        console.log('loginAsync');
+
+        let result = {};
+
+        result[UserConsts.KEY_USER_ID] = null;
+        result[UserConsts.KEY_USER_NAME] = null;
+        result[UserConsts.KEY_THUMB_URL] = null;
+        result[UserConsts.KEY_ACCESS_TOKEN] = null;
+
+
+        return new Observable((observer) => {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                     // console.log('Welcome! Fetching your information.... ');
+                     console.log(response);
+                     // console.log(response.authResponse.accessToken);
+                     // console.log(response.authResponse.userID);
+                    result[UserConsts.KEY_USER_ID] = response.authResponse.userID;
+                    result[UserConsts.KEY_ACCESS_TOKEN] = response.authResponse.accessToken;
+                    // FB.api('/me', function(response) {
+                    //     console.log(response);
+                    //     result[UserConsts.KEY_USER_NAME] = response.name;
+                    //     // console.log('Good to see you, ' + response.name + '.');
+                    // });
+                    FB.api('/me', 'GET', {fields: 'name'}, function(response) {
+                        console.log(response);
+                        let baseUrl = 'https://graph.facebook.com/';
+                        let pictureUrl = '/picture?type=large&width=360&height=360';
+
+                        result[UserConsts.KEY_USER_NAME] = response.name;
+                        result[UserConsts.KEY_THUMB_URL] = baseUrl + result[UserConsts.KEY_USER_ID] + pictureUrl;
+                        console.log(result[UserConsts.KEY_THUMB_URL]);
+                        observer.next(result);
+                        observer.complete();
+                        // console.log('Good to see you, ' + response.name + '.');
+                    });
+
+                } else {
+                 console.log('User cancelled login or did not fully authorize.');
+                 observer.error('User cancelled login or did not fully authorize.');
+                }
+            });
+        });
+
+    }
+
 
     login(): void {
+        let result = {};
+        result[UserConsts.KEY_USER_ID] = null;
+        result[UserConsts.KEY_USER_NAME] = null;
+        result[UserConsts.KEY_THUMB_URL] = null;
+        result[UserConsts.KEY_ACCESS_TOKEN] = null;
 
-       console.log("submit login to facebook");
+        console.log("submit login to facebook");
 
         FB.login(function(response) {
             if (response.authResponse) {
-             console.log('Welcome!  Fetching your information.... ');
-             console.log(response);
-             // FB.api('/me', function(response) {
-             //   console.log('Good to see you, ' + response.name + '.');
-             // });
+                 console.log('Welcome!  Fetching your information.... ');
+                 console.log(response);
+                 // console.log(response.authResponse.accessToken);
+                 // console.log(response.authResponse.userID);
+                result[UserConsts.KEY_USER_ID] = response.authResponse.userID;
+                result[UserConsts.KEY_ACCESS_TOKEN] = response.authResponse.accessToken;
+                // FB.api('/me', function(response) {
+                //     console.log(response);
+                //     result[UserConsts.KEY_USER_NAME] = response.name;
+                //     // console.log('Good to see you, ' + response.name + '.');
+                // });
+                FB.api('/me', 'GET', {fields: 'name'}, function(response) {
+                    console.log(response);
+                    let baseUrl = 'https://graph.facebook.com/';
+                    let pictureUrl = '/picture?type=large&width=360&height=360';
+
+                    result[UserConsts.KEY_USER_NAME] = response.name;
+                    result[UserConsts.KEY_THUMB_URL] = baseUrl + result[UserConsts.KEY_USER_ID] + pictureUrl;
+                    console.log(result[UserConsts.KEY_THUMB_URL]);
+                    // console.log('Good to see you, ' + response.name + '.');
+                });
+
             } else {
              console.log('User cancelled login or did not fully authorize.');
             }
         });
+    }
+
+    logout(): void {
+
+        console.log('logout');
+
+        FB.logout(function(response){
+            console.log(response);
+
+        });
+
     }
 
     testFunction() {

@@ -93,6 +93,7 @@ export class VisitStartComponent implements OnInit {
 
     ngOnInit() {
         this.createVisitJson();
+        window.FB.XFBML.parse();
     }
 
     onNextButtonClicked() {

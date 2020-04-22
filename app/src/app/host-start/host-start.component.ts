@@ -90,6 +90,7 @@ export class HostStartComponent implements OnInit {
 
     ngOnInit() {
       this.state = HostStartComponent.Start;
+      window.FB.XFBML.parse();
     }
 
     onNextButtonClicked() {

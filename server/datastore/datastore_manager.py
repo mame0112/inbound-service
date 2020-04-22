@@ -33,10 +33,13 @@ class DatastoreManager:
         return user_db_commander.get(user_id)
 
     def create_user(self, user_json):
+        self.log.debug('create_user')
+        self.log.debug(user_json)
         user_db_commander = UserDatastoreCommander()
         return user_db_commander.post(user_json)
 
     def update_user(self, user_json):
+        self.log.debug('update_user')
         user_db_commander = UserDatastoreCommander()
         return user_db_commander.put(user_json)
 

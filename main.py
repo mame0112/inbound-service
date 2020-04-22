@@ -26,7 +26,7 @@ log = Logger("Main")
 class User(Resource):
 
     def get(self):
-        log.debug('get')
+        log.debug('User get')
         user_id = request.args['user_id']
 
         # json_data = request.get_json(force=True)
@@ -37,15 +37,16 @@ class User(Resource):
         return data_manager.get_user(user_id).get_result_json()
 
     def post(self):
-        log.debug('post')
+        log.debug('User post')
         user = request.json
+        log.debug(user)
 
         data_manager = DatastoreManager()
         result = data_manager.create_user(user)
         return result.get_result_json()
 
     def put(self):
-        log.debug('put')
+        log.debug('User put')
         user = request.json
 
         data_manager = DatastoreManager()
@@ -55,7 +56,7 @@ class User(Resource):
 class Visit(Resource):
 
     def get(self):
-        log.debug('get')
+        log.debug('Visit get')
         visit_id = request.args['visit_id']
         log.debug(visit_id)
         data_manager = DatastoreManager()
@@ -63,7 +64,7 @@ class Visit(Resource):
         return result.get_result_json()
 
     def post(self):
-        log.debug('post')
+        log.debug('Visit post')
         visit_data = request.json
 
         data_manager = DatastoreManager()
@@ -73,13 +74,13 @@ class Visit(Resource):
 class Host(Resource):
 
     def get(self):
-        log.debug('get')
+        log.debug('Host get')
         # host_data = request.json
         data_manager = DatastoreManager()
         return data_manager.get_host().get_result_json()
 
     def post(self):
-        log.debug('post')
+        log.debug('Host post')
         host_data = request.json
         data_manager = DatastoreManager()
         return data_manager.create_host(host_data).get_result_json()

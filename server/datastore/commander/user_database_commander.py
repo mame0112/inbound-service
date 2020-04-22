@@ -57,7 +57,6 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
         return result
 
     def post(self, user_json):
-        self.log.debug('create_user')
         result = Result()
 
         try:
@@ -96,7 +95,6 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
         return result
 
     def put(self, user_json):
-        self.log.debug('update_user')
 
         user_id = Consts.NO_USER
         user_name = None

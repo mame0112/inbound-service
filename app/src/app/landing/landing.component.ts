@@ -86,7 +86,6 @@ export class LandingComponent implements OnInit {
               this.userDataService.signin(this.userObj);
 
               // Go to next page
-              //TODO
               this.router.navigate(['/choose']);
 
             } else {
@@ -102,8 +101,15 @@ export class LandingComponent implements OnInit {
   signOut(): void {
     console.log('signOut');
 
-    this.fbService.logout();
-    // this.authService.signOut();
+    this.fbService.logout().pipe(
+          tap(params => console.log(params)),
+          catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+      ).subscribe(param => {
+        console.log(param);
+
+        //TODO Update userinfo in server
+
+      });
   }
 
   broadcastFBUserInfo() {

@@ -33,14 +33,9 @@ export class FacebookService {
             });
 
 
-            FB.Event.subscribe('send_to_messenger', function(e) {
-              console.log('send_to_messenger');
-              console.log(e);
-              if (e.event !== undefined && e.event == 'opt_in'){
-                console.log(e.event);
-                console.log(e.ref);
-              }
-            });
+
+            FB.Event.subscribe('send_to_messenger', send_to_messenger_callback);
+            FB.Event.subscribe('auth.statusChange', auth_status_change_callback);
 
         };
 
@@ -53,7 +48,22 @@ export class FacebookService {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
+
+        var send_to_messenger_callback = function(e) {
+            console.log('send_to_messenger');
+            console.log(e);
+            if (e.event !== undefined && e.event == 'opt_in'){
+                console.log(e.event);
+                console.log(e.ref);
+            }
+        }
+
+        var auth_status_change_callback = function(response) {
+            console.log("auth_status_change_callback: " + response.status);
+        }
+
     }
+
 
 
     statusChangeCallback(response): void{
@@ -89,17 +99,11 @@ export class FacebookService {
         return new Observable((observer) => {
             FB.login(function(response) {
                 if (response.authResponse) {
-                     // console.log('Welcome! Fetching your information.... ');
+
                      console.log(response);
-                     // console.log(response.authResponse.accessToken);
-                     // console.log(response.authResponse.userID);
+
                     result[UserConsts.KEY_USER_ID] = response.authResponse.userID;
                     result[UserConsts.KEY_ACCESS_TOKEN] = response.authResponse.accessToken;
-                    // FB.api('/me', function(response) {
-                    //     console.log(response);
-                    //     result[UserConsts.KEY_USER_NAME] = response.name;
-                    //     // console.log('Good to see you, ' + response.name + '.');
-                    // });
                     FB.api('/me', 'GET', {fields: 'name'}, function(response) {
                         console.log(response);
                         let baseUrl = 'https://graph.facebook.com/';
@@ -110,7 +114,6 @@ export class FacebookService {
                         console.log(result[UserConsts.KEY_THUMB_URL]);
                         observer.next(result);
                         observer.complete();
-                        // console.log('Good to see you, ' + response.name + '.');
                     });
 
                 } else {
@@ -162,15 +165,25 @@ export class FacebookService {
     //     });
     // }
 
-    logout(): void {
+    // logout(): void {
 
-        console.log('logout');
+    //     console.log('logout');
 
-        FB.logout(function(response){
-            console.log(response);
+    //     FB.logout(function(response){
+    //         console.log(response);
 
-        });
+    //     });
 
+    // }
+
+    logout(): Observable<any>  {
+        return new Observable((observer) => {
+                FB.logout(function(response){
+                    console.log(response);
+                    observer.next();
+                    observer.complete();
+                });
+            });
     }
 
     testFunction() {

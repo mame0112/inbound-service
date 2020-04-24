@@ -1,6 +1,9 @@
 import { Injectable, Output, EventEmitter } from '@angular/core'
 
 import { CookieService } from 'ngx-cookie-service';
+import { FacebookService } from './facebook.service';
+
+import { tap } from 'rxjs/operators';
 
 import { Constants } from './constants';
 
@@ -19,7 +22,8 @@ export class UserDataService {
 
     @Output() change: EventEmitter<any> = new EventEmitter();
 
-    constructor(private cookieService: CookieService) { }
+    constructor(private cookieService: CookieService,
+        private fbService: FacebookService) { }
 
     initialize(): User{
         console.log('initialize');
@@ -60,10 +64,17 @@ export class UserDataService {
     }
 
     deleteUserData(): void {
-        this.user_id = null;
-        this.user_name = null;
-        this.thumb_url = null;
-        this.cookieService.deleteAll();
+        console.log('deleteUserData');
+        this.fbService.logout().pipe(
+            tap(params => console.log(params))
+        ).subscribe(result => {
+            console.log(result);
+            this.user_id = null;
+            this.user_name = null;
+            this.thumb_url = null;
+            this.cookieService.deleteAll();
+        });
+
     }
 
 

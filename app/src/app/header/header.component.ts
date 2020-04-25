@@ -40,6 +40,14 @@ export class HeaderComponent implements OnInit {
           // No user data in userDataService
         }
 
+
+        this.userDataService.change_signout.subscribe(param => {
+          console.log(param);
+          //Sign out
+          this.userData = null;
+
+        });
+
     }
 
     ClearUserData(): void{

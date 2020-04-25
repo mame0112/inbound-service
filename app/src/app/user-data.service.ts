@@ -22,6 +22,7 @@ export class UserDataService {
     thumb_url: string;
 
     @Output() change: EventEmitter<any> = new EventEmitter();
+    @Output() change_signout: EventEmitter<any> = new EventEmitter();
 
     constructor(private cookieService: CookieService,
         private fbService: FacebookService) { }
@@ -80,6 +81,7 @@ export class UserDataService {
 
     deleteUserData(): Observable<any> {
         console.log('deleteUserData');
+        this.change_signout.emit(null);
         return new Observable((observer) => {
             this.fbService.logout().pipe(
                 tap(params => console.log(params))
@@ -96,19 +98,6 @@ export class UserDataService {
 
             });
         });
-
-
-
-
-        // this.fbService.logout().pipe(
-        //     tap(params => console.log(params))
-        // ).subscribe(result => {
-        //     console.log(result);
-        //     this.user_id = null;
-        //     this.user_name = null;
-        //     this.thumb_url = null;
-        //     this.cookieService.deleteAll();
-        // });
 
     }
 

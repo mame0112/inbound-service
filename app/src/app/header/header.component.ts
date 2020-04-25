@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
 
         if(this.userData == null){
           this.userDataService.change.subscribe(param => {
+            console.log('header info subscribe');
               if (param !== null){
                   this.userData = new UserDataBuilder().setUserId(param[UserConsts.KEY_USER_ID]).setUserName(param[UserConsts.KEY_USER_NAME]).setThumbUrl(param[UserConsts.KEY_THUMB_URL]).getResult();
               } else {

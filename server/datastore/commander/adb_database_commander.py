@@ -90,6 +90,7 @@ class AbstractDatastoreCommander(ABC):
             client = datastore.Client()
             key = client.key(User.KIND_NAME, user_id)
             entity = client.get(key)
+            self.log.debug(entity)
 
             if user_id != Consts.NO_USER:
                 entity[User.KEY_USER_ID] = user_id

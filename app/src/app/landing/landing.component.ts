@@ -84,6 +84,7 @@ export class LandingComponent implements OnInit {
             if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
               console.log('Create user response OK');
               this.userDataService.signin(this.userObj);
+              this.broadcastFBUserInfo();
 
               // Go to next page
               this.router.navigate(['/choose']);
@@ -112,7 +113,8 @@ export class LandingComponent implements OnInit {
       });
   }
 
-  broadcastFBUserInfo() {
+  broadcastFBUserInfo(): void {
+    console.log('broadcastFBUserInfo');
     this.userInfo.emit(this.userObj);
   }
 

@@ -71,7 +71,8 @@ class AbstractDatastoreCommander(ABC):
 
     def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans, psid):
         self.log.debug('update_user_parameters')
-        # self.log.debug(user_id)
+        self.log.debug(user_id)
+        self.log.debug(psid)
         # self.log.debug(user_name)
         # self.log.debug(thumb_url)
         # self.log.debug(access_token)
@@ -80,8 +81,8 @@ class AbstractDatastoreCommander(ABC):
         # self.log.debug(user_properties)
         # self.log.debug(key_plans)
 
-        if user_id is None:
-            raise ValueError("User id cannot be null")
+        if user_id is None or user_id is Consts.NO_USER:
+            raise ValueError("User id cannot be null nor -1")
 
         result = Result()
 

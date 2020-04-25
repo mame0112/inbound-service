@@ -87,7 +87,7 @@ export class LandingComponent implements OnInit {
               this.broadcastFBUserInfo();
 
               // Go to next page
-              this.router.navigate(['/choose']);
+              // this.router.navigate(['/choose']);
 
             } else {
               console.log('Error happens');

@@ -26,19 +26,20 @@ export class HeaderComponent implements OnInit {
 
         this.userData = this.userDataService.initialize();
 
-        if(this.userData == null){
+        // if(this.userData == null){
           this.userDataService.change.subscribe(param => {
             console.log('header info subscribe');
               if (param !== null){
                   this.userData = new UserDataBuilder().setUserId(param[UserConsts.KEY_USER_ID]).setUserName(param[UserConsts.KEY_USER_NAME]).setThumbUrl(param[UserConsts.KEY_THUMB_URL]).getResult();
+                  console.log(this.userData.getUserName());
               } else {
                 // No param in returned value
 
               }
           });
-        } else {
+        // } else {
           // No user data in userDataService
-        }
+        // }
 
 
         this.userDataService.change_signout.subscribe(param => {

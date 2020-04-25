@@ -22,9 +22,11 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
     def get(self, user_id):
         self.log.debug('get_user')
         result = Result()
+        self.log.debug(user_id)
         self.log.debug(type(user_id))
+        self.log.debug(self.is_num(user_id))
 
-        if user_id is None or self.is_num(user_id) is not False:
+        if user_id is None:
             self.log.debug('user is none or not string')
             result.set_error_message('user_id is none or not number')
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)

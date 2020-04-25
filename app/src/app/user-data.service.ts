@@ -1,4 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core'
+import { Observable, of } from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 import { FacebookService } from './facebook.service';
@@ -63,17 +64,51 @@ export class UserDataService {
         return this.thumb_url;
     }
 
-    deleteUserData(): void {
+    // deleteUserData(): void {
+    //     console.log('deleteUserData');
+    //     this.fbService.logout().pipe(
+    //         tap(params => console.log(params))
+    //     ).subscribe(result => {
+    //         console.log(result);
+    //         this.user_id = null;
+    //         this.user_name = null;
+    //         this.thumb_url = null;
+    //         this.cookieService.deleteAll();
+    //     });
+
+    // }
+
+    deleteUserData(): Observable<any> {
         console.log('deleteUserData');
-        this.fbService.logout().pipe(
-            tap(params => console.log(params))
-        ).subscribe(result => {
-            console.log(result);
-            this.user_id = null;
-            this.user_name = null;
-            this.thumb_url = null;
-            this.cookieService.deleteAll();
+        return new Observable((observer) => {
+            this.fbService.logout().pipe(
+                tap(params => console.log(params))
+            ).subscribe(result => {
+
+                console.log(result);
+                this.user_id = null;
+                this.user_name = null;
+                this.thumb_url = null;
+                this.cookieService.deleteAll();
+
+                observer.next(result);
+                observer.complete();
+
+            });
         });
+
+
+
+
+        // this.fbService.logout().pipe(
+        //     tap(params => console.log(params))
+        // ).subscribe(result => {
+        //     console.log(result);
+        //     this.user_id = null;
+        //     this.user_name = null;
+        //     this.thumb_url = null;
+        //     this.cookieService.deleteAll();
+        // });
 
     }
 

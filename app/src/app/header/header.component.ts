@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { UserConsts } from '../constants';
 
@@ -43,7 +44,17 @@ export class HeaderComponent implements OnInit {
 
     ClearUserData(): void{
       console.log('RemodeUserData');
-      this.userDataService.deleteUserData();
+      // this.userDataService.deleteUserData();
+      this.userDataService.deleteUserData().pipe(
+          tap(params => console.log(params))
+          // catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+      ).subscribe(param => {
+        console.log(param);
+        this.userData = null;
+
+        //TODO Update userinfo in server
+
+      });
     }
 
     sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {

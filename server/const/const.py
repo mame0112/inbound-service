@@ -30,6 +30,7 @@ class Conversation:
     KEY_VISIT_ID = "visit_id"
     KEY_VISITOR_NAME = "visitor_name"
     KEY_VISITOR_THUMB_URL = "visitor_thumb_url"
+    KEY_CURRENT_USER_ID = "current_user_id"
     KEY_MESSAGES = "messages"
     KEY_MESSAGES_SENDER_ID = "msg_sender_id"
     KEY_MESSAGES_SENDER_NAME = "msg_sender_name"

@@ -120,6 +120,23 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
             self.update_user_parameters(visitor_user_id, None, None, None,
                                         None, convs_guest, None, None, None)
 
+            # Send Facebook message
+            if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
+                    Conversation.KEY_HOST_ID]:
+                # Current user is host. Then send Facebook Message to visitor
+                self.log.debug('Current user is host')
+                self.send_facebook_message(
+                    conv_data[Conversation.KEY_VISITOR_ID])
+            else:
+                self.log.debug('Current user is not host')
+
+            if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
+                    Conversation.KEY_VISITOR_ID]:
+                self.log.debug('Current user is visitor')
+                self.send_facebook_message(conv_data[Conversation.KEY_HOST_ID])
+            else:
+                self.log.debug('Current user is not visitor')
+
             # Create result
             conv_id = {}
             conv_id[Conversation.KEY_CONVERSATION_ID] = ut

@@ -3,7 +3,9 @@ from abc import ABC, abstractmethod
 from google.cloud import datastore
 
 from server.result.result import Result
-from server.const.const import Consts, User, Conversation, State, HttpResponseCode
+from server.const.const import Consts, User, Visit, Conversation, State, HttpResponseCode
+
+from server.facebook.fb_message_sender import FacebookMessageSender
 
 
 class AbstractDatastoreCommander(ABC):
@@ -69,7 +71,7 @@ class AbstractDatastoreCommander(ABC):
 
             client.put(entity)
 
-    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans, psid):
+    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_with_guest, user_properties, key_plans, psid):
         self.log.debug('update_user_parameters')
         self.log.debug(user_id)
         self.log.debug(psid)
@@ -77,7 +79,7 @@ class AbstractDatastoreCommander(ABC):
         # self.log.debug(thumb_url)
         # self.log.debug(access_token)
         # self.log.debug(convs_host)
-        # self.log.debug(convs_guest)
+        # self.log.debug(convs_with_guest)
         # self.log.debug(user_properties)
         # self.log.debug(key_plans)
 
@@ -119,7 +121,7 @@ class AbstractDatastoreCommander(ABC):
 
                 entity[User.KEY_CONVERSATIONS_HOST] = json_host_array
 
-            if convs_guest is not None:
+            if convs_with_guest is not None:
                 json_guest_array = entity[User.KEY_CONVERSATIONS_GUEST]
 
                 is_existing = False
@@ -128,15 +130,15 @@ class AbstractDatastoreCommander(ABC):
 
                     try:
                         # Update if already exist
-                        if obj[Conversation.KEY_VISIT_ID] == convs_guest[Conversation.KEY_VISIT_ID]:
+                        if obj[Conversation.KEY_VISIT_ID] == convs_with_guest[Conversation.KEY_VISIT_ID]:
                             self.log.debug('Visitor id matched')
-                            obj[Conversation.KEY_HOST_ID] = convs_guest[
+                            obj[Conversation.KEY_HOST_ID] = convs_with_guest[
                                 Conversation.KEY_HOST_ID]
-                            obj[Conversation.KEY_HOST_NAME] = convs_guest[
+                            obj[Conversation.KEY_HOST_NAME] = convs_with_guest[
                                 Conversation.KEY_HOST_NAME]
-                            obj[Conversation.KEY_HOST_THUMB_URL] = convs_guest[
+                            obj[Conversation.KEY_HOST_THUMB_URL] = convs_with_guest[
                                 Conversation.KEY_HOST_THUMB_URL]
-                            obj[Conversation.KEY_CONVERSATION_ID] = convs_guest[
+                            obj[Conversation.KEY_CONVERSATION_ID] = convs_with_guest[
                                 Conversation.KEY_CONVERSATION_ID]
 
                             is_existing = True
@@ -144,22 +146,25 @@ class AbstractDatastoreCommander(ABC):
                         pass
 
                 # Create new if this vist deosn't exist
-                if is_existing is False:
+                # if is_existing is False:
 
-                    new_obj = {}
+                #     new_obj = {}
 
-                    # TODO Need to update this part
-                    # new_obj[Visit.KEY_VISIT_ID] = convs_guest[
-                    #     Visit.KEY_VISIT_ID]
-                    # new_obj[Visit.KEY_PLACE] = convs_guest[Visit.KEY_PLACE]
-                    # new_obj[Visit.KEY_START] = convs_guest[Visit.KEY_START]
-                    # new_obj[Visit.KEY_END] = convs_guest[Visit.KEY_END]
-                    # # TODO Need to catch because comment is optional field
-                    # new_obj[Visit.KEY_COMMENT] = convs_guest[Visit.KEY_COMMENT]
+                #     new_obj[Visit.KEY_VISIT_ID] = convs_with_guest[
+                #         Visit.KEY_VISIT_ID]
+                #     new_obj[Visit.KEY_PLACE] = convs_with_guest[
+                #         Visit.KEY_PLACE]
+                #     new_obj[Visit.KEY_START] = convs_with_guest[
+                #         Visit.KEY_START]
+                #     new_obj[Visit.KEY_END] = convs_with_guest[Visit.KEY_END]
+                #     # TODO Need to catch because comment is optional field
+                #     new_obj[Visit.KEY_COMMENT] = convs_with_guest[
+                #         Visit.KEY_COMMENT]
 
-                    # json_guest_array.append(new_obj)
+                #     json_guest_array.append(new_obj)
 
-                    # json_guest_array.append(convs_guest)
+                #     json_guest_array.append(convs_with_guest)
+
                 entity[User.KEY_CONVERSATIONS_GUEST] = json_guest_array
 
             if user_properties is not None:
@@ -181,3 +186,8 @@ class AbstractDatastoreCommander(ABC):
             return result
 
         return result
+
+    def send_facebook_message(self, target_user_id):
+        self.log.debug('send_facebook_message')
+        sender = FacebookMessageSender()
+        return sender.send(target_user_id)

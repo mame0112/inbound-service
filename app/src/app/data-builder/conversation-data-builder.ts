@@ -54,6 +54,11 @@ export class ConversationDataBuilder {
         return this;
     }
 
+    setCurrentUserId(current_user_id: string): ConversationDataBuilder {
+        this.conversation.setCurrentUserId(current_user_id);
+        return this;
+    }
+
     getResult(): Conversation{
         return this.conversation;
     }

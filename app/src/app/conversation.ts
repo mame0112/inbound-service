@@ -9,6 +9,7 @@ export class Conversation {
     visitor_thumb_url: string;
     messages: object[];
     visit_id: number;
+    current_user_id: string;
 
 
     constructor(){}
@@ -49,6 +50,10 @@ export class Conversation {
         this.visit_id = visit_id;
     }
 
+    setCurrentUserId(current_user_id: string): void {
+        this.current_user_id = current_user_id;
+    }
+
     addMessage(message: object): void {
         this.messages.push(message);
     }
@@ -87,6 +92,10 @@ export class Conversation {
 
     getVisitId(): number {
         return this.visit_id;
+    }
+
+    getCurrentUserId(): string {
+        return this.current_user_id;
     }
 
     

@@ -43,8 +43,9 @@ class FacebookMessageSender():
         if response is not None:
             self.log.debug(response)
             self.log.debug(response.text)
+            return True
         else:
             self.log.debug('Else')
-            return None
+            return False
 
-        return
+        return False

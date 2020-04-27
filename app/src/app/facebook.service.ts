@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 import { UserConsts } from './constants';
 
@@ -12,9 +12,11 @@ declare var FB: any;
 })
 export class FacebookService {
 
-
+    private fbSubject: Subject<string> = new Subject();
+    private fbState = this.fbSubject.asObservable();
 
     constructor() {
+
         console.log('FacebookService');
 
 
@@ -29,6 +31,7 @@ export class FacebookService {
             });
 
             FB.getLoginStatus(response => {
+                this.fbSubject.next('getLoginStatus');
                 this.statusChangeCallback(response); 
             });
 
@@ -52,6 +55,7 @@ export class FacebookService {
         var send_to_messenger_callback = function(e) {
             console.log('send_to_messenger');
             console.log(e);
+            this.fbSubject.next(e);
             if (e.event !== undefined && e.event == 'opt_in'){
                 console.log(e.event);
                 console.log(e.ref);
@@ -64,6 +68,10 @@ export class FacebookService {
 
     }
 
+    getState(): Observable<string>{
+        return this.fbState;
+    }
+
 
 
     statusChangeCallback(response): void{
@@ -74,6 +82,8 @@ export class FacebookService {
             console.log('Logged in');
             var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
+            console.log(uid);
+            console.log(accessToken);
         } else if (response.status === 'not_authorized'){
             // The user hasn't authorized your application.  They
             // must click the Login button, or you must call FB.login

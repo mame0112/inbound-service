@@ -30,10 +30,15 @@ export class LandingComponent implements OnInit {
 
   constructor(private router: Router,
     private apiService: ApiService,
-   // private authService: AuthService,
-   private userDataService: UserDataService,
-   private analyticsService: AnalyticsService,
-   private fbService: FacebookService) { }
+    private userDataService: UserDataService,
+    private analyticsService: AnalyticsService,
+    private fbService: FacebookService) {
+
+    this.fbService.getState().subscribe(param => console.log(param));
+
+
+
+  }
    // private analyticsService: AnalyticsService,
    // private jsService: JsExecuteService ) { }
 

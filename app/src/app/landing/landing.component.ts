@@ -1,8 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
@@ -12,6 +14,7 @@ import { FacebookService } from '../facebook.service';
 
 import { Constants, UserConsts } from '../constants';
 import { User } from '../user';
+import { FacebookData, Category } from '../facebook-data';
 
 import { UserDataBuilder } from '../data-builder/user-data-builder';
 
@@ -20,9 +23,12 @@ import { UserDataBuilder } from '../data-builder/user-data-builder';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
 
   // user: SocialUser;
+
+  subscription: Subscription;
+
   userObj: User;
   loggedIn: boolean;
 
@@ -34,9 +40,28 @@ export class LandingComponent implements OnInit {
     private analyticsService: AnalyticsService,
     private fbService: FacebookService) {
 
-    this.fbService.getState().subscribe(param => console.log(param));
+    this.subscription = this.fbService.getState().subscribe(param => {
+      console.log(param);
+      let category = Category[param['_category']];
+      let content = param['_content'];
+      switch(Category[category]){
+        case Category.ALREADY_LOGGED_IN:
+          console.log('Already logged in');
+          var user_id = content[UserConsts.KEY_USER_ID];
+          console.log(user_id);
+          break;
+        case Category.NOT_LOGGED_IN:
+          console.log('Not logged in');
+          break;
+        case Category.SEND_TO_MESSENGER:
+          // Nothing to do
+          console.log('send_to_message');
+        break;
+        default:
+        break;
+      }
 
-
+    });
 
   }
    // private analyticsService: AnalyticsService,
@@ -68,6 +93,17 @@ export class LandingComponent implements OnInit {
     // });
 
   }
+
+  ngOnDestroy(){
+    console.log('LandingComponent ngOnDestroy');
+    if (this.subscription) {
+      console.log('unsubscribe');
+      this.subscription.unsubscribe();
+    }
+
+  }
+
+
 
   signInWithFB(): void {
     console.log('signInWithFB')

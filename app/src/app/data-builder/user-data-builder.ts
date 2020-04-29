@@ -9,7 +9,6 @@ export class UserDataBuilder {
     }
 
     setUserId(user_id: string): UserDataBuilder {
-        console.log(user_id);
         this.user.setUserId(user_id);
         return this;
     }

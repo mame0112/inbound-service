@@ -13,7 +13,6 @@ export class User {
 
 
     setUserId(user_id: string): void {
-        console.log(user_id);
         this.user_id = user_id;
     }
 

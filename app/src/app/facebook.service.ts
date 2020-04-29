@@ -4,6 +4,8 @@ import { Observable, of, Subject } from 'rxjs';
 
 import { UserConsts } from './constants';
 
+import { FacebookData, Category } from './facebook-data';
+
 declare var window: any;
 declare var FB: any;
 
@@ -12,7 +14,7 @@ declare var FB: any;
 })
 export class FacebookService {
 
-    private fbSubject: Subject<string> = new Subject();
+    private fbSubject: Subject<FacebookData> = new Subject();
     private fbState = this.fbSubject.asObservable();
 
     constructor() {
@@ -31,14 +33,29 @@ export class FacebookService {
             });
 
             FB.getLoginStatus(response => {
-                this.fbSubject.next('getLoginStatus');
                 this.statusChangeCallback(response); 
+
             });
 
 
+            // FB.Event.subscribe('send_to_messenger', send_to_messenger_callback);
+            FB.Event.subscribe('auth.statusChange', response => {
+                console.log("auth_status_change_callback: " + response.status);
+            });
 
-            FB.Event.subscribe('send_to_messenger', send_to_messenger_callback);
-            FB.Event.subscribe('auth.statusChange', auth_status_change_callback);
+            FB.Event.subscribe('send_to_messenger', e => {
+                if (e.event !== undefined && e.event == 'opt_in'){
+                    console.log(e.event);
+                    console.log(e.ref);
+                    if(this.fbSubject != null){
+                        var fbData = new FacebookData(Category.SEND_TO_MESSENGER, null);
+                        this.fbSubject.next(fbData);
+                        // console.log('Not null');
+                    } else {
+                        // console.log('Null');
+                    }
+                }
+            });
 
         };
 
@@ -51,24 +68,35 @@ export class FacebookService {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
+        // var send_to_messenger_callback = function(e) {
+        //     console.log('send_to_messenger');
+        //     console.log(e);
+        //     if (e.event !== undefined && e.event == 'opt_in'){
+        //         console.log(e.event);
+        //         console.log(e.ref);
+        //         if(this.fbSubject != null){
+        //             var fbData = new FacebookData(Category.NOT_LOGGED_IN, null);
+        //             this.fbSubject.next(fbData);
+        //             // console.log('Not null');
+        //         } else {
+        //             // console.log('Null');
+        //         }
 
-        var send_to_messenger_callback = function(e) {
-            console.log('send_to_messenger');
-            console.log(e);
-            this.fbSubject.next(e);
-            if (e.event !== undefined && e.event == 'opt_in'){
-                console.log(e.event);
-                console.log(e.ref);
-            }
-        }
+        //         if(this.user != null){
+        //             console.log('Not null');
+        //         } else {
+        //             console.log('Null');
+        //         }
+        //     }
+        // }
 
-        var auth_status_change_callback = function(response) {
-            console.log("auth_status_change_callback: " + response.status);
-        }
+        // var auth_status_change_callback = function(response) {
+        //     console.log("auth_status_change_callback: " + response.status);
+        // }
 
     }
 
-    getState(): Observable<string>{
+    getState(): Observable<FacebookData>{
         return this.fbState;
     }
 
@@ -84,14 +112,26 @@ export class FacebookService {
             var accessToken = response.authResponse.accessToken;
             console.log(uid);
             console.log(accessToken);
+
+            var content = {};
+            content[UserConsts.KEY_USER_ID] = uid;
+
+
+            var fbData = new FacebookData(Category.ALREADY_LOGGED_IN, content);
+            this.fbSubject.next(fbData);
+
         } else if (response.status === 'not_authorized'){
             // The user hasn't authorized your application.  They
             // must click the Login button, or you must call FB.login
             // in response to a user gesture, to launch a login dialog.
             console.log('Not authrized');
+            var fbData = new FacebookData(Category.NOT_LOGGED_IN, null);
+            this.fbSubject.next(fbData);
         }else{
             // The user isn't logged in to Facebook.
             console.log('Not logged in');
+            var fbData = new FacebookData(Category.NOT_LOGGED_IN, null);
+            this.fbSubject.next(fbData);
         }
     }
 

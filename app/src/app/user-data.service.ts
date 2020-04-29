@@ -33,7 +33,6 @@ export class UserDataService {
         if(this.user_id == null || this.user_id.length <= 1){
             return null;
         }
-        console.log(this.user_id);
         this.user_name = this.cookieService.get(Constants.COOKIE_USER_NAME);
         this.thumb_url = this.cookieService.get(Constants.COOKIE_THUMB_URL);
 
@@ -42,7 +41,6 @@ export class UserDataService {
 
     signin(userData: any) {
         console.log('UserDataService signin');
-        console.log(userData.user_id);
         this.change.emit(userData);
         this.user_id = userData.user_id;
         this.user_name = userData.user_name;

@@ -40,13 +40,10 @@ export class ChooseComponent implements OnInit {
 
         switch(Category[category]){
           case Category.ALREADY_LOGGED_IN:
-            console.log('Already logged in');
-            break;
           case Category.NOT_LOGGED_IN:
-            console.log('Not logged in');
+            // Nothing to do
             break;
           case Category.SEND_TO_MESSENGER:
-            // Nothing to do
             console.log('send_to_message');
             break;
           default:
@@ -63,19 +60,18 @@ export class ChooseComponent implements OnInit {
       console.log(this.user_id);
    }
 
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit');
+    window.FB.XFBML.parse();
+
+  }
+
   ngOnDestroy(){
     console.log('ChooseComponent ngOnDestroy');
     if (this.subscription) {
       console.log('unsubscribe');
       this.subscription.unsubscribe();
     }
-
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-    window.FB.XFBML.parse();
-
   }
 
   sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {

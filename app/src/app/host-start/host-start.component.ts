@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { flatMap, mergeMap, concatMap } from 'rxjs/operators';
 import { catchError, map, tap } from 'rxjs/operators';
+
+import { Subscription } from 'rxjs';
 
 import { Router } from '@angular/router';
 
@@ -10,6 +12,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 import { AnalyticsService } from '../analytics.service';
+import { FacebookService } from '../facebook.service';
+import { FacebookData, Category } from '../facebook-data';
 
 import { Constants, VisitConsts, ConversationConsts } from '../constants';
 
@@ -39,6 +43,8 @@ export class HostStartComponent implements OnInit {
     static readonly MATCH_WITH_VISITOR = 2;
     static readonly WAITING_FOR_VISITOR = 3;
 
+    subscription: Subscription;
+
     state = HostStartComponent.Start;
 
     matched_visit: Visit;
@@ -56,42 +62,46 @@ export class HostStartComponent implements OnInit {
       private userDataService: UserDataService,
       private router: Router,
       public dialog: MatDialog,
-      private analyticsService: AnalyticsService) {
-      console.log('constructor');
-      //   (function(d, s, id){
-      //           var js, fjs = d.getElementsByTagName(s)[0];
-      //           if (d.getElementById(id)) {return;}
-      //           js = d.createElement(s); js.id = id;
-      //           js.src = '//connect.facebook.net/en_US/sdk.js';
-      //           fjs.parentNode.insertBefore(js, fjs);
-      //       }(document, 'script', 'facebook-jssdk'));
+      private analyticsService: AnalyticsService,
+      private fbService: FacebookService) {
+        console.log('constructor');
+        this.subscription = this.fbService.getState().subscribe(param => {
+          console.log(param);
+          let category = Category[param['_category']];
+          let content = param['_content'];
 
-      // window.fbAsyncInit = function() {
-      //   console.log('fbAsyncInit executed');
-      //   FB.init({
-      //     appId            : '1194303814099473',
-      //     autoLogAppEvents : true,
-      //     xfbml            : true,
-      //     version          : 'v6.0'
-      //   });
-
-
-      //   FB.Event.subscribe('send_to_messenger', function(e) {
-      //     console.log('send_to_messenger');
-      //     if (e.event !== undefined && e.event == 'opt_in'){
-      //       console.log(e);
-      //       this.openDialog(1, 'Thank you very much. We would let you know soon', 'OK', null);
-      //     }
-
-      //   });
-
-      // };
+          switch(Category[category]){
+            case Category.ALREADY_LOGGED_IN:
+            case Category.NOT_LOGGED_IN:
+              // Nothing to do
+              break;
+            case Category.SEND_TO_MESSENGER:
+              console.log('send_to_message');
+              break;
+            default:
+              break;
+          }
+      });
     }
 
     ngOnInit() {
       this.state = HostStartComponent.Start;
-      window.FB.XFBML.parse();
     }
+
+    ngAfterViewInit() {
+      console.log('ngAfterViewInit');
+      window.FB.XFBML.parse();
+
+    }
+
+    ngOnDestroy(){
+      console.log('HostStartComponent ngOnDestroy');
+      if (this.subscription) {
+        console.log('unsubscribe');
+        this.subscription.unsubscribe();
+      }
+    }
+
 
     onNextButtonClicked() {
         console.log('onNextButtonClicked');

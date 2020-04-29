@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { flatMap } from 'rxjs/operators';
+
+import { Subscription } from 'rxjs';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,6 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
 import { AnalyticsService } from '../analytics.service';
+import { FacebookService } from '../facebook.service';
+import { FacebookData, Category } from '../facebook-data';
 
 import { Visit } from '../visit';
 import { Host } from '../host';
@@ -28,6 +32,8 @@ declare var FB: any;
   styleUrls: ['./visit-start.component.css']
 })
 export class VisitStartComponent implements OnInit {
+
+    subscription: Subscription;
 
     isOverview = true;
     host: Host;
@@ -60,40 +66,46 @@ export class VisitStartComponent implements OnInit {
         private apiService: ApiService,
         private userDataService: UserDataService,
         private router: Router,
-        private analyticsService: AnalyticsService) {
-      console.log('constructor');
-      //   (function(d, s, id){
-      //           var js, fjs = d.getElementsByTagName(s)[0];
-      //           if (d.getElementById(id)) {return;}
-      //           js = d.createElement(s); js.id = id;
-      //           js.src = '//connect.facebook.net/en_US/sdk.js';
-      //           fjs.parentNode.insertBefore(js, fjs);
-      //       }(document, 'script', 'facebook-jssdk'));
+        private analyticsService: AnalyticsService,
+        private fbService: FacebookService) {
+        console.log('constructor');
 
-      // window.fbAsyncInit = function() {
-      //   console.log('fbAsyncInit executed');
-      //   FB.init({
-      //     appId            : '1194303814099473',
-      //     autoLogAppEvents : true,
-      //     xfbml            : true,
-      //     version          : 'v6.0'
-      //   });
+        this.subscription = this.fbService.getState().subscribe(param => {
+          console.log(param);
+          let category = Category[param['_category']];
+          let content = param['_content'];
 
+          switch(Category[category]){
+            case Category.ALREADY_LOGGED_IN:
+            case Category.NOT_LOGGED_IN:
+              // Nothing to do
+              break;
+            case Category.SEND_TO_MESSENGER:
+              console.log('send_to_message');
+              break;
+            default:
+              break;
+          }
+      });
 
-      //   FB.Event.subscribe('send_to_messenger', function(e) {
-      //       console.log('send_to_messenger');
-      //       console.log(e);
-      //       if (e.event !== undefined && e.event == 'opt_in'){
-      //         this.openDialog(1, 'Thank you very much. We would let you know soon', 'OK', null);
-      //       }
-      //   });
-
-      // };
     }
 
     ngOnInit() {
         this.createVisitJson();
-        window.FB.XFBML.parse();
+    }
+
+    ngAfterViewInit() {
+      console.log('ngAfterViewInit');
+      window.FB.XFBML.parse();
+
+    }
+
+    ngOnDestroy(){
+      console.log('VisitStartComponent ngOnDestroy');
+      if (this.subscription) {
+        console.log('unsubscribe');
+        this.subscription.unsubscribe();
+      }
     }
 
     onNextButtonClicked() {

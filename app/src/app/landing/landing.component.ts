@@ -104,7 +104,6 @@ export class LandingComponent implements OnInit, OnDestroy {
   }
 
 
-
   signInWithFB(): void {
     console.log('signInWithFB')
     // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);

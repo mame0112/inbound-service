@@ -19,6 +19,7 @@
   <!-- state 1 end -->
   <!-- state 2 start -->
     <form *ngIf="state === 2" fxLayout="column" fxFlexFill (ngSubmit)="onSubmit()" #form1="ngForm">
+    <!-- <form [hidden]="state !== 2" fxLayout="column" fxFlexFill (ngSubmit)="onSubmit()" #form1="ngForm"> -->
       <div class="page_title" fxFlex>Create your plan</div>
       <div class="page_sub_title" fxFlex>Problem / Concerns</div>
       <div fxFlex>Please select your concerns for your japan travel. You can select more than two items</div>
@@ -105,7 +106,8 @@
   <!-- state 2 end -->
 
   <!-- state 3 start -->
-  <div *ngIf="state === 3" fxLayout="column">
+  <!-- <div *ngIf="state === 3" fxLayout="column"> -->
+  <div [hidden]="state !== 3" fxLayout="column">
     <div fxFlex>
       <p class="page_title">Waiting for hosts...</p>
     </div>
@@ -125,6 +127,7 @@
   </div>
   <!-- state 3 end -->
   <!-- state 4 start -->
+  <!-- <div [hidden]="state !== 4" fxLayout="column"> -->
   <div *ngIf="state === 4" fxLayout="column">
     <div fxFlex>
       <p class="page_title">Congraturations! Matched with your host.</p>

@@ -39,7 +39,6 @@ export class VisitStartComponent implements OnInit {
     host: Host;
     user_id: string;
 
-
     problems = {
         '01_exit': {'icon': 'exit', 'label': 'Exit of big station'},
         '02_language': {'icon': 'language', 'label': 'Japanese language'},
@@ -96,7 +95,9 @@ export class VisitStartComponent implements OnInit {
 
     ngAfterViewInit() {
       console.log('ngAfterViewInit');
-      window.FB.XFBML.parse();
+      if(window.FB !== undefined){
+        window.FB.XFBML.parse();
+      }
 
     }
 

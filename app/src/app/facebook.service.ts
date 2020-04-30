@@ -57,6 +57,15 @@ export class FacebookService {
                 }
             });
 
+            // FB.Event.subscribe('xfbml.render', response => {
+            //     console.log('xfbml.render');
+            //     console.log(response);
+            //     if(response == 2){
+            //         var fbData = new FacebookData(Category.SEND_TO_MESSENGER, null);
+            //         this.fbSubject.next(fbData);
+            //     }
+            // });
+
         };
 
 

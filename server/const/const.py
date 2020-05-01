@@ -3,7 +3,7 @@ class Consts:
     NO_USER = -1
     NO_PSID = -1
     ALL_VISITS = -1
-    # IS_DEBUG = True
+    VISIT_QUERY_NUM = 3
 
 
 class User:

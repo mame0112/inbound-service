@@ -66,45 +66,6 @@
         </div>
       </div>
    </form>
-
-<!--     <form *ngIf="state === 2" fxLayout="column" fxFlexFill (ngSubmit)="onSubmit()" #form1="ngForm">
-      <div fxFlex>
-        <label class="col-sm-2 control-label">Place</label>
-        <div class="col-sm-5">
-          <input type="text" name="name" required class="form-control" [(ngModel)]="visit.place" #name="ngModel">
-            <div class="alert alert-danger" [hidden]="name.valid || name.untouched">
-              <span class="glyphicon glyphicon-exclamation-sign"></span> Place is required
-            </div>
-        </div>
-      </div>
-
-      <mat-form-field class="visit_start_picker" fxFlex>
-        <input matInput [matDatepicker]="picker_start" placeholder="Choose a date" name="start date" required [(ngModel)]="visit.start" #start="ngModel">
-        <mat-datepicker-toggle matSuffix [for]="picker_start"></mat-datepicker-toggle>
-        <mat-datepicker #picker_start></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field class="visit_start_picker" fxFlex>
-        <input matInput [matDatepicker]="picker_end" placeholder="Choose a date" name="end date" required [(ngModel)]="visit.end" #end="ngModel">
-        <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
-        <mat-datepicker #picker_end></mat-datepicker>
-      </mat-form-field>
-
-      <div class="form-group" fxFlex>
-        <label class="col-sm-2 control-label">Comment</label>
-        <div class="col-sm-5">
-          <input type="text" class="form-control" name="nickname" [(ngModel)]="visit.comment" #comment>
-        </div>
-      </div>
-
-      <div class="form-group" fxFlex>
-        <div class="col-sm-offset-2 col-sm-5">
-          <button type="submit" class="btn btn-primary" [disabled]="!form1.form.valid">Create visit plan</button>
-        </div>
-      </div>
-    </form> -->
-  <!-- state 2 end -->
-
   <!-- state 3 start -->
   <!-- <div *ngIf="state === 3" fxLayout="column"> -->
   <div [hidden]="state !== 3" fxLayout="column">

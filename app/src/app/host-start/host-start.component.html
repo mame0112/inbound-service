@@ -67,7 +67,8 @@
         </mat-card>
     </div>
     <!-- No visitor waiting -->
-    <div *ngIf="state === 3" fxLayout="column">
+    <div [hidden]="state !== 3" fxLayout="column">
+    <!-- <div *ngIf="state === 3" fxLayout="column"> -->
         <div fxFlex>
           <p class="page_title">Waiting for visitors...</p>
         </div>

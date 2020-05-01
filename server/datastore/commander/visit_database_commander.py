@@ -23,7 +23,7 @@ class VisitDatastoreCommander(AbstractDatastoreCommander):
 
         result = Result()
 
-        if visit_id is None or self.is_num(visit_id) is False:
+        if visit_id is None:
             self.log.debug('visit_is is none or not number')
             result.set_error_message('visit_is is none or not number')
             result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
@@ -37,7 +37,7 @@ class VisitDatastoreCommander(AbstractDatastoreCommander):
             # Get latest 5 visits
             try:
                 query = client.query(kind=Visit.KIND_NAME)
-                entities = list(query.fetch())
+                entities = list(query.fetch(limit=Consts.VISIT_QUERY_NUM))
                 if entities is not None and len(entities) != 0:
                     processor = VisitDataFormatProcessor()
                     visit_jsonobj = processor.entities_to_jsonarray(entities)

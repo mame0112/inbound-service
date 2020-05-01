@@ -27,6 +27,11 @@ class VisitDataFormatProcessor(AbstractDataFormatProcessor):
         data[Visit.KEY_START] = entity[Visit.KEY_START]
         data[Visit.KEY_END] = entity[Visit.KEY_END]
         data[Visit.KEY_COMMENT] = entity[Visit.KEY_COMMENT]
+        try:
+            data[Visit.KEY_PROBLEMS] = entity[Visit.KEY_PROBLEMS]
+        except KeyError as error:
+            self.log.debug(error)
+            pass
 
         self.log.debug(json.dumps(data))
 
@@ -48,6 +53,11 @@ class VisitDataFormatProcessor(AbstractDataFormatProcessor):
             data[Visit.KEY_START] = entity[Visit.KEY_START]
             data[Visit.KEY_END] = entity[Visit.KEY_END]
             data[Visit.KEY_COMMENT] = entity[Visit.KEY_COMMENT]
+            try:
+                data[Visit.KEY_PROBLEMS] = entity[Visit.KEY_PROBLEMS]
+            except KeyError as error:
+                self.log.debug(error)
+                pass
 
             jsonobj.append(data)
 

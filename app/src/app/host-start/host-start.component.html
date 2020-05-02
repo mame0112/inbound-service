@@ -31,9 +31,17 @@
             </p>
             <div class="visit_info" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
                 <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+                    <div class="title" fxFlex="40%">Problems</div>
+                    <div fxFlex="60%" fxLayout="column" *ngFor="let problem of matched_visit.problems" class="tmp">
+                        <div fxFlex class="tmp2">{{getLabel(problem)}}</div>
+                        <img [src]='"/assets/image/problems/"+getIconName(problem)+".png"'>
+                        <!-- <div fxFlex class="tmp2">{{getIconName(problem)}}</div> -->
+                    </div>
+                </div>
+                <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
                     <div class="title" fxFlex="40%">Place</div>
                     <div fxFlex="60%">{{matched_visit.place}}</div>
-                </div> 
+                </div>
                 <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
                     <div class="title" fxFlex fxFlex="40%">Schedule</div>
                     <div fxFlex fxFlex="60%">{{matched_visit.start}} - {{matched_visit.end}}</div>
@@ -46,24 +54,6 @@
             <div fxFlex> 
                 <button mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
             </div>
-<!--             <div class="tmp" fxFlex="80%" fxLayout="column" fxLayoutAlign="start start">
-                <div fxFlex fxLayout="row" fxLayoutAlign="start start">
-                    <div fxFlex>Place</div>
-                    <div fxFlex>{{matched_visit.place}}</div>
-                </div> 
-                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                    <div fxFlex>Schedule</div>
-                    <div fxFlex><p>{{matched_visit.start}}</p> - <p>{{matched_visit.end}}</p></div>
-                </div>
-                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                    <div fxFlex>Comment</div>
-                    <div fxFlex>{{matched_visit.comment}}</div>
-                </div> 
-            </div>
-            <div fxFlex> 
-                <button mat-flat-button color="primary" (click)="startConversation()">Start conversation</button>
-            </div>
-        -->
         </mat-card>
     </div>
     <!-- No visitor waiting -->

@@ -24,7 +24,7 @@
       <div class="page_sub_title" fxFlex>Problem / Concerns</div>
       <div fxFlex>Please select your concerns for your japan travel. You can select more than two items</div>
       <!-- <div class="form-group" fxFlex> -->
-      <mat-selection-list fxFlex #problem [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)" name="problem">
+      <mat-selection-list fxFlex #problem [(ngModel)]="selectedOptions" (ngModelChange)="onProblemItemSelected($event)" name="problem">
         <mat-list-option *ngFor="let problem of problems | keyvalue" [value]="problem">
           <img matListAvatar [src]='"/assets/image/problems/"+problem.value.icon+".png"' class="problem_image">
           <div matLine>{{problem.value.label}}</div>

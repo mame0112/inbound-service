@@ -20,6 +20,7 @@ import { Constants, VisitConsts, ConversationConsts } from '../constants';
 import { Visit } from '../visit';
 import { Host } from '../host';
 import { User } from '../user';
+import { Problems } from '../problems';
 
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
@@ -57,6 +58,8 @@ export class HostStartComponent implements OnInit {
     positive: string;
     negative: string;
 
+    problem = new Problems();
+
     constructor(
       private apiService: ApiService,
       private userDataService: UserDataService,
@@ -90,8 +93,9 @@ export class HostStartComponent implements OnInit {
 
     ngAfterViewInit() {
       console.log('ngAfterViewInit');
-      window.FB.XFBML.parse();
-
+      if(window.FB != null){
+        window.FB.XFBML.parse();
+      }
     }
 
     ngOnDestroy(){
@@ -147,7 +151,7 @@ export class HostStartComponent implements OnInit {
       let end = new Util().createDateForDisplay(obj[VisitConsts.KEY_END]);
 
       let builder = new VisitDataBuilder();
-      this.matched_visit = builder.setVisitId(obj[VisitConsts.KEY_VISIT_ID]).setUserId(obj[VisitConsts.KEY_USER_ID]).setUserName(obj[VisitConsts.KEY_USER_NAME]).setThumbUrl(obj[VisitConsts.KEY_THUMB_URL]).setPlace(obj[VisitConsts.KEY_PLACE]).setStart(start).setEnd(end).setComment(obj[VisitConsts.KEY_COMMENT]).getResult();
+      this.matched_visit = builder.setVisitId(obj[VisitConsts.KEY_VISIT_ID]).setUserId(obj[VisitConsts.KEY_USER_ID]).setUserName(obj[VisitConsts.KEY_USER_NAME]).setThumbUrl(obj[VisitConsts.KEY_THUMB_URL]).setPlace(obj[VisitConsts.KEY_PLACE]).setStart(start).setEnd(end).setComment(obj[VisitConsts.KEY_COMMENT]).setProblems(obj[VisitConsts.KEY_PROBLEMS]).getResult();
 
       this.state = HostStartComponent.MATCH_WITH_VISITOR;
 
@@ -215,6 +219,14 @@ export class HostStartComponent implements OnInit {
       console.log(result);
       // this.description = result;
     });
+  }
+
+  getIconName(id: string): string {
+    return this.problem.getIconName(id);
+  }
+
+  getLabel(id: string): string{
+    return this.problem.getLabel(id);
   }
 
   handleError(id: number, option: number): void {

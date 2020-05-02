@@ -17,6 +17,7 @@ import { FacebookData, Category } from '../facebook-data';
 
 import { Visit } from '../visit';
 import { Host } from '../host';
+import { Problems } from '../problems';
 
 import { Constants, HostConsts, VisitConsts, ConversationConsts } from '../constants';
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
@@ -39,16 +40,7 @@ export class VisitStartComponent implements OnInit {
     host: Host;
     user_id: string;
 
-    problems = {
-        '01_exit': {'icon': 'exit', 'label': 'Exit of big station'},
-        '02_language': {'icon': 'language', 'label': 'Japanese language'},
-        '03_restaurant': {'icon': 'restaurant', 'label': 'Best restaurant for me'},
-        '04_lost': {'icon': 'lost', 'label': 'How to get my destination'},
-        '05_train': {'icon': 'train', 'label': 'How to buy ticket & get in train'},
-        '06_menu': {'icon': 'menu', 'label': 'Japanese menu'},
-        '07_manner': {'icon': 'manner', 'label': 'Japanese manner'},
-        '99_others': {'icon': 'others', 'label': 'Others'}
-    }
+    problems = Problems.problems;
 
     static readonly Start = 1;
     static readonly Creation = 2;
@@ -212,7 +204,7 @@ export class VisitStartComponent implements OnInit {
     }
 
 
-    onNgModelChange(event){
+    onProblemItemSelected(event){
 
         let problem_array = [];
 

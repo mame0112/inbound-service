@@ -80,6 +80,7 @@ class VisitDatastoreCommander(AbstractDatastoreCommander):
         return result
 
     def post(self, visit_json):
+        self.log.debug('post')
         result = Result()
 
         try:

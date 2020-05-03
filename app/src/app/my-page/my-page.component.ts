@@ -97,7 +97,6 @@ export class MyPageComponent implements OnInit {
     }
 
     for(let content of inputs) {
-      console.log('AAA');
       console.log(content);
       let visit_id = content[VisitConsts.KEY_VISIT_ID];
       let place = content[VisitConsts.KEY_PLACE];

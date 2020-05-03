@@ -122,6 +122,7 @@ class AbstractDatastoreCommander(ABC):
                 entity[User.KEY_CONVERSATIONS_HOST] = json_host_array
 
             if convs_as_guest is not None:
+                self.log.debug(convs_as_guest)
                 json_guest_array = entity[User.KEY_CONVERSATIONS_GUEST]
 
                 # There are two patterns here.
@@ -157,9 +158,19 @@ class AbstractDatastoreCommander(ABC):
                     new_obj[Visit.KEY_START] = convs_as_guest[
                         Visit.KEY_START]
                     new_obj[Visit.KEY_END] = convs_as_guest[Visit.KEY_END]
-                    # TODO Need to catch because comment is optional field
-                    new_obj[Visit.KEY_COMMENT] = convs_as_guest[
-                        Visit.KEY_COMMENT]
+
+                    try:
+                        # Catch JeyErrir because comment is optional field
+                        new_obj[Visit.KEY_COMMENT] = convs_as_guest[
+                            Visit.KEY_COMMENT]
+                    except KeyError as error:
+                        self.log.debug(error)
+
+                    try:
+                        new_obj[Visit.KEY_PROBLEMS] = convs_as_guest[
+                            Visit.KEY_PROBLEMS]
+                    except KeyError as error:
+                        self.log.debug(error)
 
                     json_guest_array.append(new_obj)
 

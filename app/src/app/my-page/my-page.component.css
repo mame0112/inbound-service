@@ -10,6 +10,37 @@
     margin: 6px;
 }
 
+.card_title {
+    color: #000000;
+    font-size:24px;
+}
+
+.card_sub_title {
+    color: #1976D2;
+    font-size:18px;
+}
+
+.card_body {
+    color: #666666;
+    font-size:18px;
+}
+
+.card_footer {
+    color: #666666;
+    font-size:16px;
+}
+
+.card_small_thumbnail{
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+}
+
+.card_footer_highlight {
+    color: #1976D2;
+    font-size:16px;
+}
+
 .tmp {
     background-color: #FF0000;
 }

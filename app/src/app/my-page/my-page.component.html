@@ -34,9 +34,30 @@
     <div fxFlex *ngIf="visits?.length !== 0" fxFlexFill>
         <div fxLayout="column" *ngFor="let visit of visits">
             <a fxFlex [routerLink]="['/conversation', visit.conversation_id]">
-                <mat-card fxLayout="row" class="mypage-card" fxLayoutGap="4px">
-                    <img [src]="visit.visitor_thumb_url" fxFlex="0 0 100px">
-                    {{visit.place}} / {{visit.start}} / {{visit.end}}
+                <mat-card fxLayout="column" class="mypage-card" fxLayoutGap="4px">
+                    <div fxFlex class="card_title">
+                        {{visit.place}}
+                    </div>
+                    <div fxFlex class="card_sub_title">
+                        {{visit.start}} / {{visit.end}}
+                    </div>
+                    <div fxFlex class="card_body">
+                        {{visit.comment}}
+                    </div>
+                    <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center" *ngIf="visit.host_id != null && visit.host_name != null">
+                        <div fxFlex fxFlexFill class="card_footer">
+                            Hosted by
+                        </div>
+                        <div fxFlex="0 0 36px">
+                            <img [src]="visit.host_thumb_url" class="card_small_thumbnail">
+                        </div>
+                        <div fxFlex fxFlexFill class="card_footer_highlight">
+                            {{visit.host_name}}
+                        </div>
+                    </div>
+                    <div fxFlex fxFlexAlign="end" *ngIf="visit.host_id == null || visit.host_name == null" class="card_footer">
+                        No host found yet
+                    </div>
                 </mat-card>
             </a>
         </div>

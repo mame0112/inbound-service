@@ -25,6 +25,11 @@
     font-weight:bold;
 }
 
+.problem_image {
+    height: 60px;
+    width: 60px;
+}
+
 .tmp {
     background-color: #FF0000;
 }

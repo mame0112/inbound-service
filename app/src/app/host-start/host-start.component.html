@@ -32,10 +32,13 @@
             <div class="visit_info" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
                 <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
                     <div class="title" fxFlex="40%">Problems</div>
-                    <div fxFlex="60%" fxLayout="column" *ngFor="let problem of matched_visit.problems" class="tmp">
-                        <div fxFlex class="tmp2">{{getLabel(problem)}}</div>
-                        <img [src]='"/assets/image/problems/"+getIconName(problem)+".png"'>
-                        <!-- <div fxFlex class="tmp2">{{getIconName(problem)}}</div> -->
+                    <div fxFlex="60%" fxLayout="column">
+                        <div fxFlex *ngFor="let problem of matched_visit.problems">
+                            <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+                                <img fxFlex="20%" [src]='"/assets/image/problems/"+getIconName(problem)+".png"' class="problem_image">
+                                <div fxFlex="80%">{{getLabel(problem)}}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">

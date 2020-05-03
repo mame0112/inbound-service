@@ -47,9 +47,11 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
         return result
 
     def post(self, conv_data):
+        self.log.debug('post')
         result = Result()
 
         try:
+            self.log.debug(conv_data)
             ut = int(time.time())
 
             client = datastore.Client()
@@ -87,38 +89,38 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
 
             # Update user db (For Host)
             # TODO Need to add plan info
-            convs_host = {}
-            convs_host[Conversation.KEY_VISITOR_ID] = conv_data[
+            convs_as_host = {}
+            convs_as_host[Conversation.KEY_VISITOR_ID] = conv_data[
                 Conversation.KEY_VISITOR_ID]
-            convs_host[Conversation.KEY_VISITOR_NAME] = conv_data[
+            convs_as_host[Conversation.KEY_VISITOR_NAME] = conv_data[
                 Conversation.KEY_VISITOR_NAME]
-            convs_host[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
+            convs_as_host[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
                 Conversation.KEY_VISITOR_THUMB_URL]
-            convs_host[Conversation.KEY_CONVERSATION_ID] = ut
+            convs_as_host[Conversation.KEY_CONVERSATION_ID] = ut
 
             host_user_id = conv_data[Conversation.KEY_HOST_ID]
 
-            # user_id, user_name, thumb_url, access_token, convs_host, convs_guest, user_properties, key_plans
+            # user_id, user_name, thumb_url, access_token, convs_as_host, convs_as_guest, user_properties, key_plans
             self.update_user_parameters(host_user_id, None, None, None,
-                                        convs_host, None, None, None, None)
+                                        convs_as_host, None, None, None, None)
 
             # Update user db (For Guest)
-            convs_guest = {}
-            convs_guest[Conversation.KEY_HOST_ID] = conv_data[
+            convs_as_guest = {}
+            convs_as_guest[Conversation.KEY_HOST_ID] = conv_data[
                 Conversation.KEY_HOST_ID]
-            convs_guest[Conversation.KEY_HOST_NAME] = conv_data[
+            convs_as_guest[Conversation.KEY_HOST_NAME] = conv_data[
                 Conversation.KEY_HOST_NAME]
-            convs_guest[Conversation.KEY_HOST_THUMB_URL] = conv_data[
+            convs_as_guest[Conversation.KEY_HOST_THUMB_URL] = conv_data[
                 Conversation.KEY_HOST_THUMB_URL]
-            convs_guest[Conversation.KEY_CONVERSATION_ID] = ut
-            convs_guest[Conversation.KEY_VISIT_ID] = conv_data[
+            convs_as_guest[Conversation.KEY_CONVERSATION_ID] = ut
+            convs_as_guest[Conversation.KEY_VISIT_ID] = conv_data[
                 Conversation.KEY_VISIT_ID]
             self.log.debug(conv_data[Conversation.KEY_VISIT_ID])
 
             visitor_user_id = conv_data[Conversation.KEY_VISITOR_ID]
 
             self.update_user_parameters(visitor_user_id, None, None, None,
-                                        None, convs_guest, None, None, None)
+                                        None, convs_as_guest, None, None, None)
 
             # Send Facebook message
             if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[

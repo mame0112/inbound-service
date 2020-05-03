@@ -71,15 +71,15 @@ class AbstractDatastoreCommander(ABC):
 
             client.put(entity)
 
-    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_host, convs_with_guest, user_properties, key_plans, psid):
+    def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_as_host, convs_as_guest, user_properties, key_plans, psid):
         self.log.debug('update_user_parameters')
         # self.log.debug(user_id)
         # self.log.debug(psid)
         # self.log.debug(user_name)
         # self.log.debug(thumb_url)
         # self.log.debug(access_token)
-        # self.log.debug(convs_host)
-        # self.log.debug(convs_with_guest)
+        # self.log.debug(convs_as_host)
+        # self.log.debug(convs_as_guest)
         # self.log.debug(user_properties)
         # self.log.debug(key_plans)
 
@@ -107,7 +107,7 @@ class AbstractDatastoreCommander(ABC):
             if access_token is not None:
                 entity[User.KEY_ACCESS_TOKEN] = access_token
 
-            if convs_host is not None:
+            if convs_as_host is not None:
                 json_host_array = entity[User.KEY_CONVERSATIONS_HOST]
 
                 if len(json_host_array) == 1:
@@ -117,53 +117,53 @@ class AbstractDatastoreCommander(ABC):
                         # This is temporal id. Then remove it.
                         json_host_array.clear()
 
-                json_host_array.append(convs_host)
+                json_host_array.append(convs_as_host)
 
                 entity[User.KEY_CONVERSATIONS_HOST] = json_host_array
 
-            if convs_with_guest is not None:
+            if convs_as_guest is not None:
                 json_guest_array = entity[User.KEY_CONVERSATIONS_GUEST]
 
-                is_existing = False
+                # There are two patterns here.
+                # 1st: Create visit (but no host has been found.)
+                # 2nd: Update visit because host has newly found.
 
-                for obj in json_guest_array:
+                if Conversation.KEY_CONVERSATION_ID in convs_as_guest:
+                    # In case of 1st (Create new visit data)
+                    for obj in json_guest_array:
 
-                    try:
-                        # Update if already exist
-                        if obj[Conversation.KEY_VISIT_ID] == convs_with_guest[Conversation.KEY_VISIT_ID]:
-                            self.log.debug('Visitor id matched')
-                            obj[Conversation.KEY_HOST_ID] = convs_with_guest[
-                                Conversation.KEY_HOST_ID]
-                            obj[Conversation.KEY_HOST_NAME] = convs_with_guest[
-                                Conversation.KEY_HOST_NAME]
-                            obj[Conversation.KEY_HOST_THUMB_URL] = convs_with_guest[
-                                Conversation.KEY_HOST_THUMB_URL]
-                            obj[Conversation.KEY_CONVERSATION_ID] = convs_with_guest[
-                                Conversation.KEY_CONVERSATION_ID]
+                        try:
+                            if obj[Conversation.KEY_VISIT_ID] == convs_as_guest[Conversation.KEY_VISIT_ID]:
+                                self.log.debug('Visitor id matched')
+                                obj[Conversation.KEY_HOST_ID] = convs_as_guest[
+                                    Conversation.KEY_HOST_ID]
+                                obj[Conversation.KEY_HOST_NAME] = convs_as_guest[
+                                    Conversation.KEY_HOST_NAME]
+                                obj[Conversation.KEY_HOST_THUMB_URL] = convs_as_guest[
+                                    Conversation.KEY_HOST_THUMB_URL]
+                                obj[Conversation.KEY_CONVERSATION_ID] = convs_as_guest[
+                                    Conversation.KEY_CONVERSATION_ID]
 
-                            is_existing = True
-                    except ValueError as error:
-                        pass
+                        except KeyError as error:
+                            pass
+                else:
+                    # In case of 2nd (Create new if this vist deosn't exist)
+                    new_obj = {}
 
-                # Create new if this vist deosn't exist
-                # if is_existing is False:
+                    new_obj[Visit.KEY_VISIT_ID] = convs_as_guest[
+                        Visit.KEY_VISIT_ID]
+                    new_obj[Visit.KEY_PLACE] = convs_as_guest[
+                        Visit.KEY_PLACE]
+                    new_obj[Visit.KEY_START] = convs_as_guest[
+                        Visit.KEY_START]
+                    new_obj[Visit.KEY_END] = convs_as_guest[Visit.KEY_END]
+                    # TODO Need to catch because comment is optional field
+                    new_obj[Visit.KEY_COMMENT] = convs_as_guest[
+                        Visit.KEY_COMMENT]
 
-                #     new_obj = {}
+                    json_guest_array.append(new_obj)
 
-                #     new_obj[Visit.KEY_VISIT_ID] = convs_with_guest[
-                #         Visit.KEY_VISIT_ID]
-                #     new_obj[Visit.KEY_PLACE] = convs_with_guest[
-                #         Visit.KEY_PLACE]
-                #     new_obj[Visit.KEY_START] = convs_with_guest[
-                #         Visit.KEY_START]
-                #     new_obj[Visit.KEY_END] = convs_with_guest[Visit.KEY_END]
-                #     # TODO Need to catch because comment is optional field
-                #     new_obj[Visit.KEY_COMMENT] = convs_with_guest[
-                #         Visit.KEY_COMMENT]
-
-                #     json_guest_array.append(new_obj)
-
-                #     json_guest_array.append(convs_with_guest)
+                    # json_guest_array.append(convs_as_guest)
 
                 entity[User.KEY_CONVERSATIONS_GUEST] = json_guest_array
 

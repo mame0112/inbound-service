@@ -112,7 +112,7 @@ class AbstractDatastoreCommander(ABC):
 
                 if len(json_host_array) == 1:
                     self.log.debug('length 1')
-                    if 'visitor_id' not in json_host_array[0]:
+                    if Conversation.KEY_VISITOR_ID not in json_host_array[0]:
                         self.log.debug('Visitor does not exist')
                         # This is temporal id. Then remove it.
                         json_host_array.clear()

@@ -38,6 +38,11 @@ export class ApiService {
 
     }
 
+    deleteUserData(): Observable<string>{
+        console.log('deleteUserData');
+        return this.http.delete<string>(Constants.url_users)
+    }
+
 
     getVisitData(visit_id: number): Observable<string> {
         console.log('getVisitData');
@@ -56,6 +61,11 @@ export class ApiService {
 
     }
 
+    deleteVisitData(): Observable<string>{
+        console.log('deleteVisitData');
+        return this.http.delete<string>(Constants.url_visits)
+    }
+
     getHostData(): Observable<string> {
         console.log('getHostData');
         return this.http.get<string>(Constants.url_hosts)
@@ -70,6 +80,11 @@ export class ApiService {
         console.log('createHostData');
         console.log(body);
         return this.http.post<string>(Constants.url_hosts, body);
+    }
+
+    deleteHostData(): Observable<string>{
+        console.log('deleteHostData');
+        return this.http.delete<string>(Constants.url_hosts)
     }
 
     getConversationData(conv_id: number): Observable<string> {
@@ -87,6 +102,11 @@ export class ApiService {
         console.log('updateConversationData');
         return this.http.put<string>(Constants.url_conversations, body);
 
+    }
+
+    deleteConversationData(): Observable<string>{
+        console.log('deleteConversationData');
+        return this.http.delete<string>(Constants.url_conversations)
     }
 
     updateCommentData(body: object): Observable<string> {

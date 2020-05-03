@@ -43,6 +43,11 @@ class DatastoreManager:
         user_db_commander = UserDatastoreCommander()
         return user_db_commander.put(user_json)
 
+    def delete_user(self):
+        self.log.debug('delete_user')
+        user_db_commander = UserDatastoreCommander()
+        return user_db_commander.delete()
+
     def get_host(self):
         self.log.debug('get_host')
         host_db_commander = HostDatastoreCommander()
@@ -53,6 +58,11 @@ class DatastoreManager:
         host_db_commander = HostDatastoreCommander()
         return host_db_commander.post(host_json)
 
+    def delete_host(self):
+        self.log.debug('delete_host')
+        host_db_commander = HostDatastoreCommander()
+        return host_db_commander.delete()
+
     def get_visit(self, visit_id):
         self.log.debug('get_visit')
         visit_db_commander = VisitDatastoreCommander()
@@ -62,6 +72,11 @@ class DatastoreManager:
         self.log.debug('create_visit')
         visit_db_commander = VisitDatastoreCommander()
         return visit_db_commander.post(visit_json)
+
+    def delete_visit(self):
+        self.log.debug('delete_visit')
+        visit_db_commander = VisitDatastoreCommander()
+        return visit_db_commander.delete()
 
     def get_conversation(self, conv_id):
         self.log.debug('get_conversation')
@@ -77,6 +92,11 @@ class DatastoreManager:
         self.log.debug('create_conversation')
         conversation_db_commander = ConversationDatastoreCommander()
         return conversation_db_commander.post(conv_data)
+
+    def delete_conversation(self):
+        self.log.debug('delete_conversation')
+        conversation_db_commander = ConversationDatastoreCommander()
+        return conversation_db_commander.delete()
 
     def update_comment(self, comment_data):
         self.log.debug('update_comment')

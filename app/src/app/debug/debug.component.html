@@ -31,3 +31,31 @@
     </form>
 
 </div>
+
+<div>
+    Delete user
+    <form fxLayout="row" (ngSubmit)="deleteUsers()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Delete users</button>
+    </form>
+</div>
+
+<div>
+    Delete host
+    <form fxLayout="row" (ngSubmit)="deleteHosts()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Delete host</button>
+    </form>
+</div>
+
+<div>
+    Delete visit
+    <form fxLayout="row" (ngSubmit)="deleteVisits()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Delete visit</button>
+    </form>
+</div>
+
+<div>
+    Delete conversation
+    <form fxLayout="row" (ngSubmit)="deleteConversations()" #form2="ngForm" flex>
+        <button type="submit" class="btn btn-primary">Delete conversation</button>
+    </form>
+</div>

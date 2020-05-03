@@ -42,8 +42,8 @@ export class MyPageComponent implements OnInit {
                 this.hosts = this.validateAndExtractHostData(content[UserConsts.KEY_CONVERSATIONS_HOST]);
                 this.visits = this.validateAndExtractVisitData(content[UserConsts.KEY_CONVERSATIONS_GUEST]);
                 let plan = content[UserConsts.KEY_PLANS];
-                console.log('host');
-                console.log(this.hosts);
+                console.log('visits');
+                console.log(this.visits);
             } else {
                 console.log('Error ocurred');
                 // TODO Error handling
@@ -97,6 +97,8 @@ export class MyPageComponent implements OnInit {
     }
 
     for(let content of inputs) {
+      console.log('AAA');
+      console.log(content);
       let visit_id = content[VisitConsts.KEY_VISIT_ID];
       let place = content[VisitConsts.KEY_PLACE];
 

@@ -6,9 +6,9 @@
     <div fxFlex *ngIf="hosts?.length !== 0" fxFlexFill>
         <div fxLayout="column" *ngFor="let host of hosts">
             <a fxFlex [routerLink]="['/conversation', host.conversation_id]">
-                <mat-card fxLayout="row" class="mypage-card" fxLayoutGap="4px" >
+                <mat-card fxLayout="row" class="mypage-card" fxLayoutGap="4px">
                     <img [src]="host.visitor_thumb_url" fxFlex="0 0 100px">
-                    <div fxFlex>
+                    <div fxFlex fxFlexAlign="start" class="body_title">
                         {{host.visitor_name}}
                     </div>
                 </mat-card>
@@ -31,11 +31,14 @@
         <p class="page_title">Visit data</p>
     </div>
 
-    <div fxFlex *ngIf="visits?.length !== 0">
-        <div fxFlex *ngFor="let visit of visits">
-            <mat-card class="mypage-card" fxLayoutGap="4px">
-                {{visit.place}} / {{visit.start}} / {{visit.end}}
-            </mat-card>
+    <div fxFlex *ngIf="visits?.length !== 0" fxFlexFill>
+        <div fxLayout="column" *ngFor="let visit of visits">
+            <a fxFlex [routerLink]="['/conversation', visit.conversation_id]">
+                <mat-card fxLayout="row" class="mypage-card" fxLayoutGap="4px">
+                    <img [src]="visit.visitor_thumb_url" fxFlex="0 0 100px">
+                    {{visit.place}} / {{visit.start}} / {{visit.end}}
+                </mat-card>
+            </a>
         </div>
     </div>
 

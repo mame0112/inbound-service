@@ -79,8 +79,62 @@ class UserDataFormatProcessor(AbstractDataFormatProcessor):
     def json_to_entity(self, host_json, entity):
         self.log.debug('json_to_entity')
 
-        entity[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
-        entity[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]
-        entity[Host.KEY_THUMB_URL] = host_json[Host.KEY_THUMB_URL]
+        try:
+            entity[Host.KEY_USER_ID] = host_json[Host.KEY_USER_ID]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
 
+        try:
+            entity[Host.KEY_USER_NAME] = host_json[Host.KEY_USER_NAME]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
+
+        try:
+            entity[Host.KEY_THUMB_URL] = host_json[Host.KEY_THUMB_URL]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
+
+        try:
+            entity[Host.KEY_CONVERSATIONS_HOST] = host_json[
+                Host.KEY_CONVERSATIONS_HOST]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
+
+        try:
+            entity[Host.KEY_CONVERSATIONS_GUEST] = host_json[
+                Host.KEY_CONVERSATIONS_GUEST]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
+
+        try:
+            entity[Host.KEY_USER_PROPERTIES] = host_json[
+                Host.KEY_USER_PROPERTIES]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
+
+        try:
+            entity[Host.KEY_PLANS] = host_json[Host.KEY_PLANS]
+        except ValueError:
+            pass
+        except KeyError:
+            # Nothing to do
+            pass
         return entity

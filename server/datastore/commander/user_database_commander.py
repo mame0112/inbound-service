@@ -180,4 +180,17 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
                                     convs_as_host, convs_as_guest, user_properties, key_plans, psid)
 
     def delete(self):
-        pass
+        self.log.debug('Delete')
+
+        result = Result()
+
+        client = datastore.Client()
+        query = client.query(kind=User.KIND_NAME)
+        all_keys = query.fetch()
+        self.log.debug(all_keys)
+        for key in all_keys:
+            self.log.debug(key.key)
+            # self.log.debug(key)
+            client.delete(key.key)
+
+        return result

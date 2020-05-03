@@ -180,4 +180,32 @@ export class DebugComponent implements OnInit {
       return time;
     }
 
+    deleteUsers(): void{
+      console.log('deleteUsers');
+      this.apiService.deleteUserData().pipe().subscribe(param=>{
+        console.log(param);
+      })
+    }
+
+    deleteHosts(): void{
+      console.log('deleteHosts');
+      this.apiService.deleteHostData().pipe().subscribe(param=>{
+        console.log(param);
+      })
+    }
+
+    deleteVisits(): void{
+      console.log('deleteVisits');
+      this.apiService.deleteVisitData().pipe().subscribe(param=>{
+        console.log(param);
+      })
+    }
+
+    deleteConversations(): void{
+      console.log('deleteConversations');
+      this.apiService.deleteConversationData().pipe().subscribe(param=>{
+        console.log(param);
+      })
+    }
+
 }

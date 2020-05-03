@@ -52,6 +52,11 @@ class User(Resource):
         data_manager = DatastoreManager()
         return data_manager.update_user(user).get_result_json()
 
+    def delete(self):
+        log.debug('User delete')
+        data_manager = DatastoreManager()
+        return data_manager.delete_user().get_result_json()
+
 
 class Visit(Resource):
 
@@ -70,6 +75,11 @@ class Visit(Resource):
         data_manager = DatastoreManager()
         return data_manager.create_visit(visit_data).get_result_json()
 
+    def delete(self):
+        log.debug('Visit delete')
+        data_manager = DatastoreManager()
+        return data_manager.delete_visit().get_result_json()
+
 
 class Host(Resource):
 
@@ -84,6 +94,11 @@ class Host(Resource):
         host_data = request.json
         data_manager = DatastoreManager()
         return data_manager.create_host(host_data).get_result_json()
+
+    def delete(self):
+        log.debug('Host delete')
+        data_manager = DatastoreManager()
+        return data_manager.delete_host().get_result_json()
 
 
 class Conversation(Resource):
@@ -106,6 +121,11 @@ class Conversation(Resource):
         conversation_data = request.json
         data_manager = DatastoreManager()
         return data_manager.update_conversation(conversation_data).get_result_json()
+
+    def delete(self):
+        log.debug('Conversation delete')
+        data_manager = DatastoreManager()
+        return data_manager.delete_conversation().get_result_json()
 
 
 class Comment(Resource):

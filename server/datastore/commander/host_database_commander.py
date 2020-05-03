@@ -98,4 +98,14 @@ class HostDatastoreCommander(AbstractDatastoreCommander):
         pass
 
     def delete(self):
-        pass
+        self.log.debug('Delete')
+
+        result = Result()
+
+        client = datastore.Client()
+        query = client.query(kind=Host.KIND_NAME)
+        all_keys = query.fetch()
+        for key in all_keys:
+            client.delete(key.key)
+
+        return result

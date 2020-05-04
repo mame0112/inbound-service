@@ -48,6 +48,7 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
 
     def post(self, conv_data):
         self.log.debug('post')
+        self.log.debug(conv_data)
         result = Result()
 
         try:

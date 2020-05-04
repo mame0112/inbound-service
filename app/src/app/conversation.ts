@@ -10,6 +10,10 @@ export class Conversation {
     messages: object[];
     visit_id: number;
     current_user_id: string;
+    comment: string;
+    problems: string[];
+    start: string;
+    end: string;
 
 
     constructor(){}
@@ -54,6 +58,22 @@ export class Conversation {
         this.current_user_id = current_user_id;
     }
 
+    setVisitComment(comment: string): void {
+        this.comment = comment;
+    }
+
+    setVisitProblems(problems: string[]): void {
+        this.problems = problems;
+    }
+
+    setVisitStart(start: string): void {
+        this.start = start;
+    }
+
+    setVisitEnd(end: string): void {
+        this.end = end;
+    }
+
     addMessage(message: object): void {
         this.messages.push(message);
     }
@@ -96,6 +116,22 @@ export class Conversation {
 
     getCurrentUserId(): string {
         return this.current_user_id;
+    }
+
+    getVisitComment(): string {
+        return this.comment;
+    }
+
+    getVisitProblems(): string[] {
+        return this.problems;
+    }
+
+    getVisitStart(): string {
+        return this.start;
+    }
+
+    getVisitEnd(): string {
+        return this.end;
     }
 
     

@@ -59,6 +59,26 @@ export class ConversationDataBuilder {
         return this;
     }
 
+    setVisitStart(start: string): ConversationDataBuilder{
+        this.conversation.setVisitStart(start);
+        return this;
+    }
+
+    setVisitEnd(end: string): ConversationDataBuilder{
+        this.conversation.setVisitEnd(end);
+        return this;
+    }
+
+    setVisitComment(comment: string): ConversationDataBuilder{
+        this.conversation.setVisitComment(comment);
+        return this;
+    }
+
+    setVisitProblems(problems: string[]): ConversationDataBuilder{
+        this.conversation.setVisitProblems(problems);
+        return this;
+    }
+
     getResult(): Conversation{
         return this.conversation;
     }

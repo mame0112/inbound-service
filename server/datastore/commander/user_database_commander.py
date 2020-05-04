@@ -39,6 +39,7 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
             entity = client.get(key)
             self.log.debug(entity)
             if entity is not None:
+                self.log.debug(entity)
 
                 processor = UserDataFormatProcessor()
                 user_json = processor.entity_to_json(entity)

@@ -42,8 +42,8 @@ export class MyPageComponent implements OnInit {
                 this.hosts = this.validateAndExtractHostData(content[UserConsts.KEY_CONVERSATIONS_HOST]);
                 this.visits = this.validateAndExtractVisitData(content[UserConsts.KEY_CONVERSATIONS_GUEST]);
                 let plan = content[UserConsts.KEY_PLANS];
-                console.log('visits');
-                console.log(this.visits);
+                console.log('hosts');
+                console.log(this.hosts);
             } else {
                 console.log('Error ocurred');
                 // TODO Error handling

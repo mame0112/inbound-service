@@ -181,7 +181,7 @@ export class HostStartComponent implements OnInit {
       console.log('startConversation');
 
       let builder = new ConversationDataBuilder();
-      let conversation = builder.setHostUserId(this.userDataService.getUserId()).setHostUserName(this.userDataService.getUserName()).setHostThumbUrl(this.userDataService.getThumbUrl()).setVisitorUserId(this.matched_visit.getUserId()).setVisitorUserName(this.matched_visit.getUserName()).setVisitorThumbUrl(this.matched_visit.getThumbUrl()).setMessages([]).setVisitId(this.matched_visit.getVisitId()).setCurrentUserId(this.userDataService.getUserId()).getResult();
+      let conversation = builder.setHostUserId(this.userDataService.getUserId()).setHostUserName(this.userDataService.getUserName()).setHostThumbUrl(this.userDataService.getThumbUrl()).setVisitorUserId(this.matched_visit.getUserId()).setVisitorUserName(this.matched_visit.getUserName()).setVisitorThumbUrl(this.matched_visit.getThumbUrl()).setMessages([]).setVisitId(this.matched_visit.getVisitId()).setCurrentUserId(this.userDataService.getUserId()).setVisitStart(this.matched_visit.getStart()).setVisitEnd(this.matched_visit.getEnd()).setVisitComment(this.matched_visit.getComment()).setVisitProblems(this.matched_visit.getProblems()).getResult();
 
       this.apiService.createConversationData(conversation).pipe(
         tap(heroes => console.log('fetched users')),

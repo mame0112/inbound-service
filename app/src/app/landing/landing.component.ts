@@ -47,8 +47,12 @@ export class LandingComponent implements OnInit, OnDestroy {
       switch(Category[category]){
         case Category.ALREADY_LOGGED_IN:
           console.log('Already logged in');
-          var user_id = content[UserConsts.KEY_USER_ID];
-          console.log(user_id);
+          // var user_id = content[UserConsts.KEY_USER_ID];
+          // console.log(user_id);
+          // if (userDataService.isAlreadySignedIn()){
+
+          // }
+
           break;
         case Category.NOT_LOGGED_IN:
           console.log('Not logged in');
@@ -72,8 +76,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     this.userObj = this.userDataService.initialize();
     if(this.userObj != null){
-      //TODO
-      // this.router.navigate(['/my-page']);
+      this.router.navigate(['/my-page']);
     }
 
     // this.authService.authState.subscribe((user) => {

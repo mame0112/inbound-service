@@ -132,8 +132,14 @@ export class MyPageComponent implements OnInit {
   signout(): void {
     console.log('signout');
     this.sendEvent('body', 'signout', 'click');
-    this.userDataService.deleteUserData();
-    this.router.navigate(['/landing']);
+ 
+    this.userDataService.deleteUserData().pipe(
+      tap(params => console.log(params))
+      ).subscribe(result => {
+        console.log(result)
+        this.router.navigate(['/landing']);
+      });
+
   }
 
   getIconName(id: string): string {

@@ -39,6 +39,14 @@ export class UserDataService {
         return new UserDataBuilder().setUserId(this.user_id).setUserName(this.user_name).setThumbUrl(this.thumb_url).getResult();
     }
 
+    // isAlreadySignedIn(): boolean {
+    //     if (this.user_id != null && this.user_id != String(Constants.NO_USER) && this.user_name != null && this.thumb_url != null){
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
+
     signin(userData: any) {
         console.log('UserDataService signin');
         this.change.emit(userData);
@@ -79,23 +87,40 @@ export class UserDataService {
 
     deleteUserData(): Observable<any> {
         console.log('deleteUserData');
+
         this.change_signout.emit(null);
+
         return new Observable((observer) => {
             this.fbService.logout().pipe(
-                tap(params => console.log(params))
-            ).subscribe(result => {
-
-                console.log(result);
-                this.user_id = null;
-                this.user_name = null;
-                this.thumb_url = null;
-                this.cookieService.deleteAll();
-
-                observer.next(result);
-                observer.complete();
-
+                    tap(params => console.log(params))
+                ).subscribe(result => {
+                    this.user_id = null;
+                    this.user_name = null;
+                    this.thumb_url = null;
+                    this.cookieService.deleteAll();
+                    observer.next(result);
+                    observer.complete();
+                });
             });
-        });
+
+
+
+        // return new Observable((observer) => {
+        //     this.fbService.logout().pipe(
+        //         tap(params => console.log(params))
+        //     ).subscribe(result => {
+
+        //         console.log(result);
+        //         this.user_id = null;
+        //         this.user_name = null;
+        //         this.thumb_url = null;
+        //         this.cookieService.deleteAll();
+
+        //         observer.next(result);
+        //         observer.complete();
+
+        //     });
+        // });
 
     }
 

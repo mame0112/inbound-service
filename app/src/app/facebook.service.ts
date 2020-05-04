@@ -245,18 +245,4 @@ export class FacebookService {
             });
     }
 
-    testFunction() {
-        console.log('testFunction');
-
-        // FB.Event.subscribe('send_to_messenger', function(e) {
-        //   console.log('send_to_messenger');
-        //   console.log(e);
-        //   if (e.event !== undefined && e.event == 'opt_in'){
-        //     console.log(e.event);
-        //     console.log(e.ref);
-        //   }
-        // });
-
-
-    }
 }

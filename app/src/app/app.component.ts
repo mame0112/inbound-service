@@ -64,9 +64,6 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe((params: any) => {
             this.analyticsService.sendPageView(params.url);
         });
-        this.jsService.testFunction();
-        // this.loadFBSDK();
-        // this.testFunction();
 
     }
 

@@ -77,32 +77,6 @@ export class FacebookService {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        // var send_to_messenger_callback = function(e) {
-        //     console.log('send_to_messenger');
-        //     console.log(e);
-        //     if (e.event !== undefined && e.event == 'opt_in'){
-        //         console.log(e.event);
-        //         console.log(e.ref);
-        //         if(this.fbSubject != null){
-        //             var fbData = new FacebookData(Category.NOT_LOGGED_IN, null);
-        //             this.fbSubject.next(fbData);
-        //             // console.log('Not null');
-        //         } else {
-        //             // console.log('Null');
-        //         }
-
-        //         if(this.user != null){
-        //             console.log('Not null');
-        //         } else {
-        //             console.log('Null');
-        //         }
-        //     }
-        // }
-
-        // var auth_status_change_callback = function(response) {
-        //     console.log("auth_status_change_callback: " + response.status);
-        // }
-
     }
 
     getState(): Observable<FacebookData>{
@@ -183,57 +157,6 @@ export class FacebookService {
         });
 
     }
-
-
-    // login(): void {
-    //     let result = {};
-    //     result[UserConsts.KEY_USER_ID] = null;
-    //     result[UserConsts.KEY_USER_NAME] = null;
-    //     result[UserConsts.KEY_THUMB_URL] = null;
-    //     result[UserConsts.KEY_ACCESS_TOKEN] = null;
-
-    //     console.log("submit login to facebook");
-
-    //     FB.login(function(response) {
-    //         if (response.authResponse) {
-    //              console.log('Welcome!  Fetching your information.... ');
-    //              console.log(response);
-    //              // console.log(response.authResponse.accessToken);
-    //              // console.log(response.authResponse.userID);
-    //             result[UserConsts.KEY_USER_ID] = response.authResponse.userID;
-    //             result[UserConsts.KEY_ACCESS_TOKEN] = response.authResponse.accessToken;
-    //             // FB.api('/me', function(response) {
-    //             //     console.log(response);
-    //             //     result[UserConsts.KEY_USER_NAME] = response.name;
-    //             //     // console.log('Good to see you, ' + response.name + '.');
-    //             // });
-    //             FB.api('/me', 'GET', {fields: 'name'}, function(response) {
-    //                 console.log(response);
-    //                 let baseUrl = 'https://graph.facebook.com/';
-    //                 let pictureUrl = '/picture?type=large&width=360&height=360';
-
-    //                 result[UserConsts.KEY_USER_NAME] = response.name;
-    //                 result[UserConsts.KEY_THUMB_URL] = baseUrl + result[UserConsts.KEY_USER_ID] + pictureUrl;
-    //                 console.log(result[UserConsts.KEY_THUMB_URL]);
-    //                 // console.log('Good to see you, ' + response.name + '.');
-    //             });
-
-    //         } else {
-    //          console.log('User cancelled login or did not fully authorize.');
-    //         }
-    //     });
-    // }
-
-    // logout(): void {
-
-    //     console.log('logout');
-
-    //     FB.logout(function(response){
-    //         console.log(response);
-
-    //     });
-
-    // }
 
     logout(): Observable<any>  {
         return new Observable((observer) => {

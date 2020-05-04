@@ -71,20 +71,6 @@ export class UserDataService {
         return this.thumb_url;
     }
 
-    // deleteUserData(): void {
-    //     console.log('deleteUserData');
-    //     this.fbService.logout().pipe(
-    //         tap(params => console.log(params))
-    //     ).subscribe(result => {
-    //         console.log(result);
-    //         this.user_id = null;
-    //         this.user_name = null;
-    //         this.thumb_url = null;
-    //         this.cookieService.deleteAll();
-    //     });
-
-    // }
-
     deleteUserData(): Observable<any> {
         console.log('deleteUserData');
 
@@ -102,25 +88,6 @@ export class UserDataService {
                     observer.complete();
                 });
             });
-
-
-
-        // return new Observable((observer) => {
-        //     this.fbService.logout().pipe(
-        //         tap(params => console.log(params))
-        //     ).subscribe(result => {
-
-        //         console.log(result);
-        //         this.user_id = null;
-        //         this.user_name = null;
-        //         this.thumb_url = null;
-        //         this.cookieService.deleteAll();
-
-        //         observer.next(result);
-        //         observer.complete();
-
-        //     });
-        // });
 
     }
 

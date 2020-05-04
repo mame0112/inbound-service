@@ -39,8 +39,10 @@ class Conversation:
     KEY_MESSAGES_CONTENT = "msg_content"
     KEY_MESSAGES_TIMESTAMP = "msg_time"
     KEY_MESSAGES_LATEST_TIMESTAMP = "msg_latest_time"
-    # KEY_COMMENT = "comment"
-    # KEY_PROBLEMS = "problems"
+    KEY_COMMENT = "comment"
+    KEY_PROBLEMS = "problems"
+    KEY_START = "start"
+    KEY_END = "end"
 
 
 class Host:

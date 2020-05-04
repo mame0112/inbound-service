@@ -89,7 +89,6 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
             client.put(entity)
 
             # Update user db (For Host)
-            # TODO Need to add plan info
             convs_as_host = {}
             convs_as_host[Conversation.KEY_VISITOR_ID] = conv_data[
                 Conversation.KEY_VISITOR_ID]
@@ -97,6 +96,15 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
                 Conversation.KEY_VISITOR_NAME]
             convs_as_host[Conversation.KEY_VISITOR_THUMB_URL] = conv_data[
                 Conversation.KEY_VISITOR_THUMB_URL]
+            convs_as_host[Conversation.KEY_COMMENT] = conv_data[
+                Conversation.KEY_COMMENT]
+            convs_as_host[Conversation.KEY_PROBLEMS] = conv_data[
+                Conversation.KEY_PROBLEMS]
+            convs_as_host[Conversation.KEY_START] = conv_data[
+                Conversation.KEY_START]
+            convs_as_host[Conversation.KEY_END] = conv_data[
+                Conversation.KEY_END]
+
             convs_as_host[Conversation.KEY_CONVERSATION_ID] = ut
 
             host_user_id = conv_data[Conversation.KEY_HOST_ID]

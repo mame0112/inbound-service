@@ -22,9 +22,6 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
     def get(self, user_id):
         self.log.debug('get_user')
         result = Result()
-        self.log.debug(user_id)
-        self.log.debug(type(user_id))
-        self.log.debug(self.is_num(user_id))
 
         if user_id is None:
             self.log.debug('user is none or not string')
@@ -35,7 +32,6 @@ class UserDatastoreCommander(AbstractDatastoreCommander):
         try:
             client = datastore.Client()
             key = client.key(User.KIND_NAME, user_id)
-            self.log.debug(key)
             entity = client.get(key)
             self.log.debug(entity)
             if entity is not None:

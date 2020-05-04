@@ -13,6 +13,7 @@
 .card_title {
     color: #000000;
     font-size:24px;
+    white-space: nowrap;
 }
 
 .card_sub_title {
@@ -28,6 +29,7 @@
 .card_footer {
     color: #666666;
     font-size:18px;
+    white-space: nowrap;
 }
 
 .card_small_thumbnail{
@@ -39,6 +41,7 @@
 .card_footer_highlight {
     color: #1976D2;
     font-size:18px;
+    white-space: nowrap;
 }
 
 .tmp {
@@ -47,6 +50,7 @@
 
 .tmp2 {
     background-color: #00FF00;
+    white-space: nowrap;
 }
 
 .tmp3 {

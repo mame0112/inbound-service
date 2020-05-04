@@ -6,10 +6,25 @@
     <div fxFlex *ngIf="hosts?.length !== 0" fxFlexFill>
         <div fxLayout="column" *ngFor="let host of hosts">
             <a fxFlex [routerLink]="['/conversation', host.conversation_id]">
-                <mat-card fxLayout="row" class="mypage-card" fxLayoutGap="4px">
-                    <img [src]="host.visitor_thumb_url" fxFlex="0 0 100px">
-                    <div fxFlex fxFlexAlign="start" class="body_title">
-                        {{host.visitor_name}}
+                <mat-card fxLayout="column" fxLayoutAlign="start start" class="mypage-card" fxLayoutGap="4px">
+                    <div fxFlex fxLayout="row" fxFlexAlign="start" fxLayoutAlign="center center" fxLayoutGap="10px">
+                        <div fxFlex fxFlex="64px">
+                            <img [src]="host.visitor_thumb_url" fxFlex="64px">
+                        </div>
+                        <div fxFlex class="card_title">
+                            {{host.visitor_name}}
+                        </div>
+                    </div>
+                    <div fxFlex class="card_sub_title">
+                        {{host.start}} - {{host.end}}
+                    </div>
+                    <div fxFlex class="card_body">
+                        {{host.comment}}
+                    </div>
+                    <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center">
+                        <div fxFlex fxFlexFill *ngFor="let problem of host.problems" class="card_footer">
+                            <img [src]='"/assets/image/problems/"+getIconName(problem)+".png"' class="card_small_thumbnail">
+                        </div>
                     </div>
                 </mat-card>
             </a>
@@ -44,11 +59,11 @@
                     <div fxFlex class="card_body">
                         {{visit.comment}}
                     </div>
-                    <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center" *ngIf="visit.host_id != null && visit.host_name != null">
+                    <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center" fxLayoutGap="4px" *ngIf="visit.host_id != null && visit.host_name != null">
                         <div fxFlex fxFlexFill class="card_footer">
                             Hosted by
                         </div>
-                        <div fxFlex="0 0 36px">
+                        <div fxFlex="36px">
                             <img [src]="visit.host_thumb_url" class="card_small_thumbnail">
                         </div>
                         <div fxFlex fxFlexFill class="card_footer_highlight">

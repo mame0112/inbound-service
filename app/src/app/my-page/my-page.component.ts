@@ -10,6 +10,7 @@ import { AnalyticsService } from '../analytics.service';
 
 import { User } from '../user';
 import { Host } from '../host';
+import { Problems } from '../problems';
 
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -24,6 +25,8 @@ export class MyPageComponent implements OnInit {
 
   visits: any[] = [];
   hosts: any[] = [];
+
+  problem = new Problems();
 
   constructor(
       private apiService: ApiService,
@@ -124,6 +127,14 @@ export class MyPageComponent implements OnInit {
     this.sendEvent('body', 'signout', 'click');
     this.userDataService.deleteUserData();
     this.router.navigate(['/landing']);
+  }
+
+  getIconName(id: string): string {
+    return this.problem.getIconName(id);
+  }
+
+  getLabel(id: string): string{
+    return this.problem.getLabel(id);
   }
 
   sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {

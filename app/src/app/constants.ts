@@ -81,5 +81,10 @@ export class ConversationConsts {
     public static readonly KEY_MESSAGES_CONTENT = "msg_content";
     public static readonly KEY_MESSAGES_TIMESTAMP = "msg_time";
     public static readonly KEY_MESSAGES_LATEST_TIMESTAMP = "msg_latest_time";
+    public static readonly KEY_PLACE = "place";
+    public static readonly KEY_START = "start";
+    public static readonly KEY_END = "end";
+    public static readonly KEY_COMMENT = "comment";
+    public static readonly KEY_PROBLEMS = "problems";
 
 }

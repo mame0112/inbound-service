@@ -80,6 +80,13 @@ export class MyPageComponent implements OnInit {
       let visitor_id = content[ConversationConsts.KEY_VISITOR_ID];
       let visitor_name = content[ConversationConsts.KEY_VISITOR_NAME];
       let visitor_thumb_url = content[ConversationConsts.KEY_VISITOR_THUMB_URL];
+
+      let start = content[ConversationConsts.KEY_START];
+      content[ConversationConsts.KEY_START] = new Util().createDateForDisplay(start);
+
+      let end = content[ConversationConsts.KEY_END];
+      content[ConversationConsts.KEY_END] = new Util().createDateForDisplay(end);
+
       if(conversation_id != undefined && visitor_id != undefined && visitor_name != undefined && visitor_thumb_url != undefined){
         result.push(content);
       } else {

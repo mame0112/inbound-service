@@ -43,6 +43,7 @@ import { ScrollableDirective } from './directive/scrollable.directive';
 import { OffsetTopDirective } from './directive/offset-top.directive';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 // export function HttpLoaderFactory(http: HttpClient) {
@@ -62,10 +63,11 @@ import { PrivacyComponent } from './privacy/privacy.component';
     MyPageComponent,
     DialogComponent,
     DebugComponent,
-    ScrollableDirective,
-    OffsetTopDirective,
     TermsComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    ChatComponent,
+    ScrollableDirective,
+    OffsetTopDirective
   ],
   imports: [
     BrowserModule,

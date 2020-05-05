@@ -10,7 +10,7 @@ import { MyPageComponent } from './my-page/my-page.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsComponent } from './terms/terms.component';
 import { DebugComponent } from './debug/debug.component';
-
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/landing', pathMatch: 'full' },
@@ -22,7 +22,8 @@ const routes: Routes = [
     { path: 'my-page', component: MyPageComponent },
     { path: 'privacy', component: PrivacyComponent },
     { path: 'terms', component: TermsComponent },
-    { path: 'debug', component: DebugComponent }
+    { path: 'debug', component: DebugComponent },
+    { path: 'chat', component: ChatComponent }
 
 ];
 

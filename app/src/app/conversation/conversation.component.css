@@ -54,10 +54,32 @@ mat-list-item.item {
     width: 200px;
 }
 
+.item {
+    height: 100px;
+}
+
 .tmp {
     background-color: #00FF00;
 }
 
 .tmp2 {
     background-color: #FF0000;
+}
+
+.chat {
+    list-style: none;
+    background: none;
+    margin: 0;
+    padding: 0 0 0 0;
+    position: absolute;
+    top:60px;
+    height: 80vh; 
+    width: 100%;
+    overflow-y: scroll;
+    padding-right: 17px;
+}
+.chat li {
+    padding: 1.0rem;
+    overflow: hidden;
+    display: flex;
 }

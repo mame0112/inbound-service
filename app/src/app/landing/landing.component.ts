@@ -74,7 +74,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     this.userObj = this.userDataService.initialize();
     if(this.userObj != null){
-      this.router.navigate(['/my-page']);
+      // this.router.navigate(['/my-page']);
     }
 
   }

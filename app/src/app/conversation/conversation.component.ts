@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -29,12 +29,8 @@ import { OffsetTopDirective } from '../directive/offset-top.directive';
 })
 export class ConversationComponent implements OnInit, AfterViewInit {
 
-    @ViewChildren(OffsetTopDirective) listItems: QueryList<OffsetTopDirective>;
+    @ViewChildren(OffsetTopDirective) listItem: QueryList<OffsetTopDirective>;
     @ViewChild(ScrollableDirective, {static: false}) list: ScrollableDirective;
-    selectedItem = Math.floor(Math.random() * 500);
-    items = new Array(500).fill(0).map((_, i) => `Item ${i}`);
-
-    private scrollContainer: any;
 
     conv_id: number;
 
@@ -56,8 +52,6 @@ export class ConversationComponent implements OnInit, AfterViewInit {
 
     container: HTMLElement;
 
-
-    // items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
 
     constructor(
         private route: ActivatedRoute,
@@ -82,31 +76,11 @@ export class ConversationComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-      console.log('ngAfterViewInit');
-      // console.log(this.container.scrollHeight);
-
-      this.list.scrollTop = 3;
-      console.log(this.list.scrollTop);
-      // this.list.scrollTop = this.listItems.find((_, i) => i === this.selectedItem).offsetTop;
-      // this.container = document.getElementById("make-scrollable");
-      // console.log(this.container.scrollHeight);
-      // this.container.scrollTop = this.container.scrollHeight;
-      // this.scrollContainer = this.scrollFrame.nativeElement;
-      // console.log(this.scrollFrame.nativeElement); 
-      // this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());   
+      console.log('ngAfterViewInit')
+      this.listItem.changes.subscribe((queryChange)=> {
+        this.list.scrollTop = this.listItem.last.offsetTop;
+      });
     }
-
-    // private onItemElementsChanged(): void {
-    //   this.scrollToBottom();
-    // }
-
-    // private scrollToBottom(): void {
-    //   this.scrollContainer.scroll({
-    //     top: this.scrollContainer.scrollHeight,
-    //     left: 0,
-    //     behavior: 'smooth'
-    //   });
-    // }
 
     getConversationData(): void {
       console.log('getConversationData');
@@ -135,6 +109,7 @@ export class ConversationComponent implements OnInit, AfterViewInit {
                   console.log('This is host');
                   this.is_visitor = false;
                 }
+
               } else {
               // TODO Error handling
               }

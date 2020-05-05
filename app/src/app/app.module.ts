@@ -43,8 +43,6 @@ import { ScrollableDirective } from './directive/scrollable.directive';
 import { OffsetTopDirective } from './directive/offset-top.directive';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
-import { ChatComponent } from './chat/chat.component';
-
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //     return new TranslateHttpLoader(http);
@@ -65,7 +63,6 @@ import { ChatComponent } from './chat/chat.component';
     DebugComponent,
     TermsComponent,
     PrivacyComponent,
-    ChatComponent,
     ScrollableDirective,
     OffsetTopDirective
   ],

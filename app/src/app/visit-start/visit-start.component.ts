@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { flatMap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 // import { MatListOption } from '@angular/material/list';
 
 import { ApiService } from '../api.service';
@@ -58,7 +59,9 @@ export class VisitStartComponent implements OnInit {
         private userDataService: UserDataService,
         private router: Router,
         private analyticsService: AnalyticsService,
-        private fbService: FacebookService) {
+        private fbService: FacebookService,
+        private snackBar: MatSnackBar,
+        private zone: NgZone) {
         console.log('constructor');
 
         this.subscription = this.fbService.getState().subscribe(param => {
@@ -73,6 +76,7 @@ export class VisitStartComponent implements OnInit {
               break;
             case Category.SEND_TO_MESSENGER:
               console.log('send_to_message');
+              this.openSnackbar();
               break;
             default:
               break;
@@ -201,6 +205,26 @@ export class VisitStartComponent implements OnInit {
         this.user_id = this.userDataService.getUserId();
         this.visit.setUserName(this.userDataService.getUserName());
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());
+    }
+
+    openSnackbar(): void {
+      console.log('openSnackBar');
+
+      const config = new MatSnackBarConfig();
+      config.duration = 3000;
+      config.horizontalPosition = 'center';
+      config.verticalPosition = 'top';
+
+      this.zone.run(() => {
+        const snackbarRef = this.snackBar.open('Thank you very much. Please wait a moment', 'OK', config);
+
+        snackbarRef.afterDismissed().subscribe(() => {
+          console.log('snackbar is dismissed');
+          this.router.navigate(['/my-page']);
+        });
+
+      });
+
     }
 
 

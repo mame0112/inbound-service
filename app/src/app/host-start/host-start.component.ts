@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 
 import { flatMap, mergeMap, concatMap } from 'rxjs/operators';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
@@ -60,31 +61,41 @@ export class HostStartComponent implements OnInit {
 
     problem = new Problems();
 
+
     constructor(
       private apiService: ApiService,
       private userDataService: UserDataService,
       private router: Router,
       public dialog: MatDialog,
       private analyticsService: AnalyticsService,
-      private fbService: FacebookService) {
+      private fbService: FacebookService,
+      private snackBar: MatSnackBar,
+      private zone: NgZone) {
         console.log('constructor');
-        this.subscription = this.fbService.getState().subscribe(param => {
-          console.log(param);
-          let category = Category[param['_category']];
-          let content = param['_content'];
 
-          switch(Category[category]){
-            case Category.ALREADY_LOGGED_IN:
-            case Category.NOT_LOGGED_IN:
-              // Nothing to do
-              break;
-            case Category.SEND_TO_MESSENGER:
-              console.log('send_to_message');
-              break;
-            default:
-              break;
-          }
-      });
+        this.subscription = this.fbService.getState().subscribe(param => this.onFacebookEventInvoked(param));
+
+    }
+
+    onFacebookEventInvoked(param: FacebookData): void{
+
+      console.log('onFacebookEventInvoked');
+      console.log(param);
+      let category = Category[param['_category']];
+      let content = param['_content'];
+
+      switch(Category[category]){
+        case Category.ALREADY_LOGGED_IN:
+        case Category.NOT_LOGGED_IN:
+          // Nothing to do
+          break;
+        case Category.SEND_TO_MESSENGER:
+          console.log('send_to_message');
+          this.openSnackbar();
+          break;
+        default:
+          break;
+      }
     }
 
     ngOnInit() {
@@ -109,6 +120,7 @@ export class HostStartComponent implements OnInit {
 
     onNextButtonClicked() {
         console.log('onNextButtonClicked');
+
 
         this.apiService.getVisitData(Constants.ALL_VISITS).pipe(
           tap(data => console.log(data)),
@@ -205,6 +217,26 @@ export class HostStartComponent implements OnInit {
 
     getUserId(): string {
       return this.userDataService.getUserId();
+    }
+
+    openSnackbar(): void {
+      console.log('openSnackBar');
+
+      const config = new MatSnackBarConfig();
+      config.duration = 3000;
+      config.horizontalPosition = 'center';
+      config.verticalPosition = 'top';
+
+      this.zone.run(() => {
+        const snackbarRef = this.snackBar.open('Thank you very much. Please wait a moment', 'OK', config);
+
+        snackbarRef.afterDismissed().subscribe(() => {
+          console.log('snackbar is dismissed');
+          this.router.navigate(['/my-page']);
+        });
+
+      });
+
     }
 
 

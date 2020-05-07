@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-// import { MatListOption } from '@angular/material/list';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ApiService } from '../api.service';
 import { UserDataService } from '../user-data.service';
@@ -24,6 +24,8 @@ import { Constants, HostConsts, VisitConsts, ConversationConsts } from '../const
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
+
+import { DialogComponent } from '../dialog/dialog.component';
 
 declare var window: any;
 declare var FB: any;
@@ -58,6 +60,7 @@ export class VisitStartComponent implements OnInit {
         private apiService: ApiService,
         private userDataService: UserDataService,
         private router: Router,
+        private matDialog: MatDialog,
         private analyticsService: AnalyticsService,
         private fbService: FacebookService,
         private snackBar: MatSnackBar,
@@ -86,7 +89,13 @@ export class VisitStartComponent implements OnInit {
     }
 
     ngOnInit() {
+      if (this.userDataService.hasValidUserData()){
+        console.log('Valid data');
         this.createVisitJson();
+      } else {
+        console.log('Not valid data');
+        this.openDialog(DialogIdentifier.INIT_FAILED, 'Something went wrong. Please try again later', 'OK', null);
+      }
     }
 
     ngAfterViewInit() {
@@ -166,10 +175,13 @@ export class VisitStartComponent implements OnInit {
                     }
                 } else {
                     console.log('Error ocurred');
+                    this.openDialog(DialogIdentifier.GET_HOST_FAILED, 'Something went wrong. Please try again later', 'OK', null);
                 }
 
             }
             );
+          } else {
+            this.openDialog(DialogIdentifier.CREATE_VISIT_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
         });
 
@@ -191,6 +203,8 @@ export class VisitStartComponent implements OnInit {
             let conv_id = content[ConversationConsts.KEY_CONVERSATION_ID];
             console.log(conv_id);
             this.router.navigate(['/conversation', conv_id]);
+          } else {
+            this.openDialog(DialogIdentifier.START_CONVERSATION_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
       });
 
@@ -239,14 +253,39 @@ export class VisitStartComponent implements OnInit {
 
         this.visit.problems = problem_array;
     }
-    // onGroupsChange(options: MatListOption[]) {
-    //     console.log('onGroupsChange');
-    //     // map these MatListOptions to their values
-    //     console.log(options.map(o => o.value));
-    // }
+
+    openDialog(id: number, description: string, positive_button: string, negative_button: string): void {
+      const dialogRef = this.matDialog.open(DialogComponent, {
+        width: '250px',
+        data: {id: id, description: description, positive: positive_button, negative: negative_button}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        console.log(result);
+
+        switch(result.id) {
+          case DialogIdentifier.INIT_FAILED:
+            this.router.navigate(['/landing']);
+            break;
+          case DialogIdentifier.GET_HOST_FAILED:
+            break;
+          case DialogIdentifier.CREATE_VISIT_FAILED:
+            break;
+        }
+      });
+    }
 
     sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
         console.log('sendEvent');
         this.analyticsService.sendEvent('visit-start', eventCategory, eventAction, eventLabel);
     }
+}
+
+export enum DialogIdentifier {
+  INIT_FAILED,
+  GET_HOST_FAILED,
+  CREATE_VISIT_FAILED,
+  START_CONVERSATION_FAILED,
+
 }

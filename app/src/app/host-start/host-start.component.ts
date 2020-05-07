@@ -61,12 +61,11 @@ export class HostStartComponent implements OnInit {
 
     problem = new Problems();
 
-
     constructor(
       private apiService: ApiService,
       private userDataService: UserDataService,
       private router: Router,
-      public dialog: MatDialog,
+      private matDialog: MatDialog,
       private analyticsService: AnalyticsService,
       private fbService: FacebookService,
       private snackBar: MatSnackBar,
@@ -99,7 +98,14 @@ export class HostStartComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.state = HostStartComponent.Start;
+      if (this.userDataService.hasValidUserData()){
+        console.log('Valid data');
+        this.state = HostStartComponent.Start;
+      } else {
+        console.log('Not valid data');
+        this.openDialog(DialogIdentifier.INIT_FAILED, 'Something went wrong. Please try again later', 'OK', null);
+      }
+
     }
 
     ngAfterViewInit() {
@@ -121,7 +127,6 @@ export class HostStartComponent implements OnInit {
     onNextButtonClicked() {
         console.log('onNextButtonClicked');
 
-
         this.apiService.getVisitData(Constants.ALL_VISITS).pipe(
           tap(data => console.log(data)),
           catchError(this.apiService.handleError<string>('getVisitData', 'Error'))
@@ -140,7 +145,7 @@ export class HostStartComponent implements OnInit {
 
             } else {
               console.log('getVisitData response error');
-              this.openDialog(1, 'Something went wrong. Please try again later', 'OK', null);
+              this.openDialog(DialogIdentifier.NEXT_BUTTON_RESPONSE_FAILED, 'Something went wrong. Please try again later', 'OK', null);
             }
           })
 
@@ -183,7 +188,7 @@ export class HostStartComponent implements OnInit {
             this.state = HostStartComponent.WAITING_FOR_VISITOR;
           } else {
             console.log('createHostData response error');
-            this.openDialog(2, 'Something went wrong. Please try again later', 'OK', null);
+            this.openDialog(DialogIdentifier.CREATE_HOST_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
         });
     }
@@ -207,7 +212,7 @@ export class HostStartComponent implements OnInit {
           this.router.navigate(['/conversation', conv_id]);
         } else {
             console.log('createHostData response error');
-            this.openDialog(3, 'Something went wrong. Please try again later', 'OK', null);
+            this.openDialog(DialogIdentifier.START_CONVERSATION_FAILED, 'Something went wrong. Please try again later', 'OK', null);
         }
       });
 
@@ -241,15 +246,28 @@ export class HostStartComponent implements OnInit {
 
 
   openDialog(id: number, description: string, positive_button: string, negative_button: string): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-        // width: '250px',
+    const dialogRef = this.matDialog.open(DialogComponent, {
+      width: '250px',
       data: {id: id, description: description, positive: positive_button, negative: negative_button}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      // this.description = result;
+
+      switch(result.id) {
+        case DialogIdentifier.INIT_FAILED:
+          this.router.navigate(['/landing']);
+          break;
+        case DialogIdentifier.NEXT_BUTTON_RESPONSE_FAILED:
+          break;
+        case DialogIdentifier.CREATE_HOST_FAILED:
+          break;
+        case DialogIdentifier.START_CONVERSATION_FAILED:
+          break;
+        // Nothing to do for now.
+         break;
+      }
     });
   }
 
@@ -262,22 +280,20 @@ export class HostStartComponent implements OnInit {
   }
 
   handleError(id: number, option: number): void {
-    if(option == Constants.DIALOG_OPTION_POSITIVE){
-      switch(id) {
-        case 1:
-        case 2:
-        case 3:
-        // Nothing to do for now.
-         break;
-      }
-    } else {
-      console.log('Option negative');
-    }
+
   }
 
   sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
     console.log('sendEvent');
     this.analyticsService.sendEvent('host-start', eventCategory, eventAction, eventLabel);
   }
+
+}
+
+export enum DialogIdentifier {
+  INIT_FAILED,
+  NEXT_BUTTON_RESPONSE_FAILED,
+  CREATE_HOST_FAILED,
+  START_CONVERSATION_FAILED
 
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { ApiService } from '../api.service';
+import { UserDataService } from '../user-data.service';
 
 import { Constants, UserConsts, ConversationConsts } from '../constants';
 
@@ -19,7 +20,8 @@ export class DebugComponent implements OnInit {
 
     conversation_id = 1583573947;
 
-    constructor(private apiService: ApiService) { }
+    constructor(private apiService: ApiService,
+            private userDataService: UserDataService) { }
 
     ngOnInit() {
       console.log('DebugComponent ngOnInit');
@@ -206,6 +208,11 @@ export class DebugComponent implements OnInit {
       this.apiService.deleteConversationData().pipe().subscribe(param=>{
         console.log(param);
       })
+    }
+
+    deleteLocalUserData(): void {
+      console.log('deleteLocalUserData');
+      this.userDataService.deleteUserDataDebug();
     }
 
 }

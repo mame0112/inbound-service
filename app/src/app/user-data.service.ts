@@ -59,6 +59,13 @@ export class UserDataService {
         this.cookieService.set(Constants.COOKIE_THUMB_URL, this.thumb_url);
     }
 
+    hasValidUserData(): boolean {
+        if(this.cookieService.get(Constants.COOKIE_USER_ID) && this.cookieService.get(Constants.COOKIE_USER_NAME) && this.cookieService.get(Constants.COOKIE_THUMB_URL)){
+            return true;
+        }
+        return false;
+    }
+
     getUserId(): string {
         return this.user_id;
     }
@@ -89,6 +96,16 @@ export class UserDataService {
                 });
             });
 
+    }
+
+    deleteUserDataDebug(): void {
+        console.log('deleteUserDataDebug');
+        this.user_id = null;
+        this.user_name = null;
+        this.thumb_url = null;
+        this.cookieService.deleteAll();
+
+        console.log(this.cookieService.get(Constants.COOKIE_USER_ID));
     }
 
 

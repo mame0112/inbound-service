@@ -99,7 +99,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
     // })
   ],
   entryComponents: [
-    DialogComponent
+    DialogComponent,
+    HostStartComponent
   ],
   providers: [
     CookieService

@@ -188,7 +188,7 @@ export class VisitStartComponent implements OnInit {
             this.openDialog(DialogIdentifier.CREATE_VISIT_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
 
-          this.closeProgressDialog();
+          this.closeProgressDialog(ProgressDialogIdentifier.CREATE_VISIT_DATA);
 
         });
 
@@ -216,7 +216,7 @@ export class VisitStartComponent implements OnInit {
             this.openDialog(DialogIdentifier.START_CONVERSATION_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
 
-          this.closeProgressDialog();
+          this.closeProgressDialog(ProgressDialogIdentifier.CREATE_CONVERSATION);
 
       });
 
@@ -269,7 +269,8 @@ export class VisitStartComponent implements OnInit {
     openDialog(id: number, description: string, positive_button: string, negative_button: string): void {
       const dialogRef = this.matDialog.open(DialogComponent, {
         width: '250px',
-        data: {id: id, description: description, positive: positive_button, negative: negative_button}
+        data: {id: id, description: description, positive: positive_button, negative: negative_button},
+        disableClose: true
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -306,8 +307,8 @@ export class VisitStartComponent implements OnInit {
       });
     }
 
-    closeProgressDialog(): void{
-      this.progressDialogRef.close();
+    closeProgressDialog(id: number): void{
+      this.progressDialogRef.close(id);
     }
 
 

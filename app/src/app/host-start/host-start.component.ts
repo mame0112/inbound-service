@@ -267,7 +267,8 @@ export class HostStartComponent implements OnInit {
   openDialog(id: number, description: string, positive_button: string, negative_button: string): void {
     const dialogRef = this.matDialog.open(DialogComponent, {
       width: '250px',
-      data: {id: id, description: description, positive: positive_button, negative: negative_button}
+      data: {id: id, description: description, positive: positive_button, negative: negative_button},
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

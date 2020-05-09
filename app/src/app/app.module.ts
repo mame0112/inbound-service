@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatGridListModule, MatSnackBarModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatGridListModule, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -43,6 +43,7 @@ import { ScrollableDirective } from './directive/scrollable.directive';
 import { OffsetTopDirective } from './directive/offset-top.directive';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //     return new TranslateHttpLoader(http);
@@ -64,7 +65,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
     TermsComponent,
     PrivacyComponent,
     ScrollableDirective,
-    OffsetTopDirective
+    OffsetTopDirective,
+    ProgressDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +86,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
     MatDialogModule,
     MatSnackBarModule,
     MatGridListModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule,
     IgxNavbarModule,
     NgbModule,
@@ -100,6 +103,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
   ],
   entryComponents: [
     DialogComponent,
+    ProgressDialogComponent,
     HostStartComponent
   ],
   providers: [

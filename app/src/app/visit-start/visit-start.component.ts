@@ -26,6 +26,7 @@ import { HostDataBuilder } from '../data-builder/host-data-builder';
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 import { DialogComponent } from '../dialog/dialog.component';
+import { ProgressDialogComponent } from '../progress-dialog/progress-dialog.component';
 
 declare var window: any;
 declare var FB: any;
@@ -55,6 +56,8 @@ export class VisitStartComponent implements OnInit {
     visit = new Visit();
 
     selectedOptions: string[] = [];
+
+    progressDialogRef = null;
 
     constructor(
         private apiService: ApiService,
@@ -127,6 +130,7 @@ export class VisitStartComponent implements OnInit {
 
     onSubmit(){
         console.log('Submitted:' + JSON.stringify(this.visit));
+        this.openProgressDialog(ProgressDialogIdentifier.CREATE_VISIT_DATA);
 
         this.apiService.createVisitData(this.visit).pipe(
             tap(heroes => console.log('fetched users')),
@@ -183,12 +187,17 @@ export class VisitStartComponent implements OnInit {
           } else {
             this.openDialog(DialogIdentifier.CREATE_VISIT_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
+
+          this.closeProgressDialog();
+
         });
 
     }
 
     startConversation(): void {
       console.log('startConversation');
+
+      this.openProgressDialog(ProgressDialogIdentifier.CREATE_CONVERSATION);
 
       let builder = new ConversationDataBuilder();
       let conversation = builder.setHostUserId(this.host.getUserId()).setHostUserName(this.host.getUserName()).setHostThumbUrl(this.host.getThumbUrl()).setVisitorUserId(this.visit.getUserId()).setVisitorUserName(this.visit.getUserName()).setVisitorThumbUrl(this.visit.getThumbUrl()).setMessages([]).setVisitId(this.visit.getVisitId()).setCurrentUserId(this.user_id).setVisitStart(this.visit.getStart()).setVisitEnd(this.visit.getEnd()).setVisitComment(this.visit.getComment()).setVisitProblems(this.visit.getProblems()).getResult();
@@ -206,6 +215,9 @@ export class VisitStartComponent implements OnInit {
           } else {
             this.openDialog(DialogIdentifier.START_CONVERSATION_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
+
+          this.closeProgressDialog();
+
       });
 
         this.sendEvent('body', 'start_conversation', 'click');
@@ -276,6 +288,31 @@ export class VisitStartComponent implements OnInit {
       });
     }
 
+    openProgressDialog(id: number): void {
+      this.progressDialogRef = this.matDialog.open(ProgressDialogComponent, {
+        data: {id: id}
+      });
+
+      this.progressDialogRef.afterClosed().subscribe(result => {
+        console.log('The progress dialog was closed');
+        console.log(result);
+
+        switch(result.id) {
+          case ProgressDialogIdentifier.CREATE_VISIT_DATA:
+            break;
+          case ProgressDialogIdentifier.CREATE_CONVERSATION:
+            break;
+        }
+
+
+      });
+    }
+
+    closeProgressDialog(): void{
+      this.progressDialogRef.close();
+    }
+
+
     sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
         console.log('sendEvent');
         this.analyticsService.sendEvent('visit-start', eventCategory, eventAction, eventLabel);
@@ -287,5 +324,9 @@ export enum DialogIdentifier {
   GET_HOST_FAILED,
   CREATE_VISIT_FAILED,
   START_CONVERSATION_FAILED,
+}
 
+export enum ProgressDialogIdentifier {
+  CREATE_VISIT_DATA,
+  CREATE_CONVERSATION,
 }

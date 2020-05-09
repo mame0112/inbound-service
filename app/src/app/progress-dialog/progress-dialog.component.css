@@ -1,0 +1,19 @@
+.spinner {
+    float: left;
+}
+
+.text {
+    float: right;
+    text-align: left;
+    background-color: #FF0000;
+}
+
+.tp-section {
+   display: flex;
+   align-content: center;
+   align-items: center;
+   height: 60px;
+}
+.tp-margin {
+   margin: 0 10px;
+}

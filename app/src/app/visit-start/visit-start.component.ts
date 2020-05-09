@@ -303,8 +303,6 @@ export class VisitStartComponent implements OnInit {
           case ProgressDialogIdentifier.CREATE_CONVERSATION:
             break;
         }
-
-
       });
     }
 

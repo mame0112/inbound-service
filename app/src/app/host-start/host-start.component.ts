@@ -28,6 +28,7 @@ import { HostDataBuilder } from '../data-builder/host-data-builder';
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 import { DialogComponent } from '../dialog/dialog.component';
+import { ProgressDialogComponent } from '../progress-dialog/progress-dialog.component';
 
 import { Util } from '../util';
 
@@ -60,6 +61,8 @@ export class HostStartComponent implements OnInit {
     negative: string;
 
     problem = new Problems();
+
+    progressDialogRef = null;
 
     constructor(
       private apiService: ApiService,
@@ -127,6 +130,8 @@ export class HostStartComponent implements OnInit {
     onNextButtonClicked() {
         console.log('onNextButtonClicked');
 
+        this.openProgressDialog(ProgressDialogIdentifier.GET_VISIT_DATA);
+
         this.apiService.getVisitData(Constants.ALL_VISITS).pipe(
           tap(data => console.log(data)),
           catchError(this.apiService.handleError<string>('getVisitData', 'Error'))
@@ -147,6 +152,9 @@ export class HostStartComponent implements OnInit {
               console.log('getVisitData response error');
               this.openDialog(DialogIdentifier.NEXT_BUTTON_RESPONSE_FAILED, 'Something went wrong. Please try again later', 'OK', null);
             }
+
+          this.closeProgressDialog(ProgressDialogIdentifier.GET_VISIT_DATA);
+
           })
 
         this.sendEvent('body', 'register_as_host', 'click');
@@ -160,6 +168,7 @@ export class HostStartComponent implements OnInit {
 
     matchingWithVisitor(contents: any): void {
       console.log('matchingWithVisitor');
+
       let array = JSON.parse(contents);
       let obj = array[0];
       console.log(obj);
@@ -177,6 +186,8 @@ export class HostStartComponent implements OnInit {
     registerToVisitorWaitingQueue(): void {
       console.log('registerToVisitorWaitingQueue');
 
+      this.openProgressDialog(ProgressDialogIdentifier.CREATE_HOST_DATA);
+
       this.host_data = this.createHostData();
 
       this.apiService.createHostData(this.host_data).pipe(
@@ -190,12 +201,17 @@ export class HostStartComponent implements OnInit {
             console.log('createHostData response error');
             this.openDialog(DialogIdentifier.CREATE_HOST_FAILED, 'Something went wrong. Please try again later', 'OK', null);
           }
+
+          this.closeProgressDialog(ProgressDialogIdentifier.CREATE_HOST_DATA);
+
         });
     }
 
 
     startConversation(): void {
       console.log('startConversation');
+
+      this.openProgressDialog(ProgressDialogIdentifier.START_CONVERSATION);
 
       let builder = new ConversationDataBuilder();
       let conversation = builder.setHostUserId(this.userDataService.getUserId()).setHostUserName(this.userDataService.getUserName()).setHostThumbUrl(this.userDataService.getThumbUrl()).setVisitorUserId(this.matched_visit.getUserId()).setVisitorUserName(this.matched_visit.getUserName()).setVisitorThumbUrl(this.matched_visit.getThumbUrl()).setMessages([]).setVisitId(this.matched_visit.getVisitId()).setCurrentUserId(this.userDataService.getUserId()).setVisitStart(this.matched_visit.getStart()).setVisitEnd(this.matched_visit.getEnd()).setVisitComment(this.matched_visit.getComment()).setVisitProblems(this.matched_visit.getProblems()).getResult();
@@ -214,6 +230,9 @@ export class HostStartComponent implements OnInit {
             console.log('createHostData response error');
             this.openDialog(DialogIdentifier.START_CONVERSATION_FAILED, 'Something went wrong. Please try again later', 'OK', null);
         }
+
+        this.closeProgressDialog(ProgressDialogIdentifier.START_CONVERSATION);
+
       });
 
      this.sendEvent('body', 'start_conversation', 'click');
@@ -271,6 +290,30 @@ export class HostStartComponent implements OnInit {
     });
   }
 
+  openProgressDialog(id: number): void {
+    this.progressDialogRef = this.matDialog.open(ProgressDialogComponent, {
+      data: {id: id}
+    });
+
+    this.progressDialogRef.afterClosed().subscribe(result => {
+      console.log('The progress dialog was closed');
+      console.log(result);
+
+      switch(result.id) {
+        case ProgressDialogIdentifier.GET_VISIT_DATA:
+          break;
+        case ProgressDialogIdentifier.CREATE_HOST_DATA:
+          break;
+        case ProgressDialogIdentifier.START_CONVERSATION:
+          break;
+      }
+    });
+  }
+
+  closeProgressDialog(id: number): void{
+    this.progressDialogRef.close(id);
+  }
+
   getIconName(id: string): string {
     return this.problem.getIconName(id);
   }
@@ -297,3 +340,10 @@ export enum DialogIdentifier {
   START_CONVERSATION_FAILED
 
 }
+
+export enum ProgressDialogIdentifier {
+  GET_VISIT_DATA,
+  CREATE_HOST_DATA,
+  START_CONVERSATION,
+}
+

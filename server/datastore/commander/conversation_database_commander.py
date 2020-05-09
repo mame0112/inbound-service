@@ -2,7 +2,7 @@ import json
 from google.cloud import datastore
 import time
 
-from server.const.const import HttpResponseCode, Conversation
+from server.const.const import User, HttpResponseCode, Conversation
 
 from server.datastore.commander.adb_database_commander import (
     AbstractDatastoreCommander)
@@ -109,9 +109,8 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
 
             host_user_id = conv_data[Conversation.KEY_HOST_ID]
 
-            # user_id, user_name, thumb_url, access_token, convs_as_host, convs_as_guest, user_properties, key_plans
-            self.update_user_parameters(host_user_id, None, None, None,
-                                        convs_as_host, None, None, None, None)
+            updated_host_user = self.update_user_parameters(host_user_id, None, None, None,
+                                                            convs_as_host, None, None, None, None)
 
             # Update user db (For Guest)
             convs_as_guest = {}
@@ -128,8 +127,11 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
 
             visitor_user_id = conv_data[Conversation.KEY_VISITOR_ID]
 
-            self.update_user_parameters(visitor_user_id, None, None, None,
-                                        None, convs_as_guest, None, None, None)
+            updated_visitor_user = self.update_user_parameters(visitor_user_id, None, None, None,
+                                                               None, convs_as_guest, None, None, None)
+
+            self.log.debug(updated_host_user)
+            self.log.debug(updated_visitor_user)
 
             # Send Facebook message
             if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
@@ -137,14 +139,14 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
                 # Current user is host. Then send Facebook Message to visitor
                 self.log.debug('Current user is host')
                 self.send_facebook_message(
-                    conv_data[Conversation.KEY_VISITOR_ID])
+                    updated_visitor_user[User.KEY_PSID])
             else:
                 self.log.debug('Current user is not host')
 
             if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
                     Conversation.KEY_VISITOR_ID]:
                 self.log.debug('Current user is visitor')
-                self.send_facebook_message(conv_data[Conversation.KEY_HOST_ID])
+                self.send_facebook_message(updated_host_user[User.KEY_PSID])
             else:
                 self.log.debug('Current user is not visitor')
 

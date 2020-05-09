@@ -194,9 +194,68 @@ class AbstractDatastoreCommander(ABC):
             result.set_error_message(error)
             result.set_http_response_code(
                 HttpResponseCode.INTERNAL_SERVER_ERROR)
-            return result
+            return None
 
-        return result
+        return self.create_updated_user_info(entity)
+
+    def create_updated_user_info(self, entity):
+
+        updated_user = {}
+
+        try:
+            if entity[User.KEY_USER_ID] is not None:
+                updated_user[User.KEY_USER_ID] = entity[User.KEY_USER_ID]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_USER_NAME] is not None:
+                updated_user[User.KEY_USER_NAME] = entity[User.KEY_USER_NAME]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_THUMB_URL] is not None:
+                updated_user[User.KEY_THUMB_URL] = entity[User.KEY_THUMB_URL]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_CONVERSATIONS_HOST] is not None:
+                updated_user[User.KEY_CONVERSATIONS_HOST] = entity[
+                    User.KEY_CONVERSATIONS_HOST]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_CONVERSATIONS_GUEST] is not None:
+                updated_user[User.KEY_CONVERSATIONS_GUEST] = entity[
+                    User.KEY_CONVERSATIONS_GUEST]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_USER_PROPERTIES] is not None:
+                updated_user[User.KEY_USER_PROPERTIES] = entity[
+                    User.KEY_USER_PROPERTIES]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_PLANS] is not None:
+                updated_user[User.KEY_PLANS] = entity[User.KEY_PLANS]
+        except KeyError as error:
+            self.log.debug(error)
+
+        try:
+            if entity[User.KEY_PSID] is not None:
+                updated_user[User.KEY_PSID] = entity[User.KEY_PSID]
+        except KeyError as error:
+            self.log.debug(error)
+
+        self.log.debug(updated_user)
+
+        return updated_user
 
     def send_facebook_message(self, target_user_id):
         self.log.debug('send_facebook_message')

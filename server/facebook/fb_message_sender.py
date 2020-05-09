@@ -38,6 +38,8 @@ class FacebookMessageSender():
         payload['access_token'] = fb_settings['page_access_token']
         self.log.debug(payload['access_token'])
 
+        self.log.debug(payload)
+
         response = requests.post(URL, json=payload)
 
         if response is not None:

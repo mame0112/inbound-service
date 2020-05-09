@@ -147,13 +147,11 @@ export class HostStartComponent implements OnInit {
                 this.registerToVisitorWaitingQueue();
               }
 
-
             } else {
               console.log('getVisitData response error');
+              this.closeProgressDialog(ProgressDialogIdentifier.GET_VISIT_DATA);
               this.openDialog(DialogIdentifier.NEXT_BUTTON_RESPONSE_FAILED, 'Something went wrong. Please try again later', 'OK', null);
             }
-
-          this.closeProgressDialog(ProgressDialogIdentifier.GET_VISIT_DATA);
 
           })
 
@@ -181,12 +179,14 @@ export class HostStartComponent implements OnInit {
 
       this.state = HostStartComponent.MATCH_WITH_VISITOR;
 
+      this.closeProgressDialog(ProgressDialogIdentifier.GET_VISIT_DATA);
+
     }
 
     registerToVisitorWaitingQueue(): void {
       console.log('registerToVisitorWaitingQueue');
 
-      this.openProgressDialog(ProgressDialogIdentifier.CREATE_HOST_DATA);
+      // this.openProgressDialog(ProgressDialogIdentifier.CREATE_HOST_DATA);
 
       this.host_data = this.createHostData();
 

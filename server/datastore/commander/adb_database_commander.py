@@ -5,8 +5,6 @@ from google.cloud import datastore
 from server.result.result import Result
 from server.const.const import Consts, User, Visit, Conversation, State, HttpResponseCode
 
-from server.facebook.fb_message_sender import FacebookMessageSender
-
 
 class AbstractDatastoreCommander(ABC):
 
@@ -256,8 +254,3 @@ class AbstractDatastoreCommander(ABC):
         self.log.debug(updated_user)
 
         return updated_user
-
-    def send_facebook_message(self, target_user_id):
-        self.log.debug('send_facebook_message')
-        sender = FacebookMessageSender()
-        return sender.send(target_user_id)

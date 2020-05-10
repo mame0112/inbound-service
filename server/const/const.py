@@ -4,6 +4,8 @@ class Consts:
     NO_PSID = -1
     ALL_VISITS = -1
     VISIT_QUERY_NUM = 3
+    BASE_URL = "https://traca-for-traveler.an.r.appspot.com/#/"
+    ENDPOINT_CONVERSATION = "conversation/"
 
 
 class User:

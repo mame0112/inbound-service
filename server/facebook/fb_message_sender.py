@@ -12,11 +12,12 @@ class FacebookMessageSender():
 
     log = Logger("FacebookMessageSender")
 
-    def send(self, recipient_id):
-        self.log.debug('send_notification')
-        # self.log.debug(type(user_id))
+    def send(self, target_user_psid, message_content):
+        self.log.debug('send')
 
-        # self.log.debug(url)
+        if target_user_psid is None or message_content is None:
+            self.log.debug('target_user_psid or message_content is null')
+            return False
 
         f = open('facebook_setting.json', 'r')
         fb_settings = json.load(f)
@@ -28,10 +29,10 @@ class FacebookMessageSender():
         payload['messaging_type'] = 'RESPONSE'
 
         # recipient['id'] = '3079624638743721'
-        recipient['id'] = recipient_id
+        recipient['id'] = target_user_psid
         payload['recipient'] = recipient
 
-        message['text'] = "hello, world!"
+        message['text'] = message_content
         payload['message'] = message
         # payload['access_token'] = page_access_token
 

@@ -10,8 +10,10 @@ from server.datastore.commander.adb_database_commander import (
 from server.datastore.data_processor.conversation_dataformat_processor import(
     ConversationDataFormatProcessor)
 
-from server.result.result import Result
+from server.facebook.message_content_generator import MessageContentGenerator
+from server.facebook.fb_message_sender import FacebookMessageSender
 
+from server.result.result import Result
 from server.util.logger import Logger
 
 
@@ -133,20 +135,25 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
             self.log.debug(updated_host_user)
             self.log.debug(updated_visitor_user)
 
+            msg_generator = MessageContentGenerator()
+
+            sender = FacebookMessageSender()
+
             # Send Facebook message
             if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
                     Conversation.KEY_HOST_ID]:
                 # Current user is host. Then send Facebook Message to visitor
                 self.log.debug('Current user is host')
-                self.send_facebook_message(
-                    updated_visitor_user[User.KEY_PSID])
+                sender.send(updated_visitor_user[
+                            User.KEY_PSID], msg_generator.generate_matching_message_for_visitor(entity[Conversation.KEY_CONVERSATION_ID]))
             else:
                 self.log.debug('Current user is not host')
 
             if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
                     Conversation.KEY_VISITOR_ID]:
                 self.log.debug('Current user is visitor')
-                self.send_facebook_message(updated_host_user[User.KEY_PSID])
+                sender.send(updated_host_user[
+                            User.KEY_PSID], msg_generator.generate_matching_message_for_host(entity[Conversation.KEY_CONVERSATION_ID]))
             else:
                 self.log.debug('Current user is not visitor')
 

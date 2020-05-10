@@ -20,13 +20,15 @@ import { Visit } from '../visit';
 import { Host } from '../host';
 import { Problems } from '../problems';
 
-import { Constants, HostConsts, VisitConsts, ConversationConsts } from '../constants';
+import { Constants, HostConsts, VisitConsts, ConversationConsts, WebhookRefConstants } from '../constants';
 import { VisitDataBuilder } from '../data-builder/visit-data-builder';
 import { HostDataBuilder } from '../data-builder/host-data-builder';
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 import { DialogComponent } from '../dialog/dialog.component';
 import { ProgressDialogComponent } from '../progress-dialog/progress-dialog.component';
+
+import { Util } from '../util';
 
 declare var window: any;
 declare var FB: any;
@@ -233,6 +235,10 @@ export class VisitStartComponent implements OnInit {
         this.visit.setThumbUrl(this.userDataService.getThumbUrl());
     }
 
+    createWebhookRefData(): any {
+      return new Util().createWebhookRefData(this.user_id, WebhookRefConstants.KEY_TYPE_VISITOR);
+    }
+
     openSnackbar(): void {
       console.log('openSnackBar');
 
@@ -252,7 +258,6 @@ export class VisitStartComponent implements OnInit {
       });
 
     }
-
 
     onProblemItemSelected(event){
 

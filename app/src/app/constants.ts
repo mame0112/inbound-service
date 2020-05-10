@@ -88,3 +88,10 @@ export class ConversationConsts {
     public static readonly KEY_PROBLEMS = "problems";
 
 }
+
+export class WebhookRefConstants {
+    public static readonly KEY_USER_ID = "user_id";
+    public static readonly KEY_TYPE = "type";
+    public static readonly KEY_TYPE_HOST = "host";
+    public static readonly KEY_TYPE_VISITOR = "visitor";
+}

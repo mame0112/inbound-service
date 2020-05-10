@@ -16,7 +16,7 @@ import { AnalyticsService } from '../analytics.service';
 import { FacebookService } from '../facebook.service';
 import { FacebookData, Category } from '../facebook-data';
 
-import { Constants, VisitConsts, ConversationConsts } from '../constants';
+import { Constants, VisitConsts, ConversationConsts, WebhookRefConstants } from '../constants';
 
 import { Visit } from '../visit';
 import { Host } from '../host';
@@ -323,13 +323,13 @@ export class HostStartComponent implements OnInit {
     return this.problem.getLabel(id);
   }
 
-  handleError(id: number, option: number): void {
-
-  }
-
   sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
     console.log('sendEvent');
     this.analyticsService.sendEvent('host-start', eventCategory, eventAction, eventLabel);
+  }
+
+  createWebhookRefData(): any {
+    return new Util().createWebhookRefData(this.userDataService.getUserId(), WebhookRefConstants.KEY_TYPE_HOST);
   }
 
 }

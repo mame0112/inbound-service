@@ -1,4 +1,4 @@
-<div class="container_conversation" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+<div class="container_conversation" [ngClass.lt-md]="'container_conversation_small'" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
     <mat-list id="make-scrollable" fxFlex="auto" fxLayout="column" appScrollable>
         <mat-list-item appOffsetTop class="item" *ngFor="let msg of messages" flex fxFlexOffset="10px">
             <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="400px" fxLayoutGap="10px">

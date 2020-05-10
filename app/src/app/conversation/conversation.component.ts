@@ -69,9 +69,16 @@ export class ConversationComponent implements OnInit, AfterViewInit {
 
       if (this.userDataService.hasValidUserData()){
         console.log('Valid user data');
-        this.user_id = this.userDataService.getUserId();
-        this.user_name = this.userDataService.getUserName();
-        this.thumb_url = this.userDataService.getThumbUrl();
+
+        let user = this.userDataService.initialize();
+
+        this.user_id = user.getUserId();
+        this.user_name = user.getUserName();
+        this.thumb_url = user.getThumbUrl();
+
+        // this.user_id = this.userDataService.getUserId();
+        // this.user_name = this.userDataService.getUserName();
+        // this.thumb_url = this.userDataService.getThumbUrl();
 
         console.log(this.user_id);
 

@@ -144,16 +144,26 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
                     Conversation.KEY_HOST_ID]:
                 # Current user is host. Then send Facebook Message to visitor
                 self.log.debug('Current user is host')
-                sender.send(updated_visitor_user[
-                            User.KEY_PSID], msg_generator.generate_matching_message_for_visitor(entity[Conversation.KEY_CONVERSATION_ID]))
+                try:
+                    sender.send(updated_visitor_user[
+                        User.KEY_PSID], msg_generator.generate_matching_message_for_visitor(entity[Conversation.KEY_CONVERSATION_ID]))
+                except KeyError as error:
+                    # This error could happen because user might not select
+                    # "Send to messenger" button
+                    self.log.debug(error)
             else:
                 self.log.debug('Current user is not host')
 
             if conv_data[Conversation.KEY_CURRENT_USER_ID] == conv_data[
                     Conversation.KEY_VISITOR_ID]:
                 self.log.debug('Current user is visitor')
-                sender.send(updated_host_user[
-                            User.KEY_PSID], msg_generator.generate_matching_message_for_host(entity[Conversation.KEY_CONVERSATION_ID]))
+                try:
+                    sender.send(updated_host_user[
+                        User.KEY_PSID], msg_generator.generate_matching_message_for_host(entity[Conversation.KEY_CONVERSATION_ID]))
+                except KeyError as error:
+                    # This error could happen because user might not select
+                    # "Send to messenger" button
+                    self.log.debug(error)
             else:
                 self.log.debug('Current user is not visitor')
 

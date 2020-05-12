@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, NavigationEnd } from '@angular/router';
 
 // import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -76,6 +76,14 @@ export class LandingComponent implements OnInit, OnDestroy {
     if(this.userObj != null){
       // this.router.navigate(['/my-page']);
     }
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+
+      window.scrollTo(0, 0)
+    });
 
   }
 

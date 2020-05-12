@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Subscription } from 'rxjs';
 
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -108,6 +108,14 @@ export class HostStartComponent implements OnInit {
         console.log('Not valid data');
         this.openDialog(DialogIdentifier.INIT_FAILED, 'Something went wrong. Please try again later', 'OK', null);
       }
+
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+          return;
+        }
+
+        window.scrollTo(0, 0)
+      });
 
     }
 

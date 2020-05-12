@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { forkJoin, Observable, of } from 'rxjs';
@@ -54,16 +54,17 @@ export class ConversationComponent implements OnInit, AfterViewInit {
 
 
     constructor(
-        private route: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         private location: Location,
         private apiService: ApiService,
         private userDataService: UserDataService,
-        private analyticsService: AnalyticsService) { }
+        private analyticsService: AnalyticsService,
+        private router: Router) { }
 
     ngOnInit() {
       console.log('ConversationComponent onInit');
 
-      this.conv_id = +this.route.snapshot.paramMap.get('conv_id');
+      this.conv_id = +this.activatedRoute.snapshot.paramMap.get('conv_id');
       console.log('conv_id');
       console.log(this.conv_id);
 
@@ -87,6 +88,14 @@ export class ConversationComponent implements OnInit, AfterViewInit {
         // Some error happens. Show error dialog
         console.log('Not valid user data');
       }
+
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+          return;
+        }
+
+        window.scrollTo(0, 0)
+      });
 
     }
 

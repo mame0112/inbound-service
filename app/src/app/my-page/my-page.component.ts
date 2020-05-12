@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { Constants, UserConsts, ConversationConsts, VisitConsts} from '../constants';
 
@@ -36,22 +36,30 @@ export class MyPageComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-      this.apiService.getUserData(this.userDataService.user_id).pipe(
-            tap(heroes => console.log('fetched users')),
-            catchError(this.apiService.handleError<string>('createUserData', 'Error'))
-          ).subscribe(params => {
-            if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
-                let content = params[Constants.CONTENT];
-                this.hosts = this.validateAndExtractHostData(content[UserConsts.KEY_CONVERSATIONS_HOST]);
-                this.visits = this.validateAndExtractVisitData(content[UserConsts.KEY_CONVERSATIONS_GUEST]);
-                let plan = content[UserConsts.KEY_PLANS];
-                console.log('hosts');
-                console.log(this.hosts);
-            } else {
-                console.log('Error ocurred');
-                // TODO Error handling
-            }
-          });
+    this.apiService.getUserData(this.userDataService.user_id).pipe(
+          tap(heroes => console.log('fetched users')),
+          catchError(this.apiService.handleError<string>('createUserData', 'Error'))
+        ).subscribe(params => {
+          if (params[Constants.RESPONSE_CODE] == Constants.RESPONSE_OK) {
+              let content = params[Constants.CONTENT];
+              this.hosts = this.validateAndExtractHostData(content[UserConsts.KEY_CONVERSATIONS_HOST]);
+              this.visits = this.validateAndExtractVisitData(content[UserConsts.KEY_CONVERSATIONS_GUEST]);
+              let plan = content[UserConsts.KEY_PLANS];
+              console.log('hosts');
+              console.log(this.hosts);
+          } else {
+              console.log('Error ocurred');
+              // TODO Error handling
+          }
+        });
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+
+      window.scrollTo(0, 0)
+    });
   }
 
   registerAsHost(): void {

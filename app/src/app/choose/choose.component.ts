@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../analytics.service';
@@ -55,9 +55,18 @@ export class ChooseComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.user_name = this.userDataService.getUserName();
-      this.user_id = this.userDataService.getUserId();
-      console.log(this.user_id);
+    this.user_name = this.userDataService.getUserName();
+    this.user_id = this.userDataService.getUserId();
+    console.log(this.user_id);
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+
+      window.scrollTo(0, 0)
+    });
+
    }
 
   ngAfterViewInit() {

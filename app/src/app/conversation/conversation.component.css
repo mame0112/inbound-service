@@ -73,6 +73,10 @@ mat-list-item.item {
     padding-left: 10px;
 }
 
+.header_info_text {
+    margin-top: 6px;
+}
+
 .header_info_icon {
     width: 32px;
     height: 32px;

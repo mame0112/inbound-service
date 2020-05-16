@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef, ViewChildren, AfterViewInit, QueryList, NgZone } from '@angular/core';
 
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
@@ -56,6 +56,8 @@ export class ConversationComponent implements OnInit, AfterViewInit {
 
     container: HTMLElement;
 
+    title: string;
+
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -64,7 +66,8 @@ export class ConversationComponent implements OnInit, AfterViewInit {
         private userDataService: UserDataService,
         private analyticsService: AnalyticsService,
         private router: Router,
-        private matDialog: MatDialog) { }
+        private matDialog: MatDialog,
+        private zone: NgZone) { }
 
     ngOnInit() {
       console.log('ConversationComponent onInit');
@@ -126,6 +129,8 @@ export class ConversationComponent implements OnInit, AfterViewInit {
                 let builder = new ConversationDataBuilder();
                 this.conversations = builder.setConversationId(content[ConversationConsts.KEY_CONVERSATION_ID]).setHostUserId(content[ConversationConsts.KEY_HOST_ID]).setHostUserName(content[ConversationConsts.KEY_HOST_NAME]).setHostThumbUrl(content[ConversationConsts.KEY_HOST_THUMB_URL]).setVisitorUserId(content[ConversationConsts.KEY_VISITOR_ID]).setVisitorUserName(content[ConversationConsts.KEY_VISITOR_NAME]).setVisitorThumbUrl(content[ConversationConsts.KEY_VISITOR_THUMB_URL]).setMessages(content[ConversationConsts.KEY_MESSAGES]).setVisitComment(content[ConversationConsts.KEY_COMMENT]).setVisitStart(content[ConversationConsts.KEY_START]).setVisitEnd(content[ConversationConsts.KEY_END]).setVisitProblems(content[ConversationConsts.KEY_PROBLEMS]).setVisitPlace(content[ConversationConsts.KEY_PLACE]).getResult();
                 this.messages = this.conversations.getMessages();
+
+                this.getPageTitle();
 
                 for (var i = 0; i < this.messages.length; i++) {
                   this.messages[i].date = this.getDateForDisplay(this.messages[i].msg_time);
@@ -206,7 +211,7 @@ export class ConversationComponent implements OnInit, AfterViewInit {
     showConversationInformation(): void {
       console.log('showConversationInformation');
       const dialogRef = this.matDialog.open(ConversationInfoComponent, {
-        width: '250px',
+        width: '80%',
         data: {id: 1, conversation: this.conversations},
         disableClose: true
       });
@@ -216,6 +221,28 @@ export class ConversationComponent implements OnInit, AfterViewInit {
         console.log(result);
 
       });
+    }
+
+    getPageTitle(): void {
+
+      if (this.conversations != undefined){
+        this.zone.run(() => {
+          if (this.user_id == this.conversations.host_id) {
+            console.log('Host');
+            console.log(this.conversations.host_name);
+            this.title = '< ' + this.conversations.host_name;
+          } else {
+            console.log('Visitor');
+            console.log(this.conversations.place);
+            this.title = '< ' + this.conversations.place;
+          }
+        });
+      }
+
+    }
+
+    backToPreviousPage(): void {
+      this.location.back();
     }
 
 

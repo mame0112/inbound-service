@@ -1,10 +1,18 @@
-<div fxLayout="column" >
+<div fxLayout="column">
     <h1 mat-dialog-title fxFlex>NOTICE</h1>
 
+    <div fxFlex fxLayout="row">
+        <div fxFlex>
+            AAAA
+        </div>
+        <div fxFlex>
+            BBBB
+        </div>
+    </div>
     <div class="visit_info" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
         <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex="40%">Problems</div>
-            <div fxFlex="60%" fxLayout="column">
+            <div class="title" fxFlex="30%">Problems</div>
+            <div fxFlex="70%" fxLayout="column">
                 <div fxFlex *ngFor="let problem of conversation.problems">
                     <div fxFlex fxLayout="row" fxLayoutAlign="center center">
                         <img fxFlex="20%" [src]='"/assets/image/problems/"+getIconName(problem)+".png"' class="problem_image">
@@ -14,16 +22,16 @@
             </div>
         </div>
         <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex="40%">Place</div>
-            <div fxFlex="60%">{{conversation.place}}</div>
+            <div class="title" fxFlex="30%">Place</div>
+            <div fxFlex="70%">{{conversation.place}}</div>
         </div>
         <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex fxFlex="40%">Schedule</div>
-            <div fxFlex fxFlex="60%">{{conversation.start}} - {{conversation.end}}</div>
+            <div class="title" fxFlex fxFlex="30%">Schedule</div>
+            <div fxFlex fxFlex="70%">{{start}} - {{end}}</div>
         </div>
         <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex fxFlex="40%">Comment</div>
-            <div fxFlex fxFlex="60%">{{conversation.comment}}</div>
+            <div class="title" fxFlex fxFlex="30%">Comment</div>
+            <div fxFlex fxFlex="70%">{{conversation.comment}}</div>
         </div> 
     </div>
 
@@ -31,16 +39,3 @@
         <button mat-button [mat-dialog-close]="data.positive" (click)="onPositiveClick()">OK</button>
     </div>
 </div>
-
-
-<!-- <div mat-dialog-content>
-    AAAA
-</div>
- -->
-    <!-- <p>{{data.description}}</p> -->
-
-<!-- <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="data.positive" (click)="onPositiveClick()">OK</button> -->
-<!--     <button *ngIf="data.negative !== null" mat-button [mat-dialog-close]="data.negative" (click)="onNegativeClick()">{{data.negative}}</button>
-    <button mat-button [mat-dialog-close]="data.positive" (click)="onPositiveClick()">{{data.positive}}</button> -->
-<!-- </div> -->

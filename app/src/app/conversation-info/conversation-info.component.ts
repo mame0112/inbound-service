@@ -2,9 +2,11 @@ import { Component, Inject, OnInit  } from '@angular/core';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Constants } from '../constants';
+import { Constants, ConversationConsts } from '../constants';
 
 import { Problems } from '../problems';
+
+import { Util } from '../util';
 
 export interface DialogData {
     id: number;
@@ -22,6 +24,8 @@ export class ConversationInfoComponent implements OnInit {
     conversation: any;
 
     problem = new Problems();
+    start: string;
+    end: string;
 
     constructor(
         public dialogRef: MatDialogRef<ConversationInfoComponent>,
@@ -32,9 +36,8 @@ export class ConversationInfoComponent implements OnInit {
         console.log('ConversationInfoComponent OnInit');
         this.id = this.data.id;
         this.conversation = this.data.conversation;
-        console.log(this.id);
-        console.log(this.conversation);
-        console.log(this.conversation.place);
+        this.start = new Util().createDateForDisplay(this.conversation.start);
+        this.end = new Util().createDateForDisplay(this.conversation.end);
     }
 
     onPositiveClick(): void {

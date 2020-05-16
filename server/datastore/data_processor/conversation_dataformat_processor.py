@@ -43,6 +43,19 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
 
         data[Conversation.KEY_MESSAGES] = output
 
+        if Conversation.KEY_COMMENT in entity:
+            data[Conversation.KEY_COMMENT] = entity[
+                Conversation.KEY_COMMENT]
+
+        if Conversation.KEY_PROBLEMS in entity:
+            data[Conversation.KEY_PROBLEMS] = entity[
+                Conversation.KEY_PROBLEMS]
+
+        data[Conversation.KEY_START] = entity[
+            Conversation.KEY_START]
+        data[Conversation.KEY_END] = entity[
+            Conversation.KEY_END]
+
         self.log.debug(json.dumps(data))
 
         return data
@@ -73,6 +86,15 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
             Conversation.KEY_VISITOR_THUMB_URL]
         entity[Conversation.KEY_MESSAGES] = json.dumps(conv_json[
             Conversation.KEY_MESSAGES])
+        entity[Conversation.KEY_COMMENT] = json.dumps(conv_json[
+            Conversation.KEY_COMMENT])
+        entity[Conversation.KEY_PROBLEMS] = json.dumps(conv_json[
+            Conversation.KEY_PROBLEMS])
+        entity[Conversation.KEY_START] = json.dumps(conv_json[
+            Conversation.KEY_START])
+        entity[Conversation.KEY_END] = json.dumps(conv_json[
+            Conversation.KEY_END])
+
         self.log.debug(json.dumps(conv_json[Conversation.KEY_MESSAGES]))
 
         return entity
@@ -92,6 +114,15 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
             Conversation.KEY_VISITOR_NAME]
         original_entity[Conversation.KEY_VISITOR_THUMB_URL] = update_json[
             Conversation.KEY_VISITOR_THUMB_URL]
+
+        original_entity[Conversation.KEY_COMMENT] = update_json[
+            Conversation.KEY_COMMENT]
+        original_entity[Conversation.KEY_PROBLEMS] = update_json[
+            Conversation.KEY_PROBLEMS]
+        original_entity[Conversation.KEY_START] = update_json[
+            Conversation.KEY_START]
+        original_entity[Conversation.KEY_END] = update_json[
+            Conversation.KEY_END]
 
         messages = json.loads(original_entity[Conversation.KEY_MESSAGES])
 

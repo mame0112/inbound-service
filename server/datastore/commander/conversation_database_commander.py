@@ -80,6 +80,14 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
                 Conversation.KEY_VISITOR_THUMB_URL]
             entity[Conversation.KEY_VISIT_ID] = conv_data[
                 Conversation.KEY_VISIT_ID]
+            entity[Conversation.KEY_COMMENT] = conv_data[
+                Conversation.KEY_COMMENT]
+            entity[Conversation.KEY_PROBLEMS] = conv_data[
+                Conversation.KEY_PROBLEMS]
+            entity[Conversation.KEY_START] = conv_data[
+                Conversation.KEY_START]
+            entity[Conversation.KEY_END] = conv_data[
+                Conversation.KEY_END]
             # entity[Conversation.KEY_MESSAGES] = json.dumps(conv_json[
             #     Conversation.KEY_MESSAGES])
             # messages = []

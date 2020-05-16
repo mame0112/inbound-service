@@ -16,6 +16,10 @@ import { User } from '../user';
 import { Conversation } from '../conversation';
 import { Constants, UserConsts, ConversationConsts } from '../constants';
 
+import { ConversationInfoComponent } from '../conversation-info/conversation-info.component';
+
+import { MatDialog } from '@angular/material/dialog';
+
 import { ConversationDataBuilder } from '../data-builder/conversation-data-builder';
 
 import { ScrollableDirective } from '../directive/scrollable.directive';
@@ -59,7 +63,8 @@ export class ConversationComponent implements OnInit, AfterViewInit {
         private apiService: ApiService,
         private userDataService: UserDataService,
         private analyticsService: AnalyticsService,
-        private router: Router) { }
+        private router: Router,
+        private matDialog: MatDialog) { }
 
     ngOnInit() {
       console.log('ConversationComponent onInit');
@@ -197,6 +202,22 @@ export class ConversationComponent implements OnInit, AfterViewInit {
       var time = year + '/' + month + '/' + date + ' ' + hour + ':' + min;
       return time;
     }
+
+    showConversationInformation(): void {
+      console.log('showConversationInformation');
+      const dialogRef = this.matDialog.open(ConversationInfoComponent, {
+        width: '250px',
+        data: {id: 1, conversation: this.conversations},
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        console.log(result);
+
+      });
+    }
+
 
     sendEvent(eventCategory: string, eventAction: string, eventLabel: any): void {
       console.log('sendEvent');

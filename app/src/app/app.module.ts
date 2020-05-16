@@ -44,6 +44,7 @@ import { OffsetTopDirective } from './directive/offset-top.directive';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
+import { ConversationInfoComponent } from './conversation-info/conversation-info.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //     return new TranslateHttpLoader(http);
@@ -66,7 +67,8 @@ import { ProgressDialogComponent } from './progress-dialog/progress-dialog.compo
     PrivacyComponent,
     ScrollableDirective,
     OffsetTopDirective,
-    ProgressDialogComponent
+    ProgressDialogComponent,
+    ConversationInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,7 @@ import { ProgressDialogComponent } from './progress-dialog/progress-dialog.compo
   entryComponents: [
     DialogComponent,
     ProgressDialogComponent,
-    HostStartComponent
+    ConversationInfoComponent
   ],
   providers: [
     CookieService

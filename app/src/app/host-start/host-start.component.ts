@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { Router, NavigationEnd } from '@angular/router';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { ApiService } from '../api.service';

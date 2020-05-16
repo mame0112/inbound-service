@@ -14,6 +14,7 @@ export class Conversation {
     problems: string[];
     start: string;
     end: string;
+    place: string;
 
 
     constructor(){}
@@ -72,6 +73,10 @@ export class Conversation {
 
     setVisitEnd(end: string): void {
         this.end = end;
+    }
+
+    setVisitPlace(place: string): void {
+        this.place = place;
     }
 
     addMessage(message: object): void {
@@ -133,6 +138,11 @@ export class Conversation {
     getVisitEnd(): string {
         return this.end;
     }
+
+    getVisitPlace(): string {
+        return this.place;
+    }
+
 
     
 }

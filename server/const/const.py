@@ -45,6 +45,7 @@ class Conversation:
     KEY_PROBLEMS = "problems"
     KEY_START = "start"
     KEY_END = "end"
+    KEY_PLACE = "place"
 
 
 class Host:

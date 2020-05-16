@@ -79,6 +79,11 @@ export class ConversationDataBuilder {
         return this;
     }
 
+    setVisitPlace(place: string): ConversationDataBuilder{
+        this.conversation.setVisitPlace(place);
+        return this;
+    }
+
     getResult(): Conversation{
         return this.conversation;
     }

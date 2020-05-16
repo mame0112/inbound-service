@@ -34,6 +34,7 @@ export class ConversationInfoComponent implements OnInit {
         this.conversation = this.data.conversation;
         console.log(this.id);
         console.log(this.conversation);
+        console.log(this.conversation.place);
     }
 
     onPositiveClick(): void {

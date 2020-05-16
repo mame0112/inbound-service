@@ -88,6 +88,9 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
                 Conversation.KEY_START]
             entity[Conversation.KEY_END] = conv_data[
                 Conversation.KEY_END]
+            entity[Conversation.KEY_PLACE] = conv_data[
+                Conversation.KEY_PLACE]
+
             # entity[Conversation.KEY_MESSAGES] = json.dumps(conv_json[
             #     Conversation.KEY_MESSAGES])
             # messages = []
@@ -114,6 +117,8 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
                 Conversation.KEY_START]
             convs_as_host[Conversation.KEY_END] = conv_data[
                 Conversation.KEY_END]
+            convs_as_host[Conversation.KEY_PLACE] = conv_data[
+                Conversation.KEY_PLACE]
 
             convs_as_host[Conversation.KEY_CONVERSATION_ID] = ut
 

@@ -55,6 +55,8 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
             Conversation.KEY_START]
         data[Conversation.KEY_END] = entity[
             Conversation.KEY_END]
+        data[Conversation.KEY_PLACE] = entity[
+            Conversation.KEY_PLACE]
 
         self.log.debug(json.dumps(data))
 
@@ -94,6 +96,8 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
             Conversation.KEY_START])
         entity[Conversation.KEY_END] = json.dumps(conv_json[
             Conversation.KEY_END])
+        entity[Conversation.KEY_PLACE] = json.dumps(conv_json[
+            Conversation.KEY_PLACE])
 
         self.log.debug(json.dumps(conv_json[Conversation.KEY_MESSAGES]))
 
@@ -123,6 +127,8 @@ class ConversationDataFormatProcessor(AbstractDataFormatProcessor):
             Conversation.KEY_START]
         original_entity[Conversation.KEY_END] = update_json[
             Conversation.KEY_END]
+        original_entity[Conversation.KEY_PLACE] = update_json[
+            Conversation.KEY_PLACE]
 
         messages = json.loads(original_entity[Conversation.KEY_MESSAGES])
 

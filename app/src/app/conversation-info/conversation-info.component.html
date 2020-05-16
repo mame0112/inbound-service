@@ -1,9 +1,10 @@
 <div fxLayout="column">
     <h1 mat-dialog-title fxFlex>{{title}}</h1>
 
-    <div mat-dialog-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-        <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex="30%">Problems</div>
+    <div mat-dialog-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" id="make-scrollable">
+    <!-- <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" id="make-scrollable"> -->
+        <div fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+            <div class="content_title" fxFlex="30%">Problems</div>
             <div fxFlex="70%" fxLayout="column">
                 <div fxFlex *ngFor="let problem of conversation.problems">
                     <div fxFlex fxLayout="row" fxLayoutAlign="center center">
@@ -13,16 +14,16 @@
                 </div>
             </div>
         </div>
-        <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex="30%">Place</div>
+        <div fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+            <div class="content_title" fxFlex="30%">Place</div>
             <div fxFlex="70%">{{conversation.place}}</div>
         </div>
-        <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex fxFlex="30%">Schedule</div>
+        <div fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+            <div class="content_title" fxFlex fxFlex="30%">Schedule</div>
             <div fxFlex fxFlex="70%">{{start}} - {{end}}</div>
         </div>
-        <div fxFlexFill fxLayout="row" fxLayoutAlign="start center">
-            <div class="title" fxFlex fxFlex="30%">Comment</div>
+        <div fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="start center">
+            <div class="content_title" fxFlex fxFlex="30%">Comment</div>
             <div fxFlex fxFlex="70%">{{conversation.comment}}</div>
         </div> 
     </div>

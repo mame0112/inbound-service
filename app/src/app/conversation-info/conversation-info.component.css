@@ -1,0 +1,10 @@
+.content_title { 
+    font-weight:bold;
+}
+
+#make-scrollable {
+    /*height: auto;*/
+    height: 60vh;
+    width: 100%;
+    overflow-y: scroll;
+}

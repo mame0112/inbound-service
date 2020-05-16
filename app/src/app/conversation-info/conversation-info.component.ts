@@ -10,6 +10,7 @@ import { Util } from '../util';
 
 export interface DialogData {
     id: number;
+    user_id: string;
     conversation: any;
 }
 
@@ -21,9 +22,12 @@ export interface DialogData {
 export class ConversationInfoComponent implements OnInit {
 
     id: number;
+    user_id: string;
     conversation: any;
 
     problem = new Problems();
+
+    title: string;
     start: string;
     end: string;
 
@@ -35,9 +39,23 @@ export class ConversationInfoComponent implements OnInit {
     ngOnInit() {
         console.log('ConversationInfoComponent OnInit');
         this.id = this.data.id;
+        this.user_id = this.data.user_id;
         this.conversation = this.data.conversation;
         this.start = new Util().createDateForDisplay(this.conversation.start);
         this.end = new Util().createDateForDisplay(this.conversation.end);
+
+        if (this.conversation != undefined){
+
+            if (this.user_id == this.conversation.host_id) {
+                console.log('Host');
+                console.log(this.conversation.host_name);
+                this.title = this.conversation.host_name;
+            } else {
+                console.log('Visitor');
+                console.log(this.conversation.place);
+                this.title = this.conversation.place;
+            }
+        }
     }
 
     onPositiveClick(): void {

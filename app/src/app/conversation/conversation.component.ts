@@ -212,7 +212,7 @@ export class ConversationComponent implements OnInit, AfterViewInit {
       console.log('showConversationInformation');
       const dialogRef = this.matDialog.open(ConversationInfoComponent, {
         width: '80%',
-        data: {id: 1, conversation: this.conversations},
+        data: {id: 1, user_id: this.user_id, conversation: this.conversations},
         disableClose: true
       });
 
@@ -242,7 +242,8 @@ export class ConversationComponent implements OnInit, AfterViewInit {
     }
 
     backToPreviousPage(): void {
-      this.location.back();
+      this.router.navigate(['/my-page']);
+      // this.location.back();
     }
 
 

@@ -4,6 +4,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 import { Constants } from '../constants';
 
+import { Problems } from '../problems';
+
 export interface DialogData {
     id: number;
     conversation: any;
@@ -18,6 +20,8 @@ export class ConversationInfoComponent implements OnInit {
 
     id: number;
     conversation: any;
+
+    problem = new Problems();
 
     constructor(
         public dialogRef: MatDialogRef<ConversationInfoComponent>,
@@ -40,6 +44,14 @@ export class ConversationInfoComponent implements OnInit {
         // this.result.option = Constants.DIALOG_OPTION_POSITIVE;
 
         this.dialogRef.close();
+    }
+
+    getIconName(id: string): string {
+        return this.problem.getIconName(id);
+    }
+
+    getLabel(id: string): string{
+        return this.problem.getLabel(id);
     }
 
 }

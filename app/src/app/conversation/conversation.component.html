@@ -9,7 +9,7 @@
     </div>
     <mat-list id="make-scrollable" fxFlex="auto" fxLayout="column" appScrollable>
         <mat-list-item appOffsetTop class="item" *ngFor="let msg of messages" flex fxFlexOffset="10px">
-            <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="400px" fxLayoutGap="10px">
+            <div *ngIf="msg.msg_sender_id == user_id" fxLayout="row" fxFlex="70%" fxLayoutGap="10px">
                 <img class="user_image" mat-card-image [src]="msg.msg_sender_tu" fxFlex="40px">
                 <div fxLayout="column" fxFlex>
                     <div class="sub_text" fxFlex>

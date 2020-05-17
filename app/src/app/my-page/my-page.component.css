@@ -6,6 +6,15 @@
     margin:auto;
 }
 
+.container_mypage_small {
+    display:block;
+    width:90%;
+    height:100%;
+    padding: 0px;
+    margin:auto;
+}
+
+
 .mypage-card {
     margin: 6px;
 }

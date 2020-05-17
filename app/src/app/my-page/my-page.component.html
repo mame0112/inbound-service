@@ -1,8 +1,15 @@
 <div class="container_mypage" fxLayout="column" fxLayoutAlign="center start">
-    <div fxFlex>
-        <p class="page_title">Host data</p>
+    <div fxFlex fxLayout="row" fxFlexFill>
+        <div fxFlex fxFlexFill fxLayout="column">
+            <p fxFlex class="mypage_title">Host data</p>
+        </div>
+        <div fxFlex="64px" fxFlexAlign="end">
+            <!-- <button mat-flat-button color="accent">Host a new visitor</button> -->
+            <button mat-fab color="accent" aria-label="Example icon button with a home icon" class="fab_add" (click)="addNewHost()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
     </div>
-
     <div fxFlex *ngIf="hosts?.length !== 0" fxFlexFill>
         <div fxLayout="column" *ngFor="let host of hosts">
             <a fxFlex [routerLink]="['/conversation', host.conversation_id]">
@@ -42,8 +49,17 @@
         </div>
     </div>
 
-    <div fxFlex fxFlexOffset="40px">
-        <p class="page_title">Visit data</p>
+    <div fxFlex fxFlexOffset="40px" fxLayout="row" fxFlexFill>
+        <div fxFlex fxFlexFill fxLayout="column">
+            <p fxFlex class="mypage_title">Visit data</p>
+        </div>
+        <div fxFlex="64px" fxFlexAlign="end">
+            <!-- <button mat-flat-button color="accent">Host a new visitor</button> -->
+            <button mat-fab color="accent" aria-label="Example icon button with a home icon" class="fab_add" (click)="addNewVisit()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <!-- <p class="page_title">Visit data</p> -->
     </div>
 
     <div fxFlex *ngIf="visits?.length !== 0" fxFlexFill>

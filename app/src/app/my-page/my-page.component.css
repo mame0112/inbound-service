@@ -44,6 +44,17 @@
     white-space: nowrap;
 }
 
+.mypage_title {
+    color: #1976D2;
+    font-size:32px;
+    margin-top: 10px;
+}
+
+.fab_add {
+    width: 64px;
+    height: 64px;
+}
+
 .tmp {
     background-color: #FF0000;
 }

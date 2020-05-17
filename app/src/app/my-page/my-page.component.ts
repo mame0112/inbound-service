@@ -150,6 +150,14 @@ export class MyPageComponent implements OnInit {
 
   }
 
+  addNewHost(): void {
+    this.router.navigate(['/host-start']);
+  }
+
+  addNewVisit(): void {
+    this.router.navigate(['/visit-start']);
+  }
+
   getIconName(id: string): string {
     return this.problem.getIconName(id);
   }

@@ -1,120 +1,132 @@
 <!-- <div class="container_mypage" [ngClass.lt-md]="'container_mypage_small'" fxLayout="column" fxLayoutAlign="center start"> -->
-<div class="container_mypage" [style.width.%]="viewWidthPercent" fxLayout="column" fxLayoutAlign="center start">
-    <div fxFlex fxLayout="row" fxFlexFill>
-        <div fxFlex fxFlexFill fxLayout="column">
-            <p fxFlex class="mypage_title">Host data</p>
+<!-- <div class="container_mypage" [style.width.%]="viewWidthPercent" fxLayout="column" fxLayoutAlign="center start"> -->
+<div class="container_mypage" fxLayout="column" fxLayoutAlign="center start">
+<!-- <div class="container_mypage" fxLayout="column" fxLayoutAlign="center start"> -->
+    <div fxFlex fxLayout="row" fxFlexFill fxFlexAlign="end" class="header_info">
+        <div fxFlex fxFlexFill fxLayout="column" fxFlexOffset="0px">
         </div>
-        <div fxFlex="64px" fxFlexAlign="end">
-            <!-- <button mat-flat-button color="accent">Host a new visitor</button> -->
-            <button mat-fab color="accent" aria-label="Example icon button with a home icon" class="fab_add" (click)="addNewHost()">
-              <mat-icon>add</mat-icon>
-            </button>
+        <div fxFlex="32px" fxFlexFill fxFlexAlign="end" (click)="showOptions()">
+             <img src="/assets/image/conversation_info.png" alt="Information image" class="header_info_icon">
         </div>
     </div>
-    <div fxFlex *ngIf="hosts?.length !== 0" fxFlexFill>
-        <div fxLayout="column" *ngFor="let host of hosts">
-            <a fxFlex [routerLink]="['/conversation', host.conversation_id]">
-                <mat-card fxLayout="column" fxLayoutAlign="start start" class="mypage-card" fxLayoutGap="4px">
-                    <div fxFlex fxLayout="row" fxFlexAlign="start" fxLayoutAlign="center center" fxLayoutGap="10px">
-                        <div fxFlex fxFlex="64px">
-                            <img [src]="host.visitor_thumb_url" fxFlex="64px">
+
+    <div fxFlex [style.width.%]="viewWidthPercent" fxLayout="column" fxFlexAlign="center">
+        <div fxFlex fxLayout="row" fxFlexFill>
+            <div fxFlex fxFlexFill fxLayout="column">
+                <p fxFlex class="mypage_title">Host data</p>
+            </div>
+            <div fxFlex="64px" fxFlexAlign="end">
+                <!-- <button mat-flat-button color="accent">Host a new visitor</button> -->
+                <button mat-fab color="accent" aria-label="Example icon button with a home icon" class="fab_add" (click)="addNewHost()">
+                  <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div fxFlex *ngIf="hosts?.length !== 0" fxFlexFill>
+            <div fxLayout="column" *ngFor="let host of hosts">
+                <a fxFlex [routerLink]="['/conversation', host.conversation_id]">
+                    <mat-card fxLayout="column" fxLayoutAlign="start start" class="mypage-card" fxLayoutGap="4px">
+                        <div fxFlex fxLayout="row" fxFlexAlign="start" fxLayoutAlign="center center" fxLayoutGap="10px">
+                            <div fxFlex fxFlex="64px">
+                                <img [src]="host.visitor_thumb_url" fxFlex="64px">
+                            </div>
+                            <div fxFlex class="card_title">
+                                {{host.visitor_name}}
+                            </div>
                         </div>
+                        <div fxFlex class="card_sub_title">
+                            {{host.start}} - {{host.end}}
+                        </div>
+                        <div fxFlex class="card_body">
+                            {{host.comment}}
+                        </div>
+                        <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center">
+                            <div fxFlex fxFlexFill *ngFor="let problem of host.problems" class="card_footer">
+                                <img [src]='"/assets/image/problems/"+getIconName(problem)+".png"' class="card_small_thumbnail">
+                            </div>
+                        </div>
+                    </mat-card>
+                </a>
+            </div>
+        </div>
+
+
+        <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
+            <div fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <img src="/assets/image/no-host.png" alt="No host data image" fxFlex>
+                <div fxFlex>You haven't host any guests.</div>
+                <div fxFlex>
+                    <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
+                </div>
+            </div>
+        </div>
+
+        <div fxFlex fxFlexOffset="40px" fxLayout="row" fxFlexFill>
+            <div fxFlex fxFlexFill fxLayout="column">
+                <p fxFlex class="mypage_title">Visit data</p>
+            </div>
+            <div fxFlex="64px" fxFlexAlign="end">
+                <!-- <button mat-flat-button color="accent">Host a new visitor</button> -->
+                <button mat-fab color="accent" aria-label="Example icon button with a home icon" class="fab_add" (click)="addNewVisit()">
+                  <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <!-- <p class="page_title">Visit data</p> -->
+        </div>
+
+        <div fxFlex *ngIf="visits?.length !== 0" fxFlexFill>
+            <div fxLayout="column" *ngFor="let visit of visits">
+                <a fxFlex [routerLink]="['/conversation', visit.conversation_id]">
+                    <mat-card fxLayout="column" class="mypage-card" fxLayoutGap="4px">
                         <div fxFlex class="card_title">
-                            {{host.visitor_name}}
+                            {{visit.place}}
                         </div>
-                    </div>
-                    <div fxFlex class="card_sub_title">
-                        {{host.start}} - {{host.end}}
-                    </div>
-                    <div fxFlex class="card_body">
-                        {{host.comment}}
-                    </div>
-                    <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center">
-                        <div fxFlex fxFlexFill *ngFor="let problem of host.problems" class="card_footer">
-                            <img [src]='"/assets/image/problems/"+getIconName(problem)+".png"' class="card_small_thumbnail">
+                        <div fxFlex class="card_sub_title">
+                            {{visit.start}} - {{visit.end}}
                         </div>
-                    </div>
-                </mat-card>
-            </a>
-        </div>
-    </div>
-
-
-    <div *ngIf="hosts.length === 0" fxFlex fxLayout="column">
-        <div fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-            <img src="/assets/image/no-host.png" alt="No host data image" fxFlex>
-            <div fxFlex>You haven't host any guests.</div>
-            <div fxFlex>
-                <button mat-flat-button color="primary" (click)="registerAsHost()">Register as host</button>
+                        <div fxFlex class="card_body">
+                            {{visit.comment}}
+                        </div>
+                        <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center" fxLayoutGap="4px" *ngIf="visit.host_id != null && visit.host_name != null">
+                            <div fxFlex fxFlexFill class="card_footer">
+                                Hosted by
+                            </div>
+                            <div fxFlex="36px">
+                                <img [src]="visit.host_thumb_url" class="card_small_thumbnail">
+                            </div>
+                            <div fxFlex fxFlexFill class="card_footer_highlight">
+                                {{visit.host_name}}
+                            </div>
+                        </div>
+                        <div fxFlex fxFlexAlign="end" *ngIf="visit.host_id == null || visit.host_name == null" class="card_footer">
+                            No host found yet
+                        </div>
+                    </mat-card>
+                </a>
             </div>
         </div>
-    </div>
 
-    <div fxFlex fxFlexOffset="40px" fxLayout="row" fxFlexFill>
-        <div fxFlex fxFlexFill fxLayout="column">
-            <p fxFlex class="mypage_title">Visit data</p>
-        </div>
-        <div fxFlex="64px" fxFlexAlign="end">
-            <!-- <button mat-flat-button color="accent">Host a new visitor</button> -->
-            <button mat-fab color="accent" aria-label="Example icon button with a home icon" class="fab_add" (click)="addNewVisit()">
-              <mat-icon>add</mat-icon>
-            </button>
-        </div>
-        <!-- <p class="page_title">Visit data</p> -->
-    </div>
-
-    <div fxFlex *ngIf="visits?.length !== 0" fxFlexFill>
-        <div fxLayout="column" *ngFor="let visit of visits">
-            <a fxFlex [routerLink]="['/conversation', visit.conversation_id]">
-                <mat-card fxLayout="column" class="mypage-card" fxLayoutGap="4px">
-                    <div fxFlex class="card_title">
-                        {{visit.place}}
-                    </div>
-                    <div fxFlex class="card_sub_title">
-                        {{visit.start}} - {{visit.end}}
-                    </div>
-                    <div fxFlex class="card_body">
-                        {{visit.comment}}
-                    </div>
-                    <div fxFlex fxLayout="row" fxFlexAlign="end" fxLayoutAlign="center center" fxLayoutGap="4px" *ngIf="visit.host_id != null && visit.host_name != null">
-                        <div fxFlex fxFlexFill class="card_footer">
-                            Hosted by
-                        </div>
-                        <div fxFlex="36px">
-                            <img [src]="visit.host_thumb_url" class="card_small_thumbnail">
-                        </div>
-                        <div fxFlex fxFlexFill class="card_footer_highlight">
-                            {{visit.host_name}}
-                        </div>
-                    </div>
-                    <div fxFlex fxFlexAlign="end" *ngIf="visit.host_id == null || visit.host_name == null" class="card_footer">
-                        No host found yet
-                    </div>
-                </mat-card>
-            </a>
-        </div>
-    </div>
-
-    <div fxFlex *ngIf="visits?.length === 0" fxLayout="column">
-        <div fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-            <img src="/assets/image/no-visit.png" alt="No visit data image" fxFlex>
-            <div fxFlex>You haven't created any visit plans yet.</div>
-            <div fxFlex>
-                <button mat-flat-button color="primary" (click)="createPlan()">Create plan</button>
+        <div fxFlex *ngIf="visits?.length === 0" fxLayout="column">
+            <div fxFlex class="mypage-card" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <img src="/assets/image/no-visit.png" alt="No visit data image" fxFlex>
+                <div fxFlex>You haven't created any visit plans yet.</div>
+                <div fxFlex>
+                    <button mat-flat-button color="primary" (click)="createPlan()">Create plan</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div fxFlex fxFlexOffset="40px">
-        <p class="page_sub_title">Other options</p>
-    </div>
+        <div fxFlex fxFlexOffset="40px">
+            <p class="page_sub_title">Other options</p>
+        </div>
 
-    <div fxFlex>
-        <mat-card class="mypage-card" fxLayoutGap="4px">
-            <mat-list>
-                <mat-list-item><a mat-button routerLink="." (click)="signout()">Sign out</a></mat-list-item>
-            </mat-list>
-        </mat-card>
+        <div fxFlex>
+            <mat-card class="mypage-card" fxLayoutGap="4px">
+                <mat-list>
+                    <mat-list-item><a mat-button routerLink="." (click)="signout()">Sign out</a></mat-list-item>
+                </mat-list>
+            </mat-card>
+        </div>
     </div>
 
 </div>

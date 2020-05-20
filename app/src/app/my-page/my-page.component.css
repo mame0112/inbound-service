@@ -1,17 +1,17 @@
 .container_mypage {
     display:block;
-    width:80%;
+    width:100%;
     height:100%;
-    padding: 10px;
-    margin:auto;
+    padding: 0px;
+    margin: 0px;
 }
 
 .container_mypage_small {
     display:block;
-    width:90%;
+    width:100%;
     height:100%;
     padding: 0px;
-    margin:auto;
+    margin: 0px;
 }
 
 
@@ -62,6 +62,22 @@
 .fab_add {
     width: 64px;
     height: 64px;
+}
+
+.header_info {
+    background-color: #eeeeee;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.header_info_text {
+    margin-top: 6px;
+}
+
+.header_info_icon {
+    width: 32px;
+    height: 32px;
 }
 
 .tmp {

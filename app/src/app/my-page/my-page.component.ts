@@ -163,6 +163,10 @@ export class MyPageComponent implements OnInit {
 
   }
 
+  showOptions(): void {
+    console.log('showOptions');
+  }
+
   addNewHost(): void {
     this.router.navigate(['/host-start']);
   }

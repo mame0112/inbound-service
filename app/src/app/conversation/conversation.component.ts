@@ -212,8 +212,7 @@ export class ConversationComponent implements OnInit, AfterViewInit {
       console.log('showConversationInformation');
       const dialogRef = this.matDialog.open(ConversationInfoComponent, {
         width: '90%',
-        data: {id: 1, user_id: this.user_id, conversation: this.conversations},
-        disableClose: true
+        data: {id: 1, user_id: this.user_id, conversation: this.conversations}
       });
 
       dialogRef.afterClosed().subscribe(result => {

@@ -25,6 +25,7 @@ export class MyPageComponent implements OnInit {
 
   visits: any[] = [];
   hosts: any[] = [];
+  viewWidthPercent = 80;
 
   problem = new Problems();
 
@@ -36,6 +37,18 @@ export class MyPageComponent implements OnInit {
       ) { }
 
   ngOnInit() {
+
+    // In case md or smaller devices
+    if(window.innerWidth <= 959){
+      console.log('Small device');
+      this.viewWidthPercent = 90;
+    } else {
+      this.viewWidthPercent = 80;
+      console.log('Big device');
+    }
+
+    console.log(window.innerWidth);
+
     this.apiService.getUserData(this.userDataService.user_id).pipe(
           tap(heroes => console.log('fetched users')),
           catchError(this.apiService.handleError<string>('createUserData', 'Error'))

@@ -76,7 +76,7 @@ class AbstractDatastoreCommander(ABC):
             client.put(entity)
 
     def remove_host_and_visitor_from_state(self, host_id, visit_id):
-        self.log.debug('remove_visitor_from_state')
+        self.log.debug('remove_host_and_visitor_from_state')
 
         client = datastore.Client()
         key = client.key(State.KIND_NAME, State.KEY)
@@ -88,9 +88,13 @@ class AbstractDatastoreCommander(ABC):
             try:
                 host_array.remove(host_id)
                 entity[State.KEY_HOST_WAIT] = host_array
+            except ValueError as error:
+                self.log.debug(error)
 
+            try:
                 visit_array.remove(visit_id)
                 entity[State.KEY_VISIT_WAIT] = visit_array
+            except ValueError as error:
 
                 client.put(entity)
 

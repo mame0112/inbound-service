@@ -21,27 +21,50 @@ class HostDatastoreCommander(AbstractDatastoreCommander):
         result = Result()
 
         try:
-            client = datastore.Client()
-            query = client.query(kind=Host.KIND_NAME)
-            entities = list(query.fetch())
 
-            # If more than 1 hosts are waiting
-            if entities is not None and len(entities) != 0:
-                jsonarray = []
+            waiting_hosts = self.get_wwaiting_hosts()
+
+            if waiting_hosts is not None and len(waiting_hosts) > 0:
+                target_host = waiting_hosts[0]
+
+                client = datastore.Client()
+                key = client.key(Host.KIND_NAME, target_host)
+                entity = client.get(key)
 
                 processor = HostDataFormatProcessor()
+                content = processor.entity_to_json(entity)
 
-                for entity in entities:
-                    content = processor.entity_to_json(entity)
-                    jsonarray.append(content)
+                jsonarray = []
+                jsonarray.append(content)
 
                 result.set_content(jsonarray)
 
+                return result
             else:
-                # If no hosts are waiting
                 result.set_content(None)
 
             return result
+
+            # query = client.query(kind=Host.KIND_NAME)
+            # entities = list(query.fetch())
+
+            # # If more than 1 hosts are waiting
+            # if entities is not None and len(entities) != 0:
+            #     jsonarray = []
+
+            #     processor = HostDataFormatProcessor()
+
+            #     for entity in entities:
+            #         content = processor.entity_to_json(entity)
+            #         jsonarray.append(content)
+
+            #     result.set_content(jsonarray)
+
+            # else:
+            #     # If no hosts are waiting
+            #     result.set_content(None)
+
+            # return result
 
         except ValueError as error:
             self.log.debug(error)

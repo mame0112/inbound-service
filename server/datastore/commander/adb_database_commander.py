@@ -51,6 +51,18 @@ class AbstractDatastoreCommander(ABC):
 
             client.put(entity)
 
+    def get_wwaiting_hosts(self):
+        self.log.debug('get_wwaiting_host')
+        client = datastore.Client()
+        key = client.key(State.KIND_NAME, State.KEY)
+        entity = client.get(key)
+
+        if entity is not None:
+            return entity[State.KEY_HOST_WAIT]
+
+        else:
+            return None
+
     def register_waiting_visitor_to_state(self, visit_id):
         self.log.debug('register_waiting_visitor_to_state')
         client = datastore.Client()
@@ -74,6 +86,18 @@ class AbstractDatastoreCommander(ABC):
             entity[State.KEY_VISIT_WAIT] = array
 
             client.put(entity)
+
+    def get_waiting_visits(self):
+        self.log.debug('get_waiting_visits')
+        client = datastore.Client()
+        key = client.key(State.KIND_NAME, State.KEY)
+        entity = client.get(key)
+
+        if entity is not None:
+            return entity[State.KEY_VISIT_WAIT]
+
+        else:
+            return None
 
     def remove_host_and_visitor_from_state(self, host_id, visit_id):
         self.log.debug('remove_host_and_visitor_from_state')

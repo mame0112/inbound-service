@@ -175,9 +175,10 @@ export class HostStartComponent implements OnInit {
     matchingWithVisitor(contents: any): void {
       console.log('matchingWithVisitor');
 
-      let array = JSON.parse(contents);
-      let obj = array[0];
-      console.log(obj);
+      let obj = contents[0];
+      // let array = JSON.parse(contents);
+      // let obj = array[0];
+      // console.log(obj);
 
       let start = new Util().createDateForDisplay(obj[VisitConsts.KEY_START]);
       let end = new Util().createDateForDisplay(obj[VisitConsts.KEY_END]);

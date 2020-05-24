@@ -34,23 +34,42 @@ class VisitDatastoreCommander(AbstractDatastoreCommander):
         client = datastore.Client()
 
         if visit_id_int == Consts.ALL_VISITS or visit_id_int is None:
-            # Get latest 5 visits
-            try:
-                query = client.query(kind=Visit.KIND_NAME)
-                entities = list(query.fetch(limit=Consts.VISIT_QUERY_NUM))
-                if entities is not None and len(entities) != 0:
-                    processor = VisitDataFormatProcessor()
-                    visit_jsonobj = processor.entities_to_jsonarray(entities)
-                    result.set_content(visit_jsonobj)
-                else:
-                    result.set_content(None)
 
+            # Check if there is waiting visitors
+            waiting_visitors = self.get_waiting_visits()
+            self.log.debug(waiting_visitors)
+
+            if waiting_visitors is not None and len(waiting_visitors) > 0:
+                target_visitor = waiting_visitors[0]
+                key = client.key(Visit.KIND_NAME, target_visitor)
+                entity = client.get(key)
+
+                processor = VisitDataFormatProcessor()
+                visit_jsonobj = processor.entity_to_json(entity)
+
+                visit_array = []
+                visit_array.append(visit_jsonobj)
+
+                result.set_content(visit_array)
                 return result
-            except ValueError as error:
-                self.log.debug(error)
-                result.set_error_message(error)
-                result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
-                return result
+
+            # Get latest 5 visits
+            # try:
+            #     query = client.query(kind=Visit.KIND_NAME)
+            #     entities = list(query.fetch(limit=Consts.VISIT_QUERY_NUM))
+            #     if entities is not None and len(entities) != 0:
+            #         processor = VisitDataFormatProcessor()
+            #         visit_jsonobj = processor.entities_to_jsonarray(entities)
+            #         result.set_content(visit_jsonobj)
+            #     else:
+            #         result.set_content(None)
+
+            #     return result
+            # except ValueError as error:
+            #     self.log.debug(error)
+            #     result.set_error_message(error)
+            #     result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+            #     return result
 
         else:
             # Get certain visit

@@ -4,6 +4,7 @@ export class Constants {
     public static readonly  url_visits = 'visits';
     public static readonly  url_conversations = 'conversations';
     public static readonly  url_comments = 'comments';
+    public static readonly  url_state = 'state';
 
     public static readonly NO_USER = -1;
 

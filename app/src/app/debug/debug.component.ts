@@ -215,4 +215,12 @@ export class DebugComponent implements OnInit {
       this.userDataService.deleteUserDataDebug();
     }
 
+    deleteStateData(): void {
+      console.log('deleteStateData');
+      this.apiService.deleteStateData().pipe().subscribe(param=>{
+        console.log(param);
+      })
+
+    }
+
 }

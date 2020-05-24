@@ -146,6 +146,14 @@ class Comment(Resource):
         return data_manager.update_comment(comment_data).get_result_json()
 
 
+class State(Resource):
+
+    def delete(self):
+        log.debug('State delete')
+        data_manager = DatastoreManager()
+        return data_manager.delete_state().get_result_json()
+
+
 @app.route('/callback/<input>')
 def callback(input):
     log.debug('callback')
@@ -200,6 +208,7 @@ api.add_resource(Host, '/hosts')
 api.add_resource(Visit, '/visits')
 api.add_resource(Conversation, '/conversations')
 api.add_resource(Comment, '/comments')
+api.add_resource(State, '/state')
 # api.add_resource(Webhook, '/webhook')
 
 if __name__ == '__main__':

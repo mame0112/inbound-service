@@ -180,6 +180,10 @@ class ConversationDatastoreCommander(AbstractDatastoreCommander):
             else:
                 self.log.debug('Current user is not visitor')
 
+            # Update state
+            self.remove_host_and_visitor_from_state(
+                conv_data[Conversation.KEY_HOST_ID], conv_data[Conversation.KEY_VISITOR_ID])
+
             # Create result
             conv_id = {}
             conv_id[Conversation.KEY_CONVERSATION_ID] = ut

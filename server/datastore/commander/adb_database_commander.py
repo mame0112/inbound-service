@@ -35,9 +35,12 @@ class AbstractDatastoreCommander(ABC):
 
         if entity is not None:
             array = entity[State.KEY_HOST_WAIT]
-            array.append(host_id)
-            entity[State.KEY_HOST_WAIT] = array
-            client.put(entity)
+            if host_id in array:
+                array.append(host_id)
+                entity[State.KEY_HOST_WAIT] = array
+                client.put(entity)
+            else:
+                self.log.debug('This host_id has already been registered')
         else:
             entity = datastore.Entity(key=key)
             array = []
@@ -56,9 +59,12 @@ class AbstractDatastoreCommander(ABC):
 
         if entity is not None:
             array = entity[State.KEY_VISIT_WAIT]
-            array.append(visit_id)
-            entity[State.KEY_VISIT_WAIT] = array
-            client.put(entity)
+            if visit_id in array:
+                array.append(visit_id)
+                entity[State.KEY_VISIT_WAIT] = array
+                client.put(entity)
+            else:
+                self.log.debug('This visit_id has already been registered')
         else:
             entity = datastore.Entity(key=key)
             entity[State.KEY_HOST_WAIT] = []
@@ -68,6 +74,37 @@ class AbstractDatastoreCommander(ABC):
             entity[State.KEY_VISIT_WAIT] = array
 
             client.put(entity)
+
+    def remove_host_and_visitor_from_state(self, host_id, visit_id):
+        self.log.debug('remove_visitor_from_state')
+
+        client = datastore.Client()
+        key = client.key(State.KIND_NAME, State.KEY)
+        entity = client.get(key)
+
+        if entity is not None:
+            host_array = entity[State.KEY_HOST_WAIT]
+            visit_array = entity[State.KEY_VISIT_WAIT]
+            try:
+                host_array.remove(host_id)
+                entity[State.KEY_HOST_WAIT] = host_array
+
+                visit_array.remove(visit_id)
+                entity[State.KEY_VISIT_WAIT] = visit_array
+
+                client.put(entity)
+
+                return True
+
+            except ValueError as error:
+                self.log.debug(error)
+                return False
+
+        else:
+            self.log.debug('State entity is null. Something went wrong.')
+            return False
+
+        return False
 
     def update_user_parameters(self, user_id, user_name, thumb_url, access_token, convs_as_host, convs_as_guest, user_properties, key_plans, psid):
         self.log.debug('update_user_parameters')

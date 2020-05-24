@@ -115,6 +115,12 @@ export class ApiService {
 
     }
 
+    deleteStateData(): Observable<string> {
+        console.log('deleteStateData');
+        return this.http.delete<string>(Constants.url_state);
+
+    }
+
 
     public handleError<T> (operation = 'operation', result?: T) {
         // console.error('Error ocurred');

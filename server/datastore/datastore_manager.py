@@ -8,6 +8,7 @@ from server.datastore.commander.visit_database_commander import VisitDatastoreCo
 from server.datastore.commander.host_database_commander import HostDatastoreCommander
 from server.datastore.commander.conversation_database_commander import ConversationDatastoreCommander
 from server.datastore.commander.message_database_commander import MessageDatastoreCommander
+from server.datastore.commander.state_database_commander import StateDatastoreCommander
 
 
 class DatastoreManager:
@@ -102,3 +103,8 @@ class DatastoreManager:
         self.log.debug('update_comment')
         message_db_commander = MessageDatastoreCommander()
         return message_db_commander.put(comment_data)
+
+    def delete_state(self):
+        self.log.debug('delete_state')
+        state_db_commander = StateDatastoreCommander()
+        return state_db_commander.delete()
